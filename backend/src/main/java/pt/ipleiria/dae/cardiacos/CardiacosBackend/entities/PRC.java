@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(
-        name = "prcs")
 @NamedQueries({
         @NamedQuery(
                 name = "getAllPrcs",
