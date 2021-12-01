@@ -5,6 +5,7 @@ import io.smallrye.common.constraint.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -15,6 +16,12 @@ import java.io.Serializable;
         )
 })
 public class PRC implements Serializable {
+
+    /**
+     * Data inicio
+     * data fim
+     * doutor
+     */
     @Id
     private int code;
 
@@ -23,6 +30,33 @@ public class PRC implements Serializable {
 
     @Nullable
     private String description;
+
+    @NotNull
+    private Date startDate;
+
+    @NotNull
+    private Date endDate;
+
+//    @NotNull
+//    private HealthCareProfessional healthCareProfessional;
+
+    @Nullable
+    private Behaviour behaviourPrescription;
+
+    @Nullable
+    private Diet dietPrescription;
+
+    @Nullable
+    private Education educationPrescription;
+
+    @Nullable
+    private Exercise exercisePrescription;
+
+    @Nullable
+    private PharmacologicalTherapy pharmacologicalTherapyPrescription;
+
+    @Nullable
+    private  SmokingCessation smokingCessationPrescription;
 
     public PRC() {
     }

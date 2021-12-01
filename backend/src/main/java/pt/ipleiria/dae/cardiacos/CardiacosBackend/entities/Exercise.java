@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-@Entity
 @NamedQueries({
         @NamedQuery(
                 name = "getAllExercises",
