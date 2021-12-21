@@ -3,7 +3,7 @@
 ifneq (,$(wildcard ./.env))
     include .env
     export
-    APPLICATION_NAME ?= academics
+    APPLICATION_NAME ?= cardiacos
 endif
 
 up:
