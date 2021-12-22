@@ -6,10 +6,15 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
 @Entity
+@Table(
+        name = "HEALTH_CARE_PROFESSIONALS"
+//        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
+)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllHealthcareProfessionals",
@@ -23,9 +28,10 @@ public class HealthcareProfessional extends User{
     private String institutionalPhone;
 
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
-    private List<TreatmentType> treatments;
+    private List<TreatmentType> treatmentTypeList;
 
     public HealthcareProfessional() {
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
     public HealthcareProfessional(String name, String username, String email,
@@ -37,13 +43,14 @@ public class HealthcareProfessional extends User{
         super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
-    public String getInstitutional_email() {
+    public String getInstitutionalEmail() {
         return institutionalEmail;
     }
 
-    public void setInstitutional_email(String institutionalEmail) {
+    public void setInstitutionalEmail(String institutionalEmail) {
         this.institutionalEmail = institutionalEmail;
     }
 
@@ -53,5 +60,19 @@ public class HealthcareProfessional extends User{
 
     public void setInstitutionalPhone(String institutionalPhone) {
         this.institutionalPhone = institutionalPhone;
+    }
+
+    public List<TreatmentType> getTreatmentTypeList() {
+        return treatmentTypeList;
+    }
+
+    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
+        this.treatmentTypeList = treatmentTypeList;
+    }
+
+    public void addTreatment(TreatmentType treatmentType) {
+        if(!this.treatmentTypeList.contains(treatmentType)) {
+            this.treatmentTypeList.add(treatmentType);
+        }
     }
 }

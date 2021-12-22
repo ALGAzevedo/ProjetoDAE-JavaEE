@@ -40,7 +40,7 @@ public class User {
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="{invalid.social_security_number}")
-    private String social_security_number;
+    private String socialSecurityNumber;
 
     @NotNull
     private String password;
@@ -48,20 +48,20 @@ public class User {
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
-    private String postal_code;
-    private String phone_number;
-    private String emergency_phone_number;
-    private Date last_login;
-    private Date is_deleted;
+    private String postalCode;
+    private String phoneNumber;
+    private String emergencyPhoneNumber;
+    private Date lastLogin;
+    private Date isDeleted;
 
     //CONSTRUCTORS
     public User() {
     }
 
     public User(String name, String username, String email,
-                Gender gender, Date birthDate, Country country, String social_security_number,
+                Gender gender, Date birthDate, Country country, String socialSecurityNumber,
                 String password, MaritalStatus maritalStatus, String address, String city,
-                String postal_code, String phone_number, String emergency_phone_number) {
+                String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
         this.name = name;
         this.username = username;
@@ -69,14 +69,14 @@ public class User {
         this.gender = gender;
         this.birthDate = birthDate;
         this.country = country;
-        this.social_security_number = social_security_number;
+        this.socialSecurityNumber = socialSecurityNumber;
         this.password = hashPassword(password);
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postal_code = postal_code;
-        this.phone_number = phone_number;
-        this.emergency_phone_number = emergency_phone_number;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
     //GETTERS AND SETTERS
@@ -129,12 +129,12 @@ public class User {
         this.country = country;
     }
 
-    public String getSocial_security_number() {
-        return social_security_number;
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
     }
 
-    public void setSocial_security_number(String social_security_number) {
-        this.social_security_number = social_security_number;
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
     public String getPassword() {
@@ -169,44 +169,44 @@ public class User {
         this.city = city;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getEmergency_phone_number() {
-        return emergency_phone_number;
+    public String getEmergencyPhoneNumber() {
+        return emergencyPhoneNumber;
     }
 
-    public void setEmergency_phone_number(String emergency_phone_number) {
-        this.emergency_phone_number = emergency_phone_number;
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
-    public Date getLast_login() {
-        return last_login;
+    public Date getLastLogin() {
+        return lastLogin;
     }
 
-    public void setLast_login(Date last_login) {
-        this.last_login = last_login;
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
-    public Date getIs_deleted() {
-        return is_deleted;
+    public Date getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setIs_deleted(Date is_deleted) {
-        this.is_deleted = is_deleted;
+    public void setIsDeleted(Date isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 

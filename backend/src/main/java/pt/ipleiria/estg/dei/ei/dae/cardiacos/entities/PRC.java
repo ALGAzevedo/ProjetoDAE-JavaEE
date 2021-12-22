@@ -7,9 +7,15 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Entity
+@Table(
+        name = "PRCS",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
+)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllPrcs",
@@ -19,6 +25,8 @@ import java.util.Date;
 public class PRC implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code", unique = true, nullable = false, insertable = false,updatable = false) //TODO: IS THIS CORRECT?
     private int code;
 
     @NotNull
@@ -33,34 +41,25 @@ public class PRC implements Serializable {
     @NotNull
     private Date endDate;
 
+    @OneToMany(mappedBy = "code", cascade = CascadeType.REMOVE)
+    private List<TreatmentType> treatmentTypeList;
+
     @NotNull
-    private HealthcareProfessional healthCareProfessional;
-
-    @Nullable
-    private Behaviour behaviourPrescription;
-
-    @Nullable
-    private Diet dietPrescription;
-
-    @Nullable
-    private Education educationPrescription;
-
-    @Nullable
-    private Exercise exercisePrescription;
-
-    @Nullable
-    private PharmacologicalTherapy pharmacologicalTherapyPrescription;
-
-    @Nullable
-    private SmokingCessation smokingCessationPrescription;
+    @ManyToOne
+    @JoinColumn(name = "PATIENT_PRC")
+    private Patient patient;
 
     public PRC() {
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
-    public PRC(int code, String name, String description) {
-        this.code = code;
+    public PRC(String name, String description, Date startDate, Date endDate, Patient patient) {
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.patient = patient;
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
     public int getCode() {
@@ -85,5 +84,43 @@ public class PRC implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<TreatmentType> getTreatmentTypeList() {
+        return treatmentTypeList;
+    }
+
+    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
+        this.treatmentTypeList = treatmentTypeList;
+    }
+
+    public void addTreatment(TreatmentType treatmentType) {
+        if(!this.treatmentTypeList.contains(treatmentType)) {
+            this.treatmentTypeList.add(treatmentType);
+        }
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }
