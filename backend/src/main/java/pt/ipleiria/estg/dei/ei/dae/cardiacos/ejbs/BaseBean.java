@@ -58,4 +58,12 @@ public abstract class BaseBean<E, PK> {
         em.persist(entity);
         return postCreate(entity);
     }
+    public E edit(E entity) throws MyConstraintViolationException {
+        em.merge(entity);
+        return postCreate(entity);
+    }
+    public void remove(E entity) {
+        em.remove(entity);
+    }
+
 }

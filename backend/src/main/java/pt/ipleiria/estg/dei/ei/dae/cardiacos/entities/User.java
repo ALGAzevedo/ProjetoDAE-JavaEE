@@ -20,29 +20,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Entity
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
     @Id
     private String username;
-
     @NotNull
     private String name;
-
-
     @Email
     @NotNull
     private String email;
-
     @NotNull
     private Gender gender;
-
     @NotNull
     private Date birthDate;
-
     @NotNull
     private Country country;
-
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="{invalid.social_security_number}")
@@ -76,7 +70,7 @@ public class User {
         this.birthDate = birthDate;
         this.country = country;
         this.social_security_number = social_security_number;
-        this.password = password;
+        this.password = hashPassword(password);
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;

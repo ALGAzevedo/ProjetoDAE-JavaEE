@@ -5,9 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorResponseDto;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.DtosMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
+
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -16,8 +14,6 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +23,7 @@ import java.util.stream.Collectors;
 public class AdministratorService {
     @EJB
     private AdministratorBean administratorBean;
+
 
 
     @GET
@@ -39,34 +36,47 @@ public class AdministratorService {
     @GET
     @Path("{username}")
     public Response getAdministratorDetails(@PathParam("username") String username) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
-        AdministratorBean administratorBean = new AdministratorBean();
-        administratorBean.create(new Administrator("Joao Ferreira", "admin2", "admin1@mail.pt", Gender.MALE,
-                new GregorianCalendar(1989, Calendar.MAY, 9).getTime(), Country.PORTUGAL,
-                "12345679810", "12345678", MaritalStatus.SINGLE, "Rua Central n 2571", "Leiria",
-                "2420-208", "963768088", "963768088"));
-        return Response.ok().build();
-        //return Response.ok("estou aqui").build();
-//        Administrator administrator = administratorBean.findOrFail(username);
-        //return Response.ok(toDTO(administrator)).build();
+        return Response.ok(toDTO(administratorBean.findOrFail(username))).build();
     }
 
     @POST
     @Path("/")
     public Response createNewAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyConstraintViolationException, MyEntityExistsException {
         DtosMapper<AdministratorCreateDto, Administrator> mapper = new DtosMapper<>(Administrator.class);
+
+        administratorCreateDTO.setBirthDate(administratorCreateDTO.getBirthDateYear(), administratorCreateDTO.getBirthDateMonth(), administratorCreateDTO.getBirthDateDay());
+
         Administrator administrator = administratorBean.create(mapper.getMappedEntity(administratorCreateDTO));
+
+
+        System.out.println(administrator.getBirthDate());
         return Response.status(Response.Status.CREATED).entity(toDTO(administrator)).build();
     }
 
+    @PUT
+    @Path("/")
+    public Response updateAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
+        DtosMapper<AdministratorCreateDto, Administrator> mapper = new DtosMapper<>(Administrator.class);
 
+        administratorCreateDTO.setBirthDate(administratorCreateDTO.getBirthDateYear(), administratorCreateDTO.getBirthDateMonth(), administratorCreateDTO.getBirthDateDay());
 
+        Administrator administrator = administratorBean.edit(mapper.getMappedEntity(administratorCreateDTO));
 
-
+        return Response.ok(toDTO(administrator)).build();
+    }
 
 
     private AdministratorResponseDto toDTO(Administrator administrator) {
         DtosMapper<Administrator, AdministratorResponseDto> mapper = new DtosMapper<>(AdministratorResponseDto.class);
         return mapper.getMappedEntity(administrator);
+
+    }
+
+    @DELETE
+    @Path("{username}")
+    public Response deleteAdministrator(@PathParam("username") String username) throws MyEntityNotFoundException {
+        administratorBean.remove(username);
+        return Response.ok("Administrator Removed").build();
 
     }
 

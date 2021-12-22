@@ -1,10 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
+import org.modelmapper.ModelMapper;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorCreateDto;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.Stateless;
+import javax.persistence.LockModeType;
 import javax.validation.ConstraintViolationException;
 
 @Stateless
@@ -29,6 +33,21 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
         }
     }
     //UPDATE
+    public Administrator edit(Administrator administratorin) throws MyConstraintViolationException {
+        DtosMapper<Administrator, Administrator> mapper = new DtosMapper<>(Administrator.class);
+        Administrator administrator  = findOrFail(administratorin.getUsername());
+
+        try {
+            super.edit(mapper.getMappedEntity(administratorin));
+            return findOrFail(administratorin.getUsername());
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
+        }
+    }
+    public void remove(String username) throws MyEntityNotFoundException {
+        remove(findOrFail(username));
+    }
+
 
     //DELETE
 

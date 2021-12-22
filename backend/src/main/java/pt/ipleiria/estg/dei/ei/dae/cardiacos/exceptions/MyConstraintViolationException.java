@@ -13,6 +13,8 @@ public class MyConstraintViolationException extends Exception{
         Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
         StringBuilder errorMessages = new StringBuilder();
         for (ConstraintViolation<?> cv : cvs) {
+            errorMessages.append(cv.getPropertyPath());
+            errorMessages.append(": ");
             errorMessages.append(cv.getMessage());
             errorMessages.append("; ");
         }

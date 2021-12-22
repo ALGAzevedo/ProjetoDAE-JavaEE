@@ -34,6 +34,3 @@ deploy: up build
 	docker compose cp target/${APPLICATION_NAME}.war webserver:/opt/jboss/wildfly/standalone/deployments
 
 monitor: deploy logs
-
-mails:
-	docker compose exec --workdir /var/mail smtpserver bash

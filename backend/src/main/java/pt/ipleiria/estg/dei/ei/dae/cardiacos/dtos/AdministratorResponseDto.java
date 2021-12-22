@@ -15,4 +15,8 @@ public class AdministratorResponseDto extends UserResponseDto {
         super(name, username, email, gender, birthDate, country, social_security_number,
                 maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
     }
+
+    public AdministratorResponseDto() {
+        super();
+    }
 }

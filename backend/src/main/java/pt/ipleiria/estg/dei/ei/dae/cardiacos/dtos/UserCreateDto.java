@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class UserCreateDto {
 
@@ -22,17 +23,29 @@ public class UserCreateDto {
     private String postal_code;
     private String phone_number;
     private String emergency_phone_number;
+    private int birthDateYear;
+    private int birthDateMonth;
+    private int birthDateDay;
+
+
+
+    public UserCreateDto() {
+    }
 
     public UserCreateDto(String name, String username, String email, Gender gender,
-                         Date birthDate, Country country, String social_security_number,
+                         int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String social_security_number,
                          String password, MaritalStatus maritalStatus, String address, String city,
-                         String postal_code, String phone_number, String emergency_phone_number) {
+                         String postal_code, String phone_number, String emergency_phone_number){
+
 
         this.name = name;
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthDateDay = birthDateDay;
+        this.birthDateMonth = birthDateMonth;
+        this.birthDateYear = birthDateYear;
+        this.birthDate = new GregorianCalendar(birthDateYear, birthDateMonth, birthDateDay).getTime();
         this.country = country;
         this.social_security_number = social_security_number;
         this.password = password;
@@ -42,8 +55,32 @@ public class UserCreateDto {
         this.postal_code = postal_code;
         this.phone_number = phone_number;
         this.emergency_phone_number = emergency_phone_number;
+
     }
 
+    public int getBirthDateYear() {
+        return birthDateYear;
+    }
+
+    public void setBirthDateYear(int birthDateYear) {
+        this.birthDateYear = birthDateYear;
+    }
+
+    public int getBirthDateMonth() {
+        return birthDateMonth;
+    }
+
+    public void setBirthDateMonth(int birthDateMonth) {
+        this.birthDateMonth = birthDateMonth;
+    }
+
+    public int getBirthDateDay() {
+        return birthDateDay;
+    }
+
+    public void setBirthDateDay(int birthDateDay) {
+        this.birthDateDay = birthDateDay;
+    }
 
     public String getName() {
         return name;
@@ -83,6 +120,11 @@ public class UserCreateDto {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public void setBirthDate(int year, int month, int day) {
+        this.birthDate = new GregorianCalendar(year, month-1, day).getTime();
+
     }
 
     public Country getCountry() {
@@ -156,4 +198,6 @@ public class UserCreateDto {
     public void setEmergency_phone_number(String emergency_phone_number) {
         this.emergency_phone_number = emergency_phone_number;
     }
+
+
 }

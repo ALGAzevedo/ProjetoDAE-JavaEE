@@ -21,6 +21,9 @@ public class UserResponseDto {
     private String phone_number;
     private String emergency_phone_number;
 
+    public UserResponseDto() {
+    }
+
     public UserResponseDto(String name, String username, String email,
                            Gender gender, Date birthDate, Country country, String social_security_number,
                            MaritalStatus maritalStatus, String address, String city, String postal_code,
