@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,11 +18,6 @@ import java.util.Date;
 })
 public class PRC implements Serializable {
 
-    /**
-     * Data inicio
-     * data fim
-     * doutor
-     */
     @Id
     private int code;
 
@@ -37,8 +33,8 @@ public class PRC implements Serializable {
     @NotNull
     private Date endDate;
 
-//    @NotNull
-//    private HealthCareProfessional healthCareProfessional;
+    @NotNull
+    private HealthcareProfessional healthCareProfessional;
 
     @Nullable
     private Behaviour behaviourPrescription;
@@ -56,7 +52,7 @@ public class PRC implements Serializable {
     private PharmacologicalTherapy pharmacologicalTherapyPrescription;
 
     @Nullable
-    private  SmokingCessation smokingCessationPrescription;
+    private SmokingCessation smokingCessationPrescription;
 
     public PRC() {
     }
