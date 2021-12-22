@@ -19,7 +19,7 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
     }
 
     //CREATE
-    public Administrator create(Administrator administrator) throws MyConstraintViolationException, MyEntityExistsException {
+    public Administrator create(Administrator administrator) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
         if(find(administrator.getUsername()) != null) {
             throw new MyEntityExistsException("Administrator with username: " + administrator.getUsername() + "already exists");
         }
@@ -33,7 +33,7 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
         }
     }
     //UPDATE
-    public Administrator edit(Administrator administratorin) throws MyConstraintViolationException {
+    public Administrator edit(Administrator administratorin) throws MyConstraintViolationException, MyEntityNotFoundException {
         DtosMapper<Administrator, Administrator> mapper = new DtosMapper<>(Administrator.class);
         Administrator administrator  = findOrFail(administratorin.getUsername());
 
@@ -44,12 +44,27 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
             throw new MyConstraintViolationException(e);
         }
     }
+
+    //DELETE
     public void remove(String username) throws MyEntityNotFoundException {
         remove(findOrFail(username));
     }
 
 
-    //DELETE
+    //PATCHES
+    public Administrator patchIsSuper(String username, Boolean isAdmin) throws MyConstraintViolationException, MyEntityNotFoundException {
+        Administrator administrator  = findOrFail(username);
+
+        try {
+            administrator.setSuperAdmin(isAdmin);
+            super.edit(administrator);
+            return findOrFail(administrator.getUsername());
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
+        }
+    }
+
+
 
 
 

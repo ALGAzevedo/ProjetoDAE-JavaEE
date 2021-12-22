@@ -18,7 +18,10 @@ import java.util.Date;
         )
 })
 public class Administrator extends User{
+    private boolean isSuperAdmin;
+
     public Administrator() {
+        isSuperAdmin = false;
     }
 
     public Administrator(String name, String username, String email,
@@ -28,5 +31,14 @@ public class Administrator extends User{
 
         super(name, username, email, gender, birthDate, country, social_security_number,
                 password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
+        isSuperAdmin = false;
+    }
+
+    public boolean isSuperAdmin() {
+        return isSuperAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        isSuperAdmin = superAdmin;
     }
 }

@@ -41,7 +41,7 @@ public class AdministratorService {
 
     @POST
     @Path("/")
-    public Response createNewAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyConstraintViolationException, MyEntityExistsException {
+    public Response createNewAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
         DtosMapper<AdministratorCreateDto, Administrator> mapper = new DtosMapper<>(Administrator.class);
 
         administratorCreateDTO.setBirthDate(administratorCreateDTO.getBirthDateYear(), administratorCreateDTO.getBirthDateMonth(), administratorCreateDTO.getBirthDateDay());
@@ -77,6 +77,14 @@ public class AdministratorService {
     public Response deleteAdministrator(@PathParam("username") String username) throws MyEntityNotFoundException {
         administratorBean.remove(username);
         return Response.ok("Administrator Removed").build();
+
+    }
+
+    @PATCH
+    @Path("{username}/super")
+    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException {
+        Administrator admin =  administratorBean.patchIsSuper(username, isAdmin);
+        return Response.ok(admin).build();
 
     }
 
