@@ -20,10 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Entity
-@Table(name = "users",
-        uniqueConstraints=
-        @UniqueConstraint(columnNames={"email"}))
-
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
@@ -31,6 +28,7 @@ public class User {
     private String username;
     @NotNull
     private String name;
+    @Column(unique=true)
     @Email
     @NotNull
     private String email;

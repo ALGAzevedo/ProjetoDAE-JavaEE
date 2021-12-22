@@ -66,11 +66,7 @@ public class AdministratorService {
     }
 
 
-    private AdministratorResponseDto toDTO(Administrator administrator) {
-        DtosMapper<Administrator, AdministratorResponseDto> mapper = new DtosMapper<>(AdministratorResponseDto.class);
-        return mapper.getMappedEntity(administrator);
 
-    }
 
     @DELETE
     @Path("{username}")
@@ -85,6 +81,12 @@ public class AdministratorService {
     public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException {
         Administrator admin =  administratorBean.patchIsSuper(username, isAdmin);
         return Response.ok(admin).build();
+
+    }
+
+    private AdministratorResponseDto toDTO(Administrator administrator) {
+        DtosMapper<Administrator, AdministratorResponseDto> mapper = new DtosMapper<>(AdministratorResponseDto.class);
+        return mapper.getMappedEntity(administrator);
 
     }
 

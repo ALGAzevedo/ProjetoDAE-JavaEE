@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 
 import javax.ejb.Stateless;
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @Stateless
 public class UserBean<E extends User, PK extends String> extends BaseBean<E, String>{
@@ -24,7 +25,10 @@ public class UserBean<E extends User, PK extends String> extends BaseBean<E, Str
     public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException
     {
         if(find(entity.getUsername()) != null) {
-            throw new MyEntityExistsException("Administrator with username: " + entity.getUsername() + "already exists");
+            throw new MyEntityExistsException("User with username: " + entity.getUsername() + " already exists");
+        }
+        if(!findWithEmail(entity.getEmail()).isEmpty()) {
+            throw new MyEntityExistsException("User with email: " + entity.getEmail() + " already exists");
         }
 
         try {
@@ -47,5 +51,12 @@ public class UserBean<E extends User, PK extends String> extends BaseBean<E, Str
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
+    }
+
+    public List findWithEmail(String email) {
+        return em.createQuery(
+                        "SELECT c FROM User c WHERE c.email = :custEmail")
+                .setParameter("custEmail", email)
+                .getResultList();
     }
 }
