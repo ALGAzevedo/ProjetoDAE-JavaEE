@@ -6,9 +6,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import java.util.Date;
 
-public class AdministratorResponseDto extends UserResponseDto {
+public class AdministratorResponseDTO extends UserResponseDTO {
     public boolean isSuperAdmin;
-    public AdministratorResponseDto(String name, String username, String email, Gender gender,
+    public AdministratorResponseDTO(String name, String username, String email, Gender gender,
                                     Date birthDate, Country country, String social_security_number,
                                     MaritalStatus maritalStatus, String address, String city, String postal_code,
                                     String phone_number, String emergency_phone_number, boolean isSuper) {
@@ -18,7 +18,7 @@ public class AdministratorResponseDto extends UserResponseDto {
         this.isSuperAdmin= isSuper;
     }
 
-    public AdministratorResponseDto() {
+    public AdministratorResponseDTO() {
         super();
     }
 

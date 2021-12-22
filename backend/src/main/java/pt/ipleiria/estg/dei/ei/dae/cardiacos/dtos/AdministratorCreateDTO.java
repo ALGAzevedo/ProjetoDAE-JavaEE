@@ -5,9 +5,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 
-public class AdministratorCreateDto extends UserCreateDto{
+public class AdministratorCreateDTO extends UserCreateDTO {
 
-    public AdministratorCreateDto(String name, String username, String email, Gender gender,
+    public AdministratorCreateDTO(String name, String username, String email, Gender gender,
                                   int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String social_security_number, String password,
                                   MaritalStatus maritalStatus, String address, String city,
                                   String postal_code, String phone_number, String emergency_phone_number) {
@@ -17,7 +17,7 @@ public class AdministratorCreateDto extends UserCreateDto{
 
     }
 
-    public AdministratorCreateDto() {
+    public AdministratorCreateDTO() {
 
     }
 }

@@ -1,6 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
-public class HealthcareProfessionalResponseDto extends UserResponseDto{
+public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
     private String institutional_email;
     private String institutional_phone;
 

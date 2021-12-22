@@ -4,9 +4,12 @@ import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
@@ -17,13 +20,15 @@ public abstract class BaseBean<E, PK> {
 
     protected Class<E> entityClass;
 
-    public BaseBean(Class<E> entityClass) {
-        this.entityClass = entityClass;
+    @PostConstruct
+    private void instantiateClasses() {
+        entityClass = TypeResolver.getGenericClazz(this, 0);
     }
 
-    public ModelMapper getModelBuilder() {
-        return new ModelMapper();
+    public Class<E> getEntityClass() {
+        return entityClass;
     }
+
 
     public E find(PK primaryKey) {
         return em.find(entityClass, primaryKey);
@@ -45,26 +50,42 @@ public abstract class BaseBean<E, PK> {
         return em.createNamedQuery("getAll" + entityClass.getSimpleName() + "s", entityClass).getResultList();
     }
 
-    public E preCreate(E entity) {
-        return entity;
-    }
+    public void preCreate(E entity) {
 
-    public E postCreate(E entity) {
-        return entity;
+    }
+    public void postCreate(E entity) {
+
     }
 
     public E create(E entity) throws MyEntityExistsException, MyConstraintViolationException, MyEntityNotFoundException {
-        entity = preCreate(entity);
+        preCreate(entity);
+        try {
+            em.persist(entity);
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
+        }
 
-        em.persist(entity);
-        return postCreate(entity);
+        postCreate(entity);
+        return entity;
     }
-    public E edit(E entity) throws MyConstraintViolationException, MyEntityNotFoundException {
+
+    public void preUpdate(E entity) {}
+    public void postUpdate(E entity) {}
+
+    public E update(E entity) throws MyConstraintViolationException, MyEntityNotFoundException {
+        preUpdate(entity);
         em.merge(entity);
-        return postCreate(entity);
+        postUpdate(entity);
+        return entity;
     }
-    public void remove(E entity) {
+    public void preDestroy(E entity) {}
+    public void postDestroy(E entity) {}
+
+    public void destroy(PK primaryKey) throws MyEntityNotFoundException {
+        var entity = findOrFail(primaryKey);
+        preDestroy(entity);
         em.remove(entity);
+        postDestroy(entity);
     }
 
 }

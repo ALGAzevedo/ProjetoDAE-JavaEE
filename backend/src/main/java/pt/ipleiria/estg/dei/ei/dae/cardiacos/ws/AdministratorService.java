@@ -1,11 +1,13 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorCreateDto;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorResponseDto;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorCreateDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorResponseDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.HealthcareProfessionalResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.DtosMapper;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.HealthcareProfissionalBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -20,60 +22,13 @@ import java.util.stream.Collectors;
 @Path("administrators") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-public class AdministratorService {
+public class AdministratorService extends BaseService<Administrator, String, AdministratorBean, AdministratorCreateDTO, AdministratorResponseDTO> {
     @EJB
     private AdministratorBean administratorBean;
 
-
-
-    @GET
-    @Path("/")
-    public List<AdministratorResponseDto> getAllAdministratorsWC() {
-
-        return toDTOs(administratorBean.all());
-    }
-
-    @GET
-    @Path("{username}")
-    public Response getAdministratorDetails(@PathParam("username") String username) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
-        return Response.ok(toDTO(administratorBean.findOrFail(username))).build();
-    }
-
-    @POST
-    @Path("/")
-    public Response createNewAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
-        DtosMapper<AdministratorCreateDto, Administrator> mapper = new DtosMapper<>(Administrator.class);
-
-        administratorCreateDTO.setBirthDate(administratorCreateDTO.getBirthDateYear(), administratorCreateDTO.getBirthDateMonth(), administratorCreateDTO.getBirthDateDay());
-
-        Administrator administrator = administratorBean.create(mapper.getMappedEntity(administratorCreateDTO));
-
-
-        System.out.println(administrator.getBirthDate());
-        return Response.status(Response.Status.CREATED).entity(toDTO(administrator)).build();
-    }
-
-    @PUT
-    @Path("/")
-    public Response updateAdministrator(AdministratorCreateDto administratorCreateDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
-        DtosMapper<AdministratorCreateDto, Administrator> mapper = new DtosMapper<>(Administrator.class);
-
-        administratorCreateDTO.setBirthDate(administratorCreateDTO.getBirthDateYear(), administratorCreateDTO.getBirthDateMonth(), administratorCreateDTO.getBirthDateDay());
-
-        Administrator administrator = administratorBean.edit(mapper.getMappedEntity(administratorCreateDTO));
-
-        return Response.ok(toDTO(administrator)).build();
-    }
-
-
-
-
-    @DELETE
-    @Path("{username}")
-    public Response deleteAdministrator(@PathParam("username") String username) throws MyEntityNotFoundException {
-        administratorBean.remove(username);
-        return Response.ok("Administrator Removed").build();
-
+    @Override
+    protected AdministratorBean getEntityBean() {
+        return administratorBean;
     }
 
     @PATCH
@@ -84,16 +39,6 @@ public class AdministratorService {
 
     }
 
-    private AdministratorResponseDto toDTO(Administrator administrator) {
-        DtosMapper<Administrator, AdministratorResponseDto> mapper = new DtosMapper<>(AdministratorResponseDto.class);
-        return mapper.getMappedEntity(administrator);
-
-    }
-
-    // converts an entire list of entities into a list of DTOs
-    private List<AdministratorResponseDto> toDTOs(List<Administrator> administrators) {
-        return administrators.stream().map(this::toDTO).collect(Collectors.toList());
-    }
 
 
 }

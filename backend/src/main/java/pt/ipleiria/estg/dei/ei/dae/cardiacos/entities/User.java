@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User {
+public class User extends BaseEntity{
 
     @Id
     private String username;
@@ -52,6 +52,7 @@ public class User {
     private String postal_code;
     private String phone_number;
     private String emergency_phone_number;
+
     private Date last_login;
     private Date is_deleted;
 
