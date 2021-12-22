@@ -25,12 +25,12 @@ public class Administrator extends User{
     }
 
     public Administrator(String name, String username, String email,
-                         Gender gender, Date birthDate, Country country, String social_security_number,
+                         Gender gender, Date birthDate, Country country, String socialSecurityNumber,
                          String password, MaritalStatus maritalStatus, String address,
-                         String city, String postal_code, String phone_number, String emergency_phone_number) {
+                         String city, String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
-        super(name, username, email, gender, birthDate, country, social_security_number,
-                password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
+        super(name, username, email, gender, birthDate, country, socialSecurityNumber,
+                password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
         isSuperAdmin = false;
     }
 

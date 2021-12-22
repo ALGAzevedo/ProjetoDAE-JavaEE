@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
                 query = "SELECT c FROM PRC c ORDER BY c.name" // JPQL
         )
 })
-public class PharmacologicalTherapy extends PRC {
+public class PharmacologicalTherapy extends TreatmentType {
 
 
     public PharmacologicalTherapy() {

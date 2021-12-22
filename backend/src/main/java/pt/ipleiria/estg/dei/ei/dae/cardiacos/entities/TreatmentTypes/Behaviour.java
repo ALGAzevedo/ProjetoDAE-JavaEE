@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
                 query = "SELECT c FROM PRC c ORDER BY c.name" // JPQL
         )
 })
-public class Behaviour extends PRC {
+public class Behaviour extends TreatmentType {
 
 
     public Behaviour() {

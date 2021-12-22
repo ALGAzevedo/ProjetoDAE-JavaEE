@@ -4,22 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-
 @NamedQueries({
         @NamedQuery(
-                name = "getAllEucations",
+                name = "getAllSmokingCessations",
                 query = "SELECT c FROM PRC c ORDER BY c.name" // JPQL
         )
 })
-public class Education extends PRC {
+public class SmokingCessation extends TreatmentType {
 
-    public Education() {
-
+    public SmokingCessation() {
     }
-
-    public Education(int code, String name, String description) {
+    public SmokingCessation(int code, String name, String description) {
         super(code, name, description);
     }
-
-
 }
