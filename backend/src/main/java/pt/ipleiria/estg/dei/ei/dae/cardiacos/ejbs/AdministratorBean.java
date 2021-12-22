@@ -33,13 +33,13 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
         }
     }
     //UPDATE
-    public Administrator edit(Administrator administratorin) throws MyConstraintViolationException, MyEntityNotFoundException {
+    public Administrator edit(Administrator administratorIn) throws MyConstraintViolationException, MyEntityNotFoundException {
         DtosMapper<Administrator, Administrator> mapper = new DtosMapper<>(Administrator.class);
-        Administrator administrator  = findOrFail(administratorin.getUsername());
+        Administrator administrator  = findOrFail(administratorIn.getUsername());
 
         try {
-            super.edit(mapper.getMappedEntity(administratorin));
-            return findOrFail(administratorin.getUsername());
+            super.edit(mapper.getMappedEntity(administratorIn));
+            return findOrFail(administratorIn.getUsername());
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
