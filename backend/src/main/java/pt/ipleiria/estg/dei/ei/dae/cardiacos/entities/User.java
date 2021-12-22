@@ -21,10 +21,6 @@ import java.util.logging.Logger;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(
-        uniqueConstraints=
-        @UniqueConstraint(columnNames={"email", "username", "social_security_number"})
-)
 public class User {
 
     @Id
@@ -48,7 +44,7 @@ public class User {
     private Country country;
 
     @NotNull
-    @Pattern(regexp="[0-9]{11}",
+    @Pattern(regexp="^[0-9]{11}$",
             message="{invalid.social_security_number}")
     private String social_security_number;
 

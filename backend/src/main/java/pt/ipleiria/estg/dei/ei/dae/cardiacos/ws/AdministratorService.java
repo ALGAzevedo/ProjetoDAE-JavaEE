@@ -5,6 +5,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorResponseDto;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.DtosMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -13,6 +16,8 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,8 +38,14 @@ public class AdministratorService {
 
     @GET
     @Path("{username}")
-    public Response getAdministratorDetails(@PathParam("username") String username) throws MyEntityNotFoundException {
-        return Response.ok("estou aqui").build();
+    public Response getAdministratorDetails(@PathParam("username") String username) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
+        AdministratorBean administratorBean = new AdministratorBean();
+        administratorBean.create(new Administrator("Joao Ferreira", "admin2", "admin1@mail.pt", Gender.MALE,
+                new GregorianCalendar(1989, Calendar.MAY, 9).getTime(), Country.PORTUGAL,
+                "12345679810", "12345678", MaritalStatus.SINGLE, "Rua Central n 2571", "Leiria",
+                "2420-208", "963768088", "963768088"));
+        return Response.ok().build();
+        //return Response.ok("estou aqui").build();
 //        Administrator administrator = administratorBean.findOrFail(username);
         //return Response.ok(toDTO(administrator)).build();
     }

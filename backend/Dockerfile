@@ -1,4 +1,4 @@
-FROM jboss/wildfly:24.0.0.Final
+FROM jboss/wildfly
 
 ENV WILDFLY_HOME=/opt/jboss/wildfly
 ENV DEPLOYMENTS_DIR=${WILDFLY_HOME}/standalone/deployments
@@ -7,7 +7,7 @@ COPY scripts ${WILDFLY_HOME}/bin
 
 USER root
 
-RUN yum install -y dos2unix nano
+RUN yum install -y dos2unix
 RUN dos2unix ${WILDFLY_HOME}/bin/*.sh
 
 RUN chown jboss:jboss ${WILDFLY_HOME}/bin/*.sh

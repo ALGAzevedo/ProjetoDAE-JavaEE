@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class HealthcareProfissionalBean extends BaseBean<HealthcareProfessional, Long> {
-    public HealthcareProfissionalBean(Class<HealthcareProfessional> entityClass) {
-        super(entityClass);
+    public HealthcareProfissionalBean() {
+        super(HealthcareProfessional.class);
     }
 }

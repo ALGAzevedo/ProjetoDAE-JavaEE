@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = "findAllPatients",
+                name = "getAllPatients",
                 query = "SELECT s FROM Patient s ORDER BY s.name" // JPQL
         )
 })

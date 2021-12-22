@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = "findAllHealthcareProfessionals",
+                name = "getAllHealthcareProfessionals",
                 query = "SELECT s FROM HealthcareProfessional s ORDER BY s.name" // JPQL
         )
 })

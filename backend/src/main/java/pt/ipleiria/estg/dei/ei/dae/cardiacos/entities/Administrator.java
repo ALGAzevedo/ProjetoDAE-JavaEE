@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = "findAllAdministrators",
+                name = "getAllAdministrators",
                 query = "SELECT s FROM Administrator s ORDER BY s.name" // JPQL
         )
 })
