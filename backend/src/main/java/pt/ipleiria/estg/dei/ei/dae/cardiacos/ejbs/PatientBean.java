@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class PatientBean extends BaseBean<Patient, Long> {
     public PatientBean() {
-        super(Patient.class);
+
     }
 
 

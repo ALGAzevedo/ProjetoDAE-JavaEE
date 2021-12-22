@@ -7,7 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class UserCreateDto {
+public class UserCreateDTO implements DTO{
 
     private String name;
     private String username;
@@ -15,24 +15,24 @@ public class UserCreateDto {
     private Gender gender;
     private Date birthDate;
     private Country country;
-    private String social_security_number;
+    private String socialSecurityNumber;
     private String password;
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
-    private String postal_code;
-    private String phone_number;
-    private String emergency_phone_number;
+    private String postalCode;
+    private String phoneNumber;
+    private String emergencyPhoneNumber;
     private int birthDateYear;
     private int birthDateMonth;
     private int birthDateDay;
 
 
 
-    public UserCreateDto() {
+    public UserCreateDTO() {
     }
 
-    public UserCreateDto(String name, String username, String email, Gender gender,
+    public UserCreateDTO(String name, String username, String email, Gender gender,
                          int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String social_security_number,
                          String password, MaritalStatus maritalStatus, String address, String city,
                          String postal_code, String phone_number, String emergency_phone_number){
@@ -45,16 +45,17 @@ public class UserCreateDto {
         this.birthDateDay = birthDateDay;
         this.birthDateMonth = birthDateMonth;
         this.birthDateYear = birthDateYear;
-        this.birthDate = new GregorianCalendar(birthDateYear, birthDateMonth, birthDateDay).getTime();
+        this.birthDate = new Date(1959, 5, 9);
+        this.birthDate = setBirthDate(birthDateYear, birthDateMonth, birthDateDay);
         this.country = country;
-        this.social_security_number = social_security_number;
+        this.socialSecurityNumber = social_security_number;
         this.password = password;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postal_code = postal_code;
-        this.phone_number = phone_number;
-        this.emergency_phone_number = emergency_phone_number;
+        this.postalCode = postal_code;
+        this.phoneNumber = phone_number;
+        this.emergencyPhoneNumber = emergency_phone_number;
 
     }
 
@@ -122,8 +123,12 @@ public class UserCreateDto {
         this.birthDate = birthDate;
     }
 
-    public void setBirthDate(int year, int month, int day) {
-        this.birthDate = new GregorianCalendar(year, month-1, day).getTime();
+    public static Date setBirthDate(int year, int month, int day) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.getTime();
+        cal.set(year, month, day);
+
+        return cal.getTime();
 
     }
 
@@ -136,11 +141,11 @@ public class UserCreateDto {
     }
 
     public String getSocial_security_number() {
-        return social_security_number;
+        return socialSecurityNumber;
     }
 
     public void setSocial_security_number(String social_security_number) {
-        this.social_security_number = social_security_number;
+        this.socialSecurityNumber = social_security_number;
     }
 
     public String getPassword() {
@@ -176,27 +181,27 @@ public class UserCreateDto {
     }
 
     public String getPostal_code() {
-        return postal_code;
+        return postalCode;
     }
 
     public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+        this.postalCode = postal_code;
     }
 
     public String getPhone_number() {
-        return phone_number;
+        return phoneNumber;
     }
 
     public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     public String getEmergency_phone_number() {
-        return emergency_phone_number;
+        return emergencyPhoneNumber;
     }
 
     public void setEmergency_phone_number(String emergency_phone_number) {
-        this.emergency_phone_number = emergency_phone_number;
+        this.emergencyPhoneNumber = emergency_phone_number;
     }
 
 

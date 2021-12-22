@@ -49,6 +49,9 @@ public class PRC implements Serializable {
     @JoinColumn(name = "PATIENT_PRC")
     private Patient patient;
 
+
+
+
     public PRC() {
         this.treatmentTypeList = new LinkedList<TreatmentType>();
     }

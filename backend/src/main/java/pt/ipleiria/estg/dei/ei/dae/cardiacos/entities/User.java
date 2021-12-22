@@ -22,12 +22,13 @@ import java.util.logging.Logger;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User {
+public class User extends BaseEntity{
 
     @Id
     private String username;
     @NotNull
     private String name;
+    @Column(unique=true)
     @Email
     @NotNull
     private String email;

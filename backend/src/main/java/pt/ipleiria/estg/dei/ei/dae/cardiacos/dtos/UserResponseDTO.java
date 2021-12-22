@@ -6,7 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import java.util.Date;
 
-public class UserResponseDto {
+public class UserResponseDTO implements DTO{
     private String name;
     private String username;
     private String email;
@@ -21,10 +21,10 @@ public class UserResponseDto {
     private String phone_number;
     private String emergency_phone_number;
 
-    public UserResponseDto() {
+    public UserResponseDTO() {
     }
 
-    public UserResponseDto(String name, String username, String email,
+    public UserResponseDTO(String name, String username, String email,
                            Gender gender, Date birthDate, Country country, String social_security_number,
                            MaritalStatus maritalStatus, String address, String city, String postal_code,
                            String phone_number, String emergency_phone_number) {
