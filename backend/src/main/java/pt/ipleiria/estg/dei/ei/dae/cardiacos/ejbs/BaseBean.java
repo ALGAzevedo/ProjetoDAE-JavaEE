@@ -74,7 +74,12 @@ public abstract class BaseBean<E, PK> {
 
     public E update(E entity) throws MyConstraintViolationException, MyEntityNotFoundException {
         preUpdate(entity);
-        em.merge(entity);
+        try {
+            em.merge(entity);
+        } catch (ConstraintViolationException e) {
+        throw new MyConstraintViolationException(e);
+    }
+
         postUpdate(entity);
         return entity;
     }

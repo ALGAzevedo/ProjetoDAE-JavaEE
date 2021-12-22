@@ -8,9 +8,12 @@ public class HealthcareProfessionalCreateDTO extends UserCreateDTO {
     private String institutionalEmail;
     private String institutionalPhone;
 
-    public HealthcareProfessionalCreateDTO(String institutional_email, String institutional_phone) {
-        this.institutionalEmail = institutional_email;
-        this.institutionalPhone = institutional_phone;
+    public HealthcareProfessionalCreateDTO() {
+    }
+
+    public HealthcareProfessionalCreateDTO(String institutionalEmail, String institutionalPphone) {
+        this.institutionalEmail = institutionalEmail;
+        this.institutionalPhone = institutionalPphone;
     }
 
     public HealthcareProfessionalCreateDTO(String name, String username, String email, Gender gender, int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String social_security_number, String password, MaritalStatus maritalStatus, String address, String city, String postal_code, String phone_number, String emergency_phone_number, String institutional_email, String institutional_phone) {

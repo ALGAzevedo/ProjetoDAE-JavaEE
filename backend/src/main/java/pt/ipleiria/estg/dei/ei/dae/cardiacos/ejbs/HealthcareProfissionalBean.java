@@ -15,8 +15,4 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional,
 
     }
 
-
-
-
-
 }
