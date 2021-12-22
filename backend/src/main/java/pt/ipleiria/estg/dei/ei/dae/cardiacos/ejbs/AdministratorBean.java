@@ -12,7 +12,7 @@ import javax.persistence.LockModeType;
 import javax.validation.ConstraintViolationException;
 
 @Stateless
-public class AdministratorBean extends BaseBean<Administrator, String> {
+public class AdministratorBean extends UserBean<Administrator, String> {
 
     public AdministratorBean() {
         super(Administrator.class);
@@ -20,29 +20,11 @@ public class AdministratorBean extends BaseBean<Administrator, String> {
 
     //CREATE
     public Administrator create(Administrator administrator) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
-        if(find(administrator.getUsername()) != null) {
-            throw new MyEntityExistsException("Administrator with username: " + administrator.getUsername() + "already exists");
-        }
-
-        try {
-            super.create(administrator);
-            return findOrFail(administrator.getUsername());
-
-        }catch (ConstraintViolationException e) {
-            throw new MyConstraintViolationException(e);
-        }
+        return super.create(administrator);
     }
     //UPDATE
     public Administrator edit(Administrator administratorIn) throws MyConstraintViolationException, MyEntityNotFoundException {
-        DtosMapper<Administrator, Administrator> mapper = new DtosMapper<>(Administrator.class);
-        Administrator administrator  = findOrFail(administratorIn.getUsername());
-
-        try {
-            super.edit(mapper.getMappedEntity(administratorIn));
-            return findOrFail(administratorIn.getUsername());
-        } catch (ConstraintViolationException e) {
-            throw new MyConstraintViolationException(e);
-        }
+        return super.edit(administratorIn);
     }
 
     //DELETE

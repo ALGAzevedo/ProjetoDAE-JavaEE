@@ -15,7 +15,7 @@ public abstract class BaseBean<E, PK> {
     @PersistenceContext
     protected EntityManager em;
 
-    private Class<E> entityClass;
+    protected Class<E> entityClass;
 
     public BaseBean(Class<E> entityClass) {
         this.entityClass = entityClass;
