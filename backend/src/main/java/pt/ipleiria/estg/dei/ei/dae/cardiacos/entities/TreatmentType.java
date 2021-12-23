@@ -20,8 +20,7 @@ import java.util.Date;
 })
 public class TreatmentType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code", unique = true, nullable = false, insertable = false,updatable = false) //TODO: IS THIS CORRECT?
+    @GeneratedValue
     private int code;
 
     @NotNull

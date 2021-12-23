@@ -24,7 +24,7 @@ import java.util.List;
 public class Patient extends User{
 
         @Nullable
-        @OneToMany(mappedBy = "code", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
+        @OneToMany(mappedBy = "patient", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
         private List<PRC> prcList;
 
         public Patient() {

@@ -31,6 +31,7 @@ public class UserCreateDTO implements DTO{
 
 
     public UserCreateDTO() {
+
     }
 
     public UserCreateDTO(String name, String username, String email, Gender gender,

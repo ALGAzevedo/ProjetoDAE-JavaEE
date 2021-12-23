@@ -25,8 +25,7 @@ import java.util.List;
 public class PRC implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code", unique = true, nullable = false, insertable = false,updatable = false) //TODO: IS THIS CORRECT?
+    @GeneratedValue
     private int code;
 
     @NotNull
@@ -41,15 +40,13 @@ public class PRC implements Serializable {
     @NotNull
     private Date endDate;
 
-    @OneToMany(mappedBy = "code", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "prc", cascade = CascadeType.REMOVE)
     private List<TreatmentType> treatmentTypeList;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "PATIENT_PRC")
     private Patient patient;
-
-
 
 
     public PRC() {
