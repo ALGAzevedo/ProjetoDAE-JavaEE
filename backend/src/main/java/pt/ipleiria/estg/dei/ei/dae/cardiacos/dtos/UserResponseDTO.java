@@ -13,13 +13,13 @@ public class UserResponseDTO implements DTO{
     private Gender gender;
     private Date birthDate;
     private Country country;
-    private String social_security_number;
+    private String socialSecurityNumber;
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
-    private String postal_code;
-    private String phone_number;
-    private String emergency_phone_number;
+    private String postalCode;
+    private String phoneNumber;
+    private String emergencyPhoneNumber;
 
     public UserResponseDTO() {
     }
@@ -34,13 +34,13 @@ public class UserResponseDTO implements DTO{
         this.gender = gender;
         this.birthDate = birthDate;
         this.country = country;
-        this.social_security_number = social_security_number;
+        this.socialSecurityNumber = social_security_number;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postal_code = postal_code;
-        this.phone_number = phone_number;
-        this.emergency_phone_number = emergency_phone_number;
+        this.postalCode = postal_code;
+        this.phoneNumber = phone_number;
+        this.emergencyPhoneNumber = emergency_phone_number;
     }
 
     public String getName() {
@@ -91,12 +91,12 @@ public class UserResponseDTO implements DTO{
         this.country = country;
     }
 
-    public String getSocial_security_number() {
-        return social_security_number;
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
     }
 
-    public void setSocial_security_number(String social_security_number) {
-        this.social_security_number = social_security_number;
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
     public MaritalStatus getMaritalStatus() {
@@ -123,27 +123,27 @@ public class UserResponseDTO implements DTO{
         this.city = city;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getEmergency_phone_number() {
-        return emergency_phone_number;
+    public String getEmergencyPhoneNumber() {
+        return emergencyPhoneNumber;
     }
 
-    public void setEmergency_phone_number(String emergency_phone_number) {
-        this.emergency_phone_number = emergency_phone_number;
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 }
