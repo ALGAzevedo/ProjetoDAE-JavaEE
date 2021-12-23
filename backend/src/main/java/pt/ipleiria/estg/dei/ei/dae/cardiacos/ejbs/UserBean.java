@@ -15,6 +15,16 @@ public class UserBean<E extends User, PK extends String> extends BaseBean<E, Str
     public UserBean() {
     }
 
+    @Override
+    public void preCreate(User entity) throws MyEntityExistsException {
+        if(find(entity.getUsername()) != null) {
+            throw new MyEntityExistsException("User with username: " + entity.getUsername() + " already exists");
+        }
+        if (!findWithEmail(entity.getEmail()).isEmpty()) {
+            throw new MyEntityExistsException("Email: " + entity.getEmail() + " already registred");
+        }
+    }
+
     public List findWithEmail(String email) {
         return em.createQuery(
                         "SELECT c FROM User c WHERE c.email = :custEmail")

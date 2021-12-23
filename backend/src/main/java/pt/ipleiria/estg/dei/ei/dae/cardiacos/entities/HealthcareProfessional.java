@@ -18,8 +18,8 @@ import java.util.Date;
         )
 })
 public class HealthcareProfessional extends User{
-    private String institutional_email;
-    private String institutional_phone;
+    private String institutionalEmail;
+    private String institutionalPhone;
 
     public HealthcareProfessional() {
     }
@@ -30,23 +30,23 @@ public class HealthcareProfessional extends User{
                                   String postal_code, String phone_number, String emergency_phone_number,
                                   String institutional_email, String institutional_phone) {
         super(name, username, email, gender, birthDate, country, social_security_number, password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
-        this.institutional_email = institutional_email;
-        this.institutional_phone = institutional_phone;
+        this.institutionalEmail = institutional_email;
+        this.institutionalPhone = institutional_phone;
     }
 
-    public String getInstitutional_email() {
-        return institutional_email;
+    public String getInstitutionalEmail() {
+        return institutionalEmail;
     }
 
-    public void setInstitutional_email(String institutional_email) {
-        this.institutional_email = institutional_email;
+    public void setInstitutionalEmail(String institutional_email) {
+        this.institutionalEmail = institutional_email;
     }
 
-    public String getInstitutional_phone() {
-        return institutional_phone;
+    public String getInstitutionalPhone() {
+        return institutionalPhone;
     }
 
-    public void setInstitutional_phone(String institutional_phone) {
-        this.institutional_phone = institutional_phone;
+    public void setInstitutionalPhone(String institutional_phone) {
+        this.institutionalPhone = institutional_phone;
     }
 }

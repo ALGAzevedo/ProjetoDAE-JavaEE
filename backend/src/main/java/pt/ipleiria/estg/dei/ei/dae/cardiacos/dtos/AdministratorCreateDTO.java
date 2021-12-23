@@ -4,6 +4,10 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class AdministratorCreateDTO extends UserCreateDTO {
 
@@ -12,7 +16,8 @@ public class AdministratorCreateDTO extends UserCreateDTO {
                                   MaritalStatus maritalStatus, String address, String city,
                                   String postal_code, String phone_number, String emergency_phone_number) {
 
-        super(name, username, email, gender, birthDateYear, birthDateMonth, birthDateDay, country, social_security_number, password,
+        super(name, username, email, gender, new GregorianCalendar(birthDateYear, birthDateMonth, birthDateDay).getTime(),
+                country, social_security_number, password,
                 maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
 
     }
@@ -20,4 +25,7 @@ public class AdministratorCreateDTO extends UserCreateDTO {
     public AdministratorCreateDTO() {
 
     }
+
+
+
 }

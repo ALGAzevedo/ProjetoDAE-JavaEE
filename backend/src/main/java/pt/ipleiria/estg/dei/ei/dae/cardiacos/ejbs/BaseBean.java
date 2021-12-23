@@ -1,19 +1,23 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
-import org.modelmapper.ModelMapper;
+
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
+
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
 import javax.annotation.PostConstruct;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
-import javax.ws.rs.NotFoundException;
+
 import java.util.List;
 
-public abstract class BaseBean<E, PK> {
+public abstract class BaseBean<E extends BaseEntity, PK> {
 
     @PersistenceContext
     protected EntityManager em;
@@ -39,7 +43,7 @@ public abstract class BaseBean<E, PK> {
 
         if (entity == null) {
             throw new MyEntityNotFoundException(
-                    entityClass.getSimpleName() + "with primary key '" + primaryKey + "' not found."
+                    entityClass.getSimpleName() + " with primary key '" + primaryKey + "' not found."
             );
         }
 
@@ -50,21 +54,20 @@ public abstract class BaseBean<E, PK> {
         return em.createNamedQuery("getAll" + entityClass.getSimpleName() + "s", entityClass).getResultList();
     }
 
-    public void preCreate(E entity) {
+    public void preCreate(E entity) throws MyEntityExistsException {
 
     }
     public void postCreate(E entity) {
 
     }
 
-    public E create(E entity) throws MyEntityExistsException, MyConstraintViolationException, MyEntityNotFoundException {
+    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException {
         preCreate(entity);
         try {
             em.persist(entity);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
-
         postCreate(entity);
         return entity;
     }
@@ -72,15 +75,17 @@ public abstract class BaseBean<E, PK> {
     public void preUpdate(E entity) {}
     public void postUpdate(E entity) {}
 
-    public E update(E entity) throws MyConstraintViolationException, MyEntityNotFoundException {
-        preUpdate(entity);
-        try {
-            em.merge(entity);
-        } catch (ConstraintViolationException e) {
-        throw new MyConstraintViolationException(e);
-    }
+    public E update(E entity) throws MyConstraintViolationException {
 
-        postUpdate(entity);
+        try {
+            preUpdate(entity);
+            em.merge(entity);
+            postUpdate(entity);
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
+        }
+
+
         return entity;
     }
     public void preDestroy(E entity) {}
