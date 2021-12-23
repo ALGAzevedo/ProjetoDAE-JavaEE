@@ -4,6 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -33,9 +34,9 @@ public class UserCreateDTO implements DTO{
     }
 
     public UserCreateDTO(String name, String username, String email, Gender gender,
-                         int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String social_security_number,
+                         int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String socialSecurityNumber,
                          String password, MaritalStatus maritalStatus, String address, String city,
-                         String postal_code, String phone_number, String emergency_phone_number){
+                         String postalCode, String phoneNumber, String emergencyPhoneNumber){
 
 
         this.name = name;
@@ -45,17 +46,16 @@ public class UserCreateDTO implements DTO{
         this.birthDateDay = birthDateDay;
         this.birthDateMonth = birthDateMonth;
         this.birthDateYear = birthDateYear;
-        this.birthDate = new Date(1959, 5, 9);
-        this.birthDate = setBirthDate(birthDateYear, birthDateMonth, birthDateDay);
+        this.setBirthDate(birthDateYear, birthDateMonth, birthDateDay);
         this.country = country;
-        this.socialSecurityNumber = social_security_number;
+        this.socialSecurityNumber = socialSecurityNumber;
         this.password = password;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postalCode = postal_code;
-        this.phoneNumber = phone_number;
-        this.emergencyPhoneNumber = emergency_phone_number;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
 
     }
 
@@ -123,12 +123,12 @@ public class UserCreateDTO implements DTO{
         this.birthDate = birthDate;
     }
 
-    public static Date setBirthDate(int year, int month, int day) {
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.getTime();
-        cal.set(year, month, day);
-
-        return cal.getTime();
+    public void setBirthDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1986);
+        cal.set(Calendar.MONTH, Calendar.MAY);
+        cal.set(Calendar.DAY_OF_MONTH, 9);
+        this.birthDate = cal.getTime();
 
     }
 
@@ -140,12 +140,36 @@ public class UserCreateDTO implements DTO{
         this.country = country;
     }
 
-    public String getSocial_security_number() {
+    public String getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
 
-    public void setSocial_security_number(String social_security_number) {
-        this.socialSecurityNumber = social_security_number;
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmergencyPhoneNumber() {
+        return emergencyPhoneNumber;
+    }
+
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
     public String getPassword() {
@@ -180,29 +204,7 @@ public class UserCreateDTO implements DTO{
         this.city = city;
     }
 
-    public String getPostal_code() {
-        return postalCode;
-    }
 
-    public void setPostal_code(String postal_code) {
-        this.postalCode = postal_code;
-    }
-
-    public String getPhone_number() {
-        return phoneNumber;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phoneNumber = phone_number;
-    }
-
-    public String getEmergency_phone_number() {
-        return emergencyPhoneNumber;
-    }
-
-    public void setEmergency_phone_number(String emergency_phone_number) {
-        this.emergencyPhoneNumber = emergency_phone_number;
-    }
 
 
 }

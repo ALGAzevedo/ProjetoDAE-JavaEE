@@ -52,6 +52,7 @@ public class User extends BaseEntity{
     private String postalCode;
     private String phoneNumber;
     private String emergencyPhoneNumber;
+
     private Date lastLogin;
     private Date isDeleted;
 
@@ -70,14 +71,14 @@ public class User extends BaseEntity{
         this.gender = gender;
         this.birthDate = birthDate;
         this.country = country;
-        this.socialSecurityNumber = socialSecurityNumber;
+        this.social_security_number = social_security_number;
         this.password = hashPassword(password);
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postalCode = postalCode;
-        this.phoneNumber = phoneNumber;
-        this.emergencyPhoneNumber = emergencyPhoneNumber;
+        this.postal_code = postal_code;
+        this.phone_number = phone_number;
+        this.emergency_phone_number = emergency_phone_number;
     }
 
     //GETTERS AND SETTERS
@@ -134,8 +135,8 @@ public class User extends BaseEntity{
         return socialSecurityNumber;
     }
 
-    public void setSocialSecurityNumber(String socialSecurityNumber) {
-        this.socialSecurityNumber = socialSecurityNumber;
+    public void setSocial_security_number(String social_security_number) {
+        this.social_security_number = social_security_number;
     }
 
     public String getPassword() {
@@ -174,40 +175,40 @@ public class User extends BaseEntity{
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setPostal_code(String postal_code) {
+        this.postal_code = postal_code;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getEmergencyPhoneNumber() {
         return emergencyPhoneNumber;
     }
 
-    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
-        this.emergencyPhoneNumber = emergencyPhoneNumber;
+    public void setEmergency_phone_number(String emergency_phone_number) {
+        this.emergency_phone_number = emergency_phone_number;
     }
 
     public Date getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setLast_login(Date last_login) {
+        this.last_login = last_login;
     }
 
     public Date getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Date isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setIs_deleted(Date is_deleted) {
+        this.is_deleted = is_deleted;
     }
 
 
