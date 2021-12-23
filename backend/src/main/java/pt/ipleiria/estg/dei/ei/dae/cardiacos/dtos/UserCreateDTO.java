@@ -4,7 +4,6 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
-import javax.annotation.PostConstruct;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,8 +32,9 @@ public class UserCreateDTO implements DTO{
 
     }
 
-    public UserCreateDTO(String name, String username, String email, Gender gender, Date date,
-                         Country country, String socialSecurityNumber,
+
+    public UserCreateDTO(String name, String username, String email, Gender gender,
+                         int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String socialSecurityNumber,
                          String password, MaritalStatus maritalStatus, String address, String city,
                          String postalCode, String phoneNumber, String emergencyPhoneNumber){
 
@@ -43,7 +43,7 @@ public class UserCreateDTO implements DTO{
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = date;
+
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
         this.password = password;
@@ -55,11 +55,9 @@ public class UserCreateDTO implements DTO{
         this.emergencyPhoneNumber = emergencyPhoneNumber;
 
 
+
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
 
     public String getName() {

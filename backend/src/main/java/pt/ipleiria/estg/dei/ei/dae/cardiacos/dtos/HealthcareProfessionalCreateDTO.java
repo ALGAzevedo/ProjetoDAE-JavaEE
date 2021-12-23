@@ -31,7 +31,7 @@ public class HealthcareProfessionalCreateDTO extends UserCreateDTO {
 
 
         super(name, username, email, gender,
-                Date.from(LocalDate.of(birthDateYear, birthDateMonth, birthDateDay).atStartOfDay().toInstant(ZoneOffset.UTC)),
+                birthDateYear, birthDateMonth, birthDateDay,
                 country, social_security_number, password, maritalStatus, address, city,
                 postal_code, phone_number, emergency_phone_number);
 
