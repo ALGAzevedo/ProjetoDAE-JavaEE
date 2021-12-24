@@ -21,7 +21,7 @@ import java.util.Date;
 public class TreatmentType {
     @Id
     @GeneratedValue
-    private int code;
+    private Integer code;
 
     @NotNull
     private String name;

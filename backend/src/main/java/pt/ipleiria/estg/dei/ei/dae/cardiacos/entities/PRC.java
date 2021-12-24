@@ -22,11 +22,11 @@ import java.util.List;
                 query = "SELECT c FROM PRC c ORDER BY c.name" // JPQL
         )
 })
-public class PRC implements Serializable {
+public class PRC extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    private int code;
+    private Integer code;
 
     @NotNull
     private String name;
