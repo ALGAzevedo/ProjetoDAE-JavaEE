@@ -11,6 +11,10 @@ import java.time.LocalDate;
 
 
 @Entity
+@Table(
+        name = "HEALTH_CARE_PROFESSIONALS"
+//        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
+)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllHealthcareProfessionals",
@@ -21,7 +25,15 @@ public class HealthcareProfessional extends User{
     private String institutionalEmail;
     private String institutionalPhone;
 
+    private String institutionalEmail;
+
+    private String institutionalPhone;
+
+    @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
+    private List<TreatmentType> treatmentTypeList;
+
     public HealthcareProfessional() {
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
     public HealthcareProfessional(String name, String username, String email,
@@ -48,5 +60,19 @@ public class HealthcareProfessional extends User{
 
     public void setInstitutionalPhone(String institutionalPhone) {
         this.institutionalPhone = institutionalPhone;
+    }
+
+    public List<TreatmentType> getTreatmentTypeList() {
+        return treatmentTypeList;
+    }
+
+    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
+        this.treatmentTypeList = treatmentTypeList;
+    }
+
+    public void addTreatment(TreatmentType treatmentType) {
+        if(!this.treatmentTypeList.contains(treatmentType)) {
+            this.treatmentTypeList.add(treatmentType);
+        }
     }
 }

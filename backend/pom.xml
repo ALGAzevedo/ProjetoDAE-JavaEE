@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pt.ipleiria.estg.dei.ei.dae.cardiacos</groupId>
+    <groupId>pt.ipleiria.estg.dei.ei.dae</groupId>
     <artifactId>cardiacos</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>cardiacos</name>
@@ -66,6 +66,12 @@
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>2.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
