@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -28,7 +29,7 @@ public class ConfigBean {
     @PostConstruct
     public void PopulateDB() throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
         Administrator admin = new Administrator("Joao Ferreira", "JF_admin", "JF@mail.pt", Gender.MALE,
-                new GregorianCalendar(1989, 5, 9).getTime(), Country.PORTUGAL, "12345678912", "12345678",
+                LocalDate.of(1989, 5, 9), Country.PORTUGAL, "12345678912", "12345678",
                 MaritalStatus.SINGLE, "Rua centra", "Leiria", "2420-208", "963768088",
                 "963768088");
         Administrator createdAdmin =  administratorBean.create(admin);

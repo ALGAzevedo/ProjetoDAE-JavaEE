@@ -7,7 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -25,28 +25,28 @@ public class HealthcareProfessional extends User{
     }
 
     public HealthcareProfessional(String name, String username, String email,
-                                  Gender gender, Date birthDate, Country country, String social_security_number,
+                                  Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
                                   String password, MaritalStatus maritalStatus, String address, String city,
-                                  String postal_code, String phone_number, String emergency_phone_number,
-                                  String institutional_email, String institutional_phone) {
-        super(name, username, email, gender, birthDate, country, social_security_number, password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
-        this.institutionalEmail = institutional_email;
-        this.institutionalPhone = institutional_phone;
+                                  String postalCode, String phoneNumber, String emergencyPhoneNumberumber,
+                                  String institutionalEmail, String institutionalPhone) {
+        super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumberumber);
+        this.institutionalEmail = institutionalEmail;
+        this.institutionalPhone = institutionalPhone;
     }
 
     public String getInstitutionalEmail() {
         return institutionalEmail;
     }
 
-    public void setInstitutionalEmail(String institutional_email) {
-        this.institutionalEmail = institutional_email;
+    public void setInstitutionalEmail(String institutionalEmail) {
+        this.institutionalEmail = institutionalEmail;
     }
 
     public String getInstitutionalPhone() {
         return institutionalPhone;
     }
 
-    public void setInstitutionalPhone(String institutional_phone) {
-        this.institutionalPhone = institutional_phone;
+    public void setInstitutionalPhone(String institutionalPhone) {
+        this.institutionalPhone = institutionalPhone;
     }
 }

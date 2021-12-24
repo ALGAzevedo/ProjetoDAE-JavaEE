@@ -14,13 +14,13 @@ public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
     }
 
     public HealthcareProfessionalResponseDTO(String name, String username, String email, Gender gender,
-                                             Date birthDate, Country country, String social_security_number,
+                                             Date birthDate, Country country, String socialSecurityNumber,
                                              MaritalStatus maritalStatus, String address, String city,
-                                             String postal_code, String phone_number,
-                                             String emergency_phone_number, String institutionalEmail,
+                                             String postalCode, String phoneNumber,
+                                             String emergencyPhoneNumber, String institutionalEmail,
                                              String institutionalPhone) {
 
-        super(name, username, email, gender, birthDate, country, social_security_number, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
+        super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
     }

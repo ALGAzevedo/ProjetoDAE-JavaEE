@@ -15,6 +15,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,12 +36,12 @@ public class User extends BaseEntity{
     @NotNull
     private Gender gender;
 
-    private Date birthDate;
+    private LocalDate birthDate;
     @NotNull
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
-            message="{invalid.social_security_number}")
+            message="{invalid.socialSecurityNumber}")
     private String socialSecurityNumber;
 
     @NotNull
@@ -61,9 +62,9 @@ public class User extends BaseEntity{
     }
 
     public User(String name, String username, String email,
-                Gender gender, Date birthDate, Country country, String social_security_number,
+                Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
                 String password, MaritalStatus maritalStatus, String address, String city,
-                String postal_code, String phone_number, String emergency_phone_number) {
+                String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
         this.name = name;
         this.username = username;
@@ -71,14 +72,14 @@ public class User extends BaseEntity{
         this.gender = gender;
         this.birthDate = birthDate;
         this.country = country;
-        this.socialSecurityNumber = social_security_number;
+        this.socialSecurityNumber = socialSecurityNumber;
         this.password = hashPassword(password);
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postalCode = postal_code;
-        this.phoneNumber = phone_number;
-        this.emergencyPhoneNumber = emergency_phone_number;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
     //GETTERS AND SETTERS
@@ -115,11 +116,11 @@ public class User extends BaseEntity{
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -135,8 +136,8 @@ public class User extends BaseEntity{
         return socialSecurityNumber;
     }
 
-    public void setSocialSecurityNumber(String social_security_number) {
-        this.socialSecurityNumber = social_security_number;
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
     public String getPassword() {
@@ -175,40 +176,40 @@ public class User extends BaseEntity{
         return postalCode;
     }
 
-    public void setPostalCode(String postal_code) {
-        this.postalCode = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phone_number) {
-        this.phoneNumber = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmergencyPhoneNumber() {
         return emergencyPhoneNumber;
     }
 
-    public void setEmergencyPhoneNumber(String emergency_phone_number) {
-        this.emergencyPhoneNumber = emergency_phone_number;
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
     public Date getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date last_login) {
-        this.lastLogin = last_login;
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public Date getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Date is_deleted) {
-        this.isDeleted = is_deleted;
+    public void setIsDeleted(Date isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 

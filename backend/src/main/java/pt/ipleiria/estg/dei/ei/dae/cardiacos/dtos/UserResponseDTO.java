@@ -25,22 +25,22 @@ public class UserResponseDTO implements DTO{
     }
 
     public UserResponseDTO(String name, String username, String email,
-                           Gender gender, Date birthDate, Country country, String social_security_number,
-                           MaritalStatus maritalStatus, String address, String city, String postal_code,
-                           String phone_number, String emergency_phone_number) {
+                           Gender gender, Date birthDate, Country country, String socialSecurityNumber,
+                           MaritalStatus maritalStatus, String address, String city, String postalCode,
+                           String phoneNumber, String emergencyPhoneNumber) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.gender = gender;
         this.birthDate = birthDate;
         this.country = country;
-        this.socialSecurityNumber = social_security_number;
+        this.socialSecurityNumber = socialSecurityNumber;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
-        this.postalCode = postal_code;
-        this.phoneNumber = phone_number;
-        this.emergencyPhoneNumber = emergency_phone_number;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
     public String getName() {
