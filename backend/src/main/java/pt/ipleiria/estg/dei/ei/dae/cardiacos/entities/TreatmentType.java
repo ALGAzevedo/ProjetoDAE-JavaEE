@@ -1,7 +1,10 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,28 +24,42 @@ import java.util.Date;
 public class TreatmentType {
     @Id
     @GeneratedValue
+    @Getter
+    @Setter
     private Integer code;
 
     @NotNull
+    @Getter
+    @Setter
     private String name;
 
     @Nullable
+    @Getter
+    @Setter
     private String description;
 
     @NotNull
+    @Getter
+    @Setter
     private Date startDate;
 
     @NotNull
+    @Getter
+    @Setter
     private Date endDate;
 
     @ManyToOne
     @JoinColumn(name = "PROFESSIONAL_TREATMENT")
     @NotNull
+    @Getter
+    @Setter
     private HealthcareProfessional healthCareProfessional;
 
     @ManyToOne
     @JoinColumn(name = "PRC_TREATMENT")
     @NotNull
+    @Getter
+    @Setter
     private PRC prc;
 
     public TreatmentType() {
@@ -56,59 +73,4 @@ public class TreatmentType {
         this.healthCareProfessional = healthCareProfessional;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public HealthcareProfessional getHealthCareProfessional() {
-        return healthCareProfessional;
-    }
-
-    public void setHealthCareProfessional(HealthcareProfessional healthCareProfessional) {
-        this.healthCareProfessional = healthCareProfessional;
-    }
-
-    public PRC getPrc() {
-        return prc;
-    }
-
-    public void setPrc(PRC prc) {
-        this.prc = prc;
-    }
 }

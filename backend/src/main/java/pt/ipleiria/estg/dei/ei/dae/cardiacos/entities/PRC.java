@@ -2,6 +2,8 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.*;
 
 import javax.persistence.*;
@@ -26,26 +28,40 @@ public class PRC extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
+    @Getter
+    @Setter
     private Integer code;
 
     @NotNull
+    @Getter
+    @Setter
     private String name;
 
     @Nullable
+    @Getter
+    @Setter
     private String description;
 
     @NotNull
+    @Getter
+    @Setter
     private Date startDate;
 
     @NotNull
+    @Getter
+    @Setter
     private Date endDate;
 
     @OneToMany(mappedBy = "prc", cascade = CascadeType.REMOVE)
+    @Getter
+    @Setter
     private List<TreatmentType> treatmentTypeList;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "PATIENT_PRC")
+    @Getter
+    @Setter
     private Patient patient;
 
 
@@ -62,65 +78,7 @@ public class PRC extends BaseEntity implements Serializable {
         this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<TreatmentType> getTreatmentTypeList() {
-        return treatmentTypeList;
-    }
-
-    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
-        this.treatmentTypeList = treatmentTypeList;
-    }
-
-    public void addTreatment(TreatmentType treatmentType) {
-        if(!this.treatmentTypeList.contains(treatmentType)) {
-            this.treatmentTypeList.add(treatmentType);
-        }
-    }
-
     public Patient getPatient() {
         return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 }

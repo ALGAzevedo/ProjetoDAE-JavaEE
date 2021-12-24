@@ -19,7 +19,7 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @EJB
     protected PRCBean prcBean;
-    
+
     @Override
     protected PRCBean getEntityBean() {
         return prcBean;

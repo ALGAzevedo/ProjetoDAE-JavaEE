@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
 
 import java.util.Date;
@@ -7,11 +9,23 @@ import java.util.List;
 
 public class PRCResponseDTO implements DTO{
 
+    @Getter
+    @Setter
     private String name;
+    @Getter
+    @Setter
     private String description;
+    @Getter
+    @Setter
     private Date startDate;
+    @Getter
+    @Setter
     private Date endDate;
+    @Getter
+    @Setter
     private String patientUsername;
+    @Getter
+    @Setter
     private List<TreatmentType> treatmentTypeList;
 
     public PRCResponseDTO() {
@@ -36,51 +50,4 @@ public class PRCResponseDTO implements DTO{
         this.treatmentTypeList = treatmentTypeList;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getPatientUsername() {
-        return patientUsername;
-    }
-
-    public void setPatientUsername(String patientUsername) {
-        this.patientUsername = patientUsername;
-    }
-
-    public List<TreatmentType> getTreatmentTypeList() {
-        return treatmentTypeList;
-    }
-
-    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
-        this.treatmentTypeList = treatmentTypeList;
-    }
 }
