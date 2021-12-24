@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,12 +45,12 @@ public class PRC extends BaseEntity implements Serializable {
     @NotNull
     @Getter
     @Setter
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull
     @Getter
     @Setter
-    private Date endDate;
+    private LocalDate endDate;
 
     @OneToMany(mappedBy = "prc", cascade = CascadeType.REMOVE)
     @Getter
@@ -68,7 +69,7 @@ public class PRC extends BaseEntity implements Serializable {
         this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
-    public PRC(String name, String description, Date startDate, Date endDate, Patient patient) {
+    public PRC(String name, String description, LocalDate startDate, LocalDate endDate, Patient patient) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;

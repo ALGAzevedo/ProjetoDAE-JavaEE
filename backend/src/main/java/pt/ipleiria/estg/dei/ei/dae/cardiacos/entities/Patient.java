@@ -33,11 +33,17 @@ public class Patient extends User{
         }
 
         public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
-                       Country country, String social_security_number, String password, MaritalStatus maritalStatus,
-                       String address, String city, String postal_code, String phone_number, String emergency_phone_number,
-                       List<PRC> prcList) {
-                super(name, username, email, gender, birthDate, country, social_security_number, password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
+                       Country country, String socialSecurityNumber, String password, MaritalStatus maritalStatus,
+                       String address, String city, String postalCode, String phoneNumber, String emergencyPhoneNumber) {
+                super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = new LinkedList<PRC>();
+        }
+        public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
+                       Country country, String socialSecurityNumber, String password, MaritalStatus maritalStatus,
+                       String address, String city, String postalCode, String phoneNumber, String emergencyPhoneNumber,
+                       List<PRC> prcList) {
+                super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+                this.prcList = prcList;
         }
 
         public List<PRC> getPrcList() {
