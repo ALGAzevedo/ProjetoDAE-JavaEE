@@ -13,9 +13,6 @@ import java.util.Date;
 
 
 @Entity
-@Table(
-        name = "ADMINISTRATORS"
-)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllAdministrators",

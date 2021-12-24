@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
@@ -48,7 +49,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @POST
     @Path("/")
-    public Response create(D dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException {
+    public Response create(D dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException {
         var entity = mapper.load(dto, getEntityBean().getEntityClass());
         getEntityBean().create(entity);
 

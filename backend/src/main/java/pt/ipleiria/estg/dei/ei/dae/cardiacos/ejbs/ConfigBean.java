@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,7 +28,7 @@ public class ConfigBean {
 
 
     @PostConstruct
-    public void PopulateDB() throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
+    public void PopulateDB() throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException, MyUniqueConstraintViolationException {
         Administrator admin = new Administrator("Joao Ferreira", "JF_admin", "JF@mail.pt", Gender.MALE,
                 LocalDate.of(1989, 5, 9), Country.PORTUGAL, "12345678912", "12345678",
                 MaritalStatus.SINGLE, "Rua centra", "Leiria", "2420-208", "963768088",

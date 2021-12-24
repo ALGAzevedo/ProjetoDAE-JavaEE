@@ -11,10 +11,6 @@ import java.util.List;
 
 
 @Entity
-@Table(
-        name = "HEALTH_CARE_PROFESSIONALS"
-//        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
-)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllHealthcareProfessionals",
@@ -22,7 +18,9 @@ import java.util.List;
         )
 })
 public class HealthcareProfessional extends User{
+    @Column(unique=true)
     private String institutionalEmail;
+    @Column(unique=true)
     private String institutionalPhone;
 
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS

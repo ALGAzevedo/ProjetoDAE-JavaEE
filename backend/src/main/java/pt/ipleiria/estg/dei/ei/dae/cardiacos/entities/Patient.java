@@ -13,9 +13,6 @@ import java.util.List;
 
 
 @Entity
-@Table(
-        name = "PATIENTS"
-)
 @NamedQueries({
         @NamedQuery(
                 name = "getAllPatients",

@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
 import javax.annotation.PostConstruct;
@@ -54,14 +55,14 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
         return em.createNamedQuery("getAll" + entityClass.getSimpleName() + "s", entityClass).getResultList();
     }
 
-    public void preCreate(E entity) throws MyEntityExistsException {
+    public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException {
 
     }
     public void postCreate(E entity) {
 
     }
 
-    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException {
+    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException {
         preCreate(entity);
         try {
             em.persist(entity);
