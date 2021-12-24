@@ -1,22 +1,22 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
 public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
-    private String institutional_email;
-    private String institutional_phone;
+    private String institutionalEmail;
+    private String institutionalPhone;
 
-    public String getInstitutional_email() {
-        return institutional_email;
+    public String getInstitutionalEmail() {
+        return institutionalEmail;
     }
 
-    public void setInstitutional_email(String institutional_email) {
-        this.institutional_email = institutional_email;
+    public void setInstitutionalEmail(String institutionalEmail) {
+        this.institutionalEmail = institutionalEmail;
     }
 
-    public String getInstitutional_phone() {
-        return institutional_phone;
+    public String getInstitutionalPhone() {
+        return institutionalPhone;
     }
 
-    public void setInstitutional_phone(String institutional_phone) {
-        this.institutional_phone = institutional_phone;
+    public void setInstitutionalPhone(String institutionalPhone) {
+        this.institutionalPhone = institutionalPhone;
     }
 }
