@@ -21,7 +21,7 @@ import java.util.Date;
                 query = "SELECT c FROM TreatmentType c ORDER BY c.name" // JPQL
         )
 })
-public class TreatmentType {
+public class TreatmentType extends BaseEntity{
     @Id
     @GeneratedValue
     @Getter

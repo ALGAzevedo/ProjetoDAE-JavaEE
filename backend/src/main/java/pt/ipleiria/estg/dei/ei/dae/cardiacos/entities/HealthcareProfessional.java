@@ -4,10 +4,10 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Entity
@@ -23,10 +23,6 @@ import java.time.LocalDate;
 })
 public class HealthcareProfessional extends User{
     private String institutionalEmail;
-    private String institutionalPhone;
-
-    private String institutionalEmail;
-
     private String institutionalPhone;
 
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS

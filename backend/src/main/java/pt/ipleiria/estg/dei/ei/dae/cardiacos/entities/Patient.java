@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Patient extends User{
                 this.prcList = new LinkedList<PRC>();
         }
 
-        public Patient(String name, String username, String email, Gender gender, Date birthDate,
+        public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
                        Country country, String social_security_number, String password, MaritalStatus maritalStatus,
                        String address, String city, String postal_code, String phone_number, String emergency_phone_number,
                        List<PRC> prcList) {

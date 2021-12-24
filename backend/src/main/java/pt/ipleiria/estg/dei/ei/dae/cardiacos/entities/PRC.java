@@ -4,7 +4,6 @@ import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
 import lombok.Getter;
 import lombok.Setter;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -76,9 +75,5 @@ public class PRC extends BaseEntity implements Serializable {
         this.endDate = endDate;
         this.patient = patient;
         this.treatmentTypeList = new LinkedList<TreatmentType>();
-    }
-
-    public Patient getPatient() {
-        return patient;
     }
 }
