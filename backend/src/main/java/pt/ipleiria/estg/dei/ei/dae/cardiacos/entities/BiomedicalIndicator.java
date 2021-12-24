@@ -5,12 +5,11 @@ import io.smallrye.common.constraint.NotNull;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 @Table(name = "BiomedicalIndicators")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
-public class BiomedicalIndicator<T> {
+public class BiomedicalIndicator<T> extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +20,8 @@ public class BiomedicalIndicator<T> {
 
     private String unity;
 
-    @CollectionTable(name="BiomedicalIndicatorsValues")
-    @ElementCollection (fetch = FetchType.LAZY)
-    private LinkedList<T> values;
+    @OneToMany(mappedBy = "id")
+    private LinkedList<BiomedicalIndicatorMeasure<T>> values;
 
     //TODO REGISTO HISTORICO
     private Date deletedAt;
@@ -63,11 +61,11 @@ public class BiomedicalIndicator<T> {
         this.unity = unity;
     }
 
-    public LinkedList<T> getValues() {
+    public LinkedList<BiomedicalIndicatorMeasure<T>> getValues() {
         return new LinkedList<>(values);
     }
 
-    public void setValues(LinkedList<T> values) {
+    public void setValues(LinkedList<BiomedicalIndicatorMeasure<T>> values) {
         this.values = values;
     }
 
@@ -77,5 +75,11 @@ public class BiomedicalIndicator<T> {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void add(BiomedicalIndicatorMeasure<T> measure) {
+        if(measure != null) {
+            values.add(measure);
+        }
     }
 }
