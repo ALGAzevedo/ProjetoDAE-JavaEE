@@ -65,12 +65,13 @@ public class TreatmentType extends BaseEntity{
     public TreatmentType() {
     }
 
-    public TreatmentType(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional) {
+    public TreatmentType(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.healthCareProfessional = healthCareProfessional;
+        this.prc = prc;
     }
 
 }
