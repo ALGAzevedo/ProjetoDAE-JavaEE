@@ -7,9 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
@@ -24,6 +22,11 @@ public class Patient extends User{
         @Nullable
         @OneToMany(mappedBy = "patient", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
         private List<PRC> prcList;
+
+        @OneToMany(mappedBy = "patient")
+        private HashSet<BiomedicalIndicator<?>> biomedicalRegisters;
+
+
 
         public Patient() {
                 this.prcList = new LinkedList<PRC>();

@@ -23,6 +23,9 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     @OneToMany(mappedBy = "id")
     private LinkedList<BiomedicalIndicatorMeasure<T>> values;
 
+    @ManyToOne
+    private Patient patient;
+
     //TODO REGISTO HISTORICO
     private Date deletedAt;
     private Date updatedAt;
