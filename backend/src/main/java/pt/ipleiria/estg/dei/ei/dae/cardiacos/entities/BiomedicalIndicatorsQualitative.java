@@ -12,7 +12,7 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     @ElementCollection(fetch = FetchType.LAZY)
     private Set<String> possibleValues;
 
-    public BiomedicalIndicatorsQualitative() {
+    public BiomedicalIndicatorsQualitative()  {
         this.possibleValues = new HashSet<>();
     }
 
@@ -43,5 +43,4 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     {
         this.possibleValues.remove(value);
     }
-
 }

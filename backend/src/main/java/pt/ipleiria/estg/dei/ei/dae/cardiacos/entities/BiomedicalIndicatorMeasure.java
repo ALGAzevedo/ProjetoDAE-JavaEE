@@ -24,6 +24,11 @@ public class BiomedicalIndicatorMeasure<T> {
         this.date = date;
     }
 
+    public BiomedicalIndicatorMeasure(T value) {
+        this.value = value;
+        this.date = new Date();
+    }
+
     public BiomedicalIndicatorMeasure() {
 
     }
