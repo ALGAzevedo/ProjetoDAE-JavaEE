@@ -7,13 +7,14 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 
 import java.util.Date;
 
-public class BehaviourResponseDTO extends TreatmentTypeResponseDTO {
+public class DietResponseDTO extends TreatmentTypeResponseDTO {
 
-    public BehaviourResponseDTO() {
+    public DietResponseDTO() {
     }
 
-    public BehaviourResponseDTO(String name, String description, Date startDate, Date endDate,
-                           HealthcareProfessional healthCareProfessional, PRC prc) {
+    public DietResponseDTO(String name, String description, Date startDate, Date endDate,
+                              HealthcareProfessional healthCareProfessional, PRC prc) {
         super(name, description, startDate, endDate, healthCareProfessional, prc);
     }
+
 }
