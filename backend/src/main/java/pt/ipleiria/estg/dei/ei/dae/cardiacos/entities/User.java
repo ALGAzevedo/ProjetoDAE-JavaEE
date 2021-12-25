@@ -35,7 +35,7 @@ public class User extends BaseEntity{
     private String email;
     @NotNull
     private Gender gender;
-
+    @NotNull
     private LocalDate birthdate;
     @NotNull
     private Country country;
@@ -51,7 +51,11 @@ public class User extends BaseEntity{
     private String address;
     private String city;
     private String postalCode;
+    @Pattern(regexp="^[9][0-9]{8}$",
+            message="{invalid.phoneNumber}")
     private String phoneNumber;
+    @Pattern(regexp="^[9][0-9]{8}$",
+            message="{invalid.emergencyPhoneNumber}")
     private String emergencyPhoneNumber;
 
     private Date lastLogin;

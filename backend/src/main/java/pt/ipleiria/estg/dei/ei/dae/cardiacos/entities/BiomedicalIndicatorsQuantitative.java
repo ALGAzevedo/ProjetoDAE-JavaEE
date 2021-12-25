@@ -42,4 +42,8 @@ public class BiomedicalIndicatorsQuantitative extends BiomedicalIndicator<Double
     public void setMax(Double max) {
         this.max = max;
     }
+    public boolean isValid(double value) {
+        return value >= min && value <= max;
+    }
+
 }

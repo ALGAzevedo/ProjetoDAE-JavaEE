@@ -1,10 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>{
@@ -35,12 +32,20 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     }
 
     public void addNewValue(String value) {
-        if(!value.equals(""))
-        this.possibleValues.add(value);
+        if (!value.equals(""))
+            this.possibleValues.add(value.toUpperCase());
     }
-
     public void removeVal(String value)
     {
         this.possibleValues.remove(value);
+    }
+
+    //TODO: ESTES METODOS DEVEM ESTAR AQUI OU NO BEAN?
+    public boolean containsValue(String value) {
+        return possibleValues.contains(value.toUpperCase());
+    }
+
+    public boolean isValid(String value) {
+        return containsValue(value);
     }
 }

@@ -5,6 +5,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +21,11 @@ import java.util.List;
 })
 public class HealthcareProfessional extends User{
     @Column(unique=true)
+    @Email
     private String institutionalEmail;
     @Column(unique=true)
+    @Pattern(regexp="^[9][0-9]{8}$",
+            message="{invalid.institutionalPhone}")
     private String institutionalPhone;
 
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS

@@ -25,8 +25,7 @@ public class Patient extends User{
 
 
         @OneToMany(mappedBy = "patient")
-        private HashSet<BiomedicalIndicator<?>> biomedicalRegisters;
-
+        private HashMap<Long, BiomedicalIndicator<?>> biomedicalRegisters;
 
 
         public Patient() {
@@ -39,6 +38,7 @@ public class Patient extends User{
                        List<PRC> prcList) {
                 super(name, username, email, gender, birthDate, country, social_security_number, password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
                 this.prcList = new LinkedList<PRC>();
+                this.biomedicalRegisters = new HashMap<>();
         }
 
         public List<PRC> getPrcList() {
@@ -53,5 +53,23 @@ public class Patient extends User{
                 if(!this.prcList.contains(prc)) {
                         this.prcList.add(prc);
                 }
+        }
+
+        public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date) {
+                if(!this.biomedicalRegisters.containsKey(indicator.getId())) {
+                        this.biomedicalRegisters.put(indicator.getId(), indicator);
+                }
+
+                indicator.add(new BiomedicalIndicatorMeasure<Double>(value, date));
+
+        }
+
+        public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date) {
+                if(!this.biomedicalRegisters.containsKey(indicator.getId())) {
+                        this.biomedicalRegisters.put(indicator.getId(), indicator);
+                }
+
+                indicator.add(new BiomedicalIndicatorMeasure<String>(value, date));
+
         }
 }

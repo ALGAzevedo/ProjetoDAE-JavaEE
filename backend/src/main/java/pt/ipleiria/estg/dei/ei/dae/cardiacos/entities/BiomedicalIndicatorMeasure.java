@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,20 +16,20 @@ public class BiomedicalIndicatorMeasure<T> {
     @NotNull
     private T value;
     @NotNull
-    private Date date;
+    private LocalDate date;
 
 
     @ManyToOne
     private BiomedicalIndicator<T> indicator;
 
-    public BiomedicalIndicatorMeasure(T value, Date date) {
+    public BiomedicalIndicatorMeasure(T value, LocalDate date) {
         this.value = value;
         this.date = date;
     }
 
     public BiomedicalIndicatorMeasure(T value) {
         this.value = value;
-        this.date = new Date();
+        this.date = LocalDate.now();
     }
 
     public BiomedicalIndicatorMeasure() {
@@ -43,11 +44,11 @@ public class BiomedicalIndicatorMeasure<T> {
         this.value = value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
