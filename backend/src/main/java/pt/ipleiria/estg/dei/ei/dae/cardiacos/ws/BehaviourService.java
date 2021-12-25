@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Path("behaviours") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-public class BehaviourService extends BaseService<Behaviour, String, BehaviourBean, BehaviourCreateDTO, BehaviourResponseDTO>{
+public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourBean, BehaviourCreateDTO, BehaviourResponseDTO>{
     @EJB
     private BehaviourBean behaviourBean;
     
