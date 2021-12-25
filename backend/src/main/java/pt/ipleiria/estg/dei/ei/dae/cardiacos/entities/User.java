@@ -36,7 +36,7 @@ public class User extends BaseEntity{
     @NotNull
     private Gender gender;
 
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     @NotNull
     private Country country;
     @NotNull
@@ -62,7 +62,7 @@ public class User extends BaseEntity{
     }
 
     public User(String name, String username, String email,
-                Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
+                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,
                 String password, MaritalStatus maritalStatus, String address, String city,
                 String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
@@ -70,7 +70,7 @@ public class User extends BaseEntity{
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
         this.password = hashPassword(password);
@@ -116,12 +116,12 @@ public class User extends BaseEntity{
         this.gender = gender;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(LocalDate birthDate) {
+        this.birthdate = birthDate;
     }
 
     public Country getCountry() {

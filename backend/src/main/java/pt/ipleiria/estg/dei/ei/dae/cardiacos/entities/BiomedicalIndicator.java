@@ -5,6 +5,7 @@ import io.smallrye.common.constraint.NotNull;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 @Table(name = "BiomedicalIndicators")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -20,8 +21,9 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
     private String unity;
 
-    @OneToMany(mappedBy = "id")
-    private LinkedList<BiomedicalIndicatorMeasure<T>> values;
+    @OneToMany(mappedBy = "indicator")
+    private List<BiomedicalIndicatorMeasure<T>> values;
+
 
     @ManyToOne
     private Patient patient;
@@ -29,8 +31,11 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     //TODO REGISTO HISTORICO
     private Date deletedAt;
     private Date updatedAt;
+
     @OneToOne
     private BiomedicalIndicator<T> anterior;
+
+
 
     public BiomedicalIndicator() {
         this.values = new LinkedList<>();

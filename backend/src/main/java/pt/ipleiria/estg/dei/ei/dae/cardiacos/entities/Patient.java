@@ -23,6 +23,7 @@ public class Patient extends User{
         @OneToMany(mappedBy = "patient", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
         private List<PRC> prcList;
 
+
         @OneToMany(mappedBy = "patient")
         private HashSet<BiomedicalIndicator<?>> biomedicalRegisters;
 

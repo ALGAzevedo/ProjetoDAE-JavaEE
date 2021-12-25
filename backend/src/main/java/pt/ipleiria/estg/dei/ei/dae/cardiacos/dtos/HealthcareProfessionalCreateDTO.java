@@ -22,7 +22,7 @@ public class HealthcareProfessionalCreateDTO extends UserCreateDTO {
     }
 
     public HealthcareProfessionalCreateDTO(String name, String username, String email, Gender gender,
-                                           int birthDateYear, int birthDateMonth, int birthDateDay,
+                                           LocalDate birthdate,
                                            Country country, String socialSecurityNumber, String password,
                                            MaritalStatus maritalStatus, String address, String city,
                                            String postalCode, String phoneNumber,
@@ -31,7 +31,7 @@ public class HealthcareProfessionalCreateDTO extends UserCreateDTO {
 
 
         super(name, username, email, gender,
-                birthDateYear, birthDateMonth, birthDateDay,
+                birthdate,
                 country, socialSecurityNumber, password, maritalStatus, address, city,
                 postalCode, phoneNumber, emergencyPhoneNumber);
 

@@ -4,6 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
@@ -14,13 +15,13 @@ public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
     }
 
     public HealthcareProfessionalResponseDTO(String name, String username, String email, Gender gender,
-                                             Date birthDate, Country country, String socialSecurityNumber,
+                                             LocalDate birthdate, Country country, String socialSecurityNumber,
                                              MaritalStatus maritalStatus, String address, String city,
                                              String postalCode, String phoneNumber,
                                              String emergencyPhoneNumber, String institutionalEmail,
                                              String institutionalPhone) {
 
-        super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+        super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
     }

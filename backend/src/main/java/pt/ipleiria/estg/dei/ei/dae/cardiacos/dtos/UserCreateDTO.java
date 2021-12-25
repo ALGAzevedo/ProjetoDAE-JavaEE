@@ -15,7 +15,7 @@ public class UserCreateDTO implements DTO{
     private String username;
     private String email;
     private Gender gender;
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     private Country country;
     private String socialSecurityNumber;
     private String password;
@@ -35,7 +35,7 @@ public class UserCreateDTO implements DTO{
 
 
     public UserCreateDTO(String name, String username, String email, Gender gender,
-                         int birthDateYear, int birthDateMonth, int birthDateDay, Country country, String socialSecurityNumber,
+                         LocalDate birthdate, Country country, String socialSecurityNumber,
                          String password, MaritalStatus maritalStatus, String address, String city,
                          String postalCode, String phoneNumber, String emergencyPhoneNumber){
 
@@ -44,7 +44,7 @@ public class UserCreateDTO implements DTO{
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = LocalDate.of(birthDateYear,birthDateMonth, birthDateDay);
+        this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
         this.password = password;
@@ -59,12 +59,12 @@ public class UserCreateDTO implements DTO{
 
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(LocalDate birthDate) {
+        this.birthdate = birthDate;
     }
 
     public String getName() {

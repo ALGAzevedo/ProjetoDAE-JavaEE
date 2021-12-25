@@ -4,6 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class UserResponseDTO implements DTO{
@@ -11,7 +12,7 @@ public class UserResponseDTO implements DTO{
     private String username;
     private String email;
     private Gender gender;
-    private Date birthDate;
+    private String birthDate;
     private Country country;
     private String socialSecurityNumber;
     private MaritalStatus maritalStatus;
@@ -25,14 +26,14 @@ public class UserResponseDTO implements DTO{
     }
 
     public UserResponseDTO(String name, String username, String email,
-                           Gender gender, Date birthDate, Country country, String socialSecurityNumber,
+                           Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
                            MaritalStatus maritalStatus, String address, String city, String postalCode,
                            String phoneNumber, String emergencyPhoneNumber) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthDate = birthDate.toString();
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
         this.maritalStatus = maritalStatus;
@@ -75,12 +76,12 @@ public class UserResponseDTO implements DTO{
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getBirthDate() {
+        return birthDate.toString();
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate.toString();
     }
 
     public Country getCountry() {

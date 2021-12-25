@@ -4,10 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIcicatorQualitativeA
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQualitativeDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQuantitativeDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
