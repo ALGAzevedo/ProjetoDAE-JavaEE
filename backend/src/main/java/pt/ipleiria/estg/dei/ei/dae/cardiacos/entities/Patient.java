@@ -55,14 +55,14 @@ public class Patient extends User{
         }
 
         public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date) {
+                biomedicalRegisters.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator));
 
-                indicator.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator));
 
         }
 
         public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date) {
 
-                indicator.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator));
+                biomedicalRegisters.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator));
 
         }
 }
