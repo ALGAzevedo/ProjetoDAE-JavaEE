@@ -61,8 +61,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
 
     }
 
-    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException {
-    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
+    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException {
         preCreate(entity);
         try {
             em.persist(entity);
