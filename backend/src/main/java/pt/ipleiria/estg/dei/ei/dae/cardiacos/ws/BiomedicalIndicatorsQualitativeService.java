@@ -1,8 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQualitativeDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQuantitativeDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -16,9 +14,9 @@ import javax.ws.rs.core.Response;
 
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-@Path("BiomedicalIndicatorsQualitative") // relative url web path for this service
+@Path("biomedicalindicators/qualitative") // relative url web path for this service
 public class BiomedicalIndicatorsQualitativeService extends BaseService<BiomedicalIndicatorsQualitative, Long, BiomedicalIndicatorsQualitativeBean,
-        BiomedicalIndicatorQualitativeDTO, BiomedicalIndicatorQuantitativeDTO> {
+        BiomedicalIndicatorQualitativeCreateDTO, BiomedicalIndicatorQualitativeResponseDTO> {
     @EJB
     BiomedicalIndicatorsQualitativeBean biomedicalIndicatorsQualitativeBean;
 

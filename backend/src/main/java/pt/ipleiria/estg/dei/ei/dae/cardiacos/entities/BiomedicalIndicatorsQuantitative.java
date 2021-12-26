@@ -1,10 +1,19 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
-import io.smallrye.common.constraint.NotNull;
+
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllBiomedicalIndicatorsQuantitatives",
+                query = "SELECT s FROM BiomedicalIndicatorsQuantitative s ORDER BY s.name" // JPQL
+        )
+})
 public class BiomedicalIndicatorsQuantitative extends BiomedicalIndicator<Double>{
     @NotNull
     private Double min;

@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllBiomedicalIndicatorsQualitatives",
+                query = "SELECT s FROM BiomedicalIndicatorsQualitative s ORDER BY s.name" // JPQL
+        )
+})
 public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>{
     @CollectionTable(name="QualitativePossibleValues")
     @ElementCollection(fetch = FetchType.LAZY)

@@ -23,9 +23,8 @@ public class Patient extends User{
         @OneToMany(mappedBy = "patient", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
         private List<PRC> prcList;
 
-
-        @OneToMany(mappedBy = "patient")
-        private HashMap<Long, BiomedicalIndicator<?>> biomedicalRegisters;
+        @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
+        private List<PatientBiomedicalIndicator<?>> biomedicalRegisters;
 
 
         public Patient() {
@@ -38,7 +37,7 @@ public class Patient extends User{
                        List<PRC> prcList) {
                 super(name, username, email, gender, birthDate, country, social_security_number, password, maritalStatus, address, city, postal_code, phone_number, emergency_phone_number);
                 this.prcList = new LinkedList<PRC>();
-                this.biomedicalRegisters = new HashMap<>();
+                this.biomedicalRegisters = new LinkedList<>();
         }
 
         public List<PRC> getPrcList() {
@@ -56,20 +55,14 @@ public class Patient extends User{
         }
 
         public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date) {
-                if(!this.biomedicalRegisters.containsKey(indicator.getId())) {
-                        this.biomedicalRegisters.put(indicator.getId(), indicator);
-                }
 
-                indicator.add(new BiomedicalIndicatorMeasure<Double>(value, date));
+                indicator.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator));
 
         }
 
         public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date) {
-                if(!this.biomedicalRegisters.containsKey(indicator.getId())) {
-                        this.biomedicalRegisters.put(indicator.getId(), indicator);
-                }
 
-                indicator.add(new BiomedicalIndicatorMeasure<String>(value, date));
+                indicator.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator));
 
         }
 }

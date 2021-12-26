@@ -1,8 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQualitativeDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQuantitativeDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQualitativeResponseDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQuantitativeCreateDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicatorQuantitativeResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQuantitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
 
@@ -14,9 +14,9 @@ import javax.ws.rs.core.MediaType;
 
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-@Path("BiomedicalIndicatorsQuantitative") // relative url web path for this service
+@Path("biomedicalindicators/quantitative") // relative url web path for this service
 public class BiomedicalIndicatorsQuantitativeService extends BaseService<BiomedicalIndicatorsQuantitative, Long,
-        BiomedicalIndicatorsQuantitativeBean, BiomedicalIndicatorQuantitativeDTO, BiomedicalIndicatorQualitativeDTO> {
+        BiomedicalIndicatorsQuantitativeBean, BiomedicalIndicatorQuantitativeCreateDTO, BiomedicalIndicatorQuantitativeResponseDTO> {
 
     @EJB
     BiomedicalIndicatorsQuantitativeBean biomedicalIndicatorsQuantitativeBean;

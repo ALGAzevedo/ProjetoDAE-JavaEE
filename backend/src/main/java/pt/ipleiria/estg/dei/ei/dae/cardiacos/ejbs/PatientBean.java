@@ -45,6 +45,7 @@ public class PatientBean extends UserBean<Patient, String > {
 
         try {
             patient.addQuantitativeBiomedicalIndicator(quant, dto.getValue(), dto.getDate());
+            update(patient);
         } catch (ConstraintViolationException ex) {
             throw new MyConstraintViolationException(ex);
         }
@@ -69,6 +70,7 @@ public class PatientBean extends UserBean<Patient, String > {
 
         try {
             patient.addQualitativeBiomedicalIndicator(qual, dto.getValue(), dto.getDate());
+            update(patient);
         } catch (ConstraintViolationException ex) {
             throw new MyConstraintViolationException(ex);
         }

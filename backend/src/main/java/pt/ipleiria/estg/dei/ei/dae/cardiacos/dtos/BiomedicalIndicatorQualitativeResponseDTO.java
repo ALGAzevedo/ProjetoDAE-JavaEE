@@ -1,22 +1,18 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorMeasure;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
-
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
-public class BiomedicalIndicatorQualitativeDTO extends BiomedicalIndicatorCreateDTO<String> {
+public class BiomedicalIndicatorQualitativeResponseDTO extends BiomedicalIndicatorResponseDTO<String> {
     private Set<String> possibleValues;
 
-    public BiomedicalIndicatorQualitativeDTO(String name, String unity, Set<String> possibleValues) {
-        super(name, unity);
+    public BiomedicalIndicatorQualitativeResponseDTO(long id, String name, String unity, Set<String> possibleValues) {
+        super(id, name, unity);
 
         this.possibleValues = possibleValues == null ? new HashSet<>() : possibleValues;
     }
 
-    public BiomedicalIndicatorQualitativeDTO() {
+    public BiomedicalIndicatorQualitativeResponseDTO() {
         this.possibleValues = new HashSet<>();
     }
 
