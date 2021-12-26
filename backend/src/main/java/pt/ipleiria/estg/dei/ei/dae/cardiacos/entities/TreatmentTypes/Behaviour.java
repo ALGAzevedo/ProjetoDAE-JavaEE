@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes;
 
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class Behaviour extends TreatmentType {
     public Behaviour() {
     }
 
-    public Behaviour(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional) {
-        super(name, description, startDate, endDate, healthCareProfessional);
+    public Behaviour(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, description, startDate, endDate, healthCareProfessional, prc);
     }
 }
