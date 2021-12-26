@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 
 import java.util.List;
@@ -57,11 +56,11 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
     public void preCreate(E entity) throws MyEntityExistsException {
 
     }
-    public void postCreate(E entity) {
+    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException {
 
     }
 
-    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException {
+    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException {
         preCreate(entity);
         try {
             em.persist(entity);
