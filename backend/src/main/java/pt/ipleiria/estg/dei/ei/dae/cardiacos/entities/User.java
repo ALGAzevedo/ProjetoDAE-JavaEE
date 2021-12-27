@@ -54,7 +54,7 @@ public class User extends BaseEntity{
     private String address;
     private String city;
     private String postalCode;
-    @Nullable
+    @NotNull
     @Pattern(regexp="^[9][0-9]{8}$",
             message="Invalid Phone Number")
     private String phoneNumber;
