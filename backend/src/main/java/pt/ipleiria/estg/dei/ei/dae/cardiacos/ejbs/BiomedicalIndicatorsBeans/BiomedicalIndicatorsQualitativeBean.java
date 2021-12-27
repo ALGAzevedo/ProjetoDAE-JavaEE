@@ -1,8 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BaseBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -10,10 +9,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentExcepti
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
 import javax.ejb.Stateless;
-import javax.ws.rs.core.Response;
 import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
 
 @Stateless
 public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndicatorsQualitative,Long> {

@@ -1,6 +1,8 @@
-package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
+package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators;
 
-public class BiomedicalIndicatorResponseDTO<T> implements DTO{
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.DTO;
+
+public class BiomedicalIndicatorResponseDTO<T> implements DTO {
     private long id;
     private String name;
     private String unity;

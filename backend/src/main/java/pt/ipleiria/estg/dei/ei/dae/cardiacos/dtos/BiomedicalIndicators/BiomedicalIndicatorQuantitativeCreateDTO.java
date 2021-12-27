@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
+package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators;
 
 public class BiomedicalIndicatorQuantitativeCreateDTO extends BiomedicalIndicatorCreateDTO<Double> {
     private Double min;
