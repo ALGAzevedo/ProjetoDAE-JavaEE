@@ -21,6 +21,7 @@ import java.time.LocalDate;
 public class PatientBean extends UserBean<Patient, String > {
     @EJB
     private BiomedicalIndicatorsQualitativeBean qualitativeBean;
+    @EJB
     private BiomedicalIndicatorsQuantitativeBean quantitativeBean;
 
     public PatientBean() {

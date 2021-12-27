@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 
+import io.smallrye.common.constraint.Nullable;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
@@ -8,6 +9,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -26,6 +28,7 @@ import java.util.logging.Logger;
 public class User extends BaseEntity{
 
     @Id
+    @NotNull
     private String username;
     @NotNull
     private String name;
@@ -41,7 +44,7 @@ public class User extends BaseEntity{
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
-            message="{invalid.socialSecurityNumber}")
+            message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
     @NotNull
@@ -51,11 +54,13 @@ public class User extends BaseEntity{
     private String address;
     private String city;
     private String postalCode;
+    @Nullable
     @Pattern(regexp="^[9][0-9]{8}$",
-            message="{invalid.phoneNumber}")
+            message="Invalid Phone Number")
     private String phoneNumber;
+    @Nullable
     @Pattern(regexp="^[9][0-9]{8}$",
-            message="{invalid.emergencyPhoneNumber}")
+            message="Invalid Emergency Phone Number")
     private String emergencyPhoneNumber;
 
     private Date lastLogin;

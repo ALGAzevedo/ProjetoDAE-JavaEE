@@ -25,7 +25,7 @@ public class HealthcareProfessional extends User{
     private String institutionalEmail;
     @Column(unique=true)
     @Pattern(regexp="^[9][0-9]{8}$",
-            message="{invalid.institutionalPhone}")
+            message="Phone Number invalid")
     private String institutionalPhone;
 
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
