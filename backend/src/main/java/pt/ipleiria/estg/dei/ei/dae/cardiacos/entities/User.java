@@ -40,7 +40,7 @@ public class User extends BaseEntity{
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
-    @NotNull
+
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",

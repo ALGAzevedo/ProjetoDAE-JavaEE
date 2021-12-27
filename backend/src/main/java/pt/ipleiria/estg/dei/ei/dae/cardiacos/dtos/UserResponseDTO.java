@@ -44,6 +44,10 @@ public class UserResponseDTO implements DTO{
         this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getName() {
         return name;
     }
