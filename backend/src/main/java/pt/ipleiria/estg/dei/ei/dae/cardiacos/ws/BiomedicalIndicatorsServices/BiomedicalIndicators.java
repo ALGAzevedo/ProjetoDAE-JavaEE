@@ -1,13 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BiomedicalIndicatorsServices;
 
-
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BIomedicalIdicatorUpdateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalindicatorBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -26,8 +21,18 @@ public class BiomedicalIndicators {
     public Response PostQualitativeValue(){
         return Response.ok(biomedicalindicatorBean.getAll()).build();
 
+    }
+
+
+    //In this case it is a change from qualitative to quantitative or vice versa
+    @PUT
+    @Path("/{id}")
+    public Response PutBiomedicalIndicator(@PathParam("id") Long id, BIomedicalIdicatorUpdateDTO dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
+        return Response.ok(biomedicalindicatorBean.changeTypeOfIndicator(id, dto)).build();
 
     }
+
+
 
 
 

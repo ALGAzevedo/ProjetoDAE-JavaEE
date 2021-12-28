@@ -28,6 +28,14 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         super(name, unity);
         this.possibleValues = new HashSet<>();;
     }
+    public BiomedicalIndicatorsQualitative(String name, String unity, HashSet<String> values) {
+        super(name, unity);
+        this.possibleValues = values;
+    }
+    public BiomedicalIndicatorsQualitative(String name,HashSet<String> values) {
+        super(name);
+        this.possibleValues = values;
+    }
 
     public HashSet<String> getPossibleValues() {
         return new HashSet<>(possibleValues);

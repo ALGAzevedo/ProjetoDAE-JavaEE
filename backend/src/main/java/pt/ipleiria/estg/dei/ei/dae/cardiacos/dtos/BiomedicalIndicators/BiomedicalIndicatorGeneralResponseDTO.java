@@ -1,7 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators;
 
 import java.util.HashSet;
-import java.util.List;
 
 public class BiomedicalIndicatorGeneralResponseDTO {
     private long id;
@@ -10,7 +9,7 @@ public class BiomedicalIndicatorGeneralResponseDTO {
     private double min;
     private double max;
     private HashSet<String> possibleValues;
-    private String type;
+    private String indicatorType;
 
     public BiomedicalIndicatorGeneralResponseDTO(long id, String name, String unity, double min, double max, HashSet<String> possibleValues, String type) {
         this.id = id;
@@ -19,7 +18,10 @@ public class BiomedicalIndicatorGeneralResponseDTO {
         this.min = min;
         this.max = max;
         this.possibleValues = possibleValues;
-        this.type = type;
+        this.indicatorType = type;
+    }
+
+    public BiomedicalIndicatorGeneralResponseDTO() {
     }
 
     public long getId() {
@@ -70,11 +72,11 @@ public class BiomedicalIndicatorGeneralResponseDTO {
         this.possibleValues = possibleValues;
     }
 
-    public String getType() {
-        return type;
+    public String getIndicatorType() {
+        return indicatorType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIndicatorType(String indicatorType) {
+        this.indicatorType = indicatorType;
     }
 }

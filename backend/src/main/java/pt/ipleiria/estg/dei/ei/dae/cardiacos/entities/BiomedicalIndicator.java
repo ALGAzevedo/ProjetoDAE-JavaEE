@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,11 +29,11 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
 
     //TODO REGISTO HISTORICO
-    private Date deletedAt;
-    private Date updatedAt;
+    private LocalDate deletedAt;
+    private LocalDate updatedAt;
 
-    @OneToOne
-    private BiomedicalIndicator<T> anterior;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private BiomedicalIndicator<T> previous;
 
 
 
@@ -45,6 +46,7 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         this.name = name;
 
     }
+
 
     public BiomedicalIndicator(String name, String unity) {
         this();
@@ -90,5 +92,27 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         }
     }
 
+    public LocalDate getDeletedAt() {
+        return deletedAt;
+    }
 
+    public void setDeletedAt(LocalDate deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public BiomedicalIndicator<T> getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(BiomedicalIndicator<T> previous) {
+        this.previous = previous;
+    }
 }
