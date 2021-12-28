@@ -13,6 +13,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,22 +57,33 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         ModelMapper mapper = new ModelMapper();
         BiomedicalIndicator indicator = findOrFail(dto.getId());
 
+        //get type
+        Query query = em.createNativeQuery("SELECT dtype FROM biomedicalindicators WHERE ID =  ?");
+        query.setParameter(1, indicator.getId());
+
+        String type = query.getResultList().get(0).toString();
+
 
         BiomedicalIndicator newIndicator;
-        //new type == qualitative?
-        if(dto.getNewType().equalsIgnoreCase("QUALITATIVE")) {
+        //new type == qualitative? old type is really quantitative?
+        if(dto.getNewType().equalsIgnoreCase("QUALITATIVE") &&
+                type.equalsIgnoreCase("BiomedicalIndicatorsQuantitative")) {
+
             BiomedicalIndicatorsQualitative temp = new BiomedicalIndicatorsQualitative(dto.getName(), dto.getPossibleValues());
             temp.setPrevious(indicator);
             newIndicator = qualitativeBean.create(temp);
         }
-        else if(dto.getNewType().equalsIgnoreCase("QUANTITATIVE")) {
+        //new type == quantitative? old type == quantitative?
+        else if(dto.getNewType().equalsIgnoreCase("QUANTITATIVE") &&
+                type.equalsIgnoreCase("BiomedicalIndicatorsQualitative")) {
+
             BiomedicalIndicatorsQuantitative quant = new BiomedicalIndicatorsQuantitative(dto.getName(),
                     dto.getUnity(), dto.getMin(), dto.getMax());
             quant.setPrevious(indicator);
             newIndicator = quantitativeBean.create(quant);
         }
         else
-            throw new MyIllegalArgumentException("Invalid new type");
+            throw new MyIllegalArgumentException("Invalid Change of types");
 
         //idnicator should be "soft deleted"
         indicator.setDeletedAt(LocalDate.now());
@@ -79,11 +91,13 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
 
         return mapper.map(newIndicator, BiomedicalIndicatorGeneralResponseDTO.class);
 
-
-
     }
 
-
+    public List FindWithName(String name) {
+        Query query = em.createNamedQuery("FindWithName");
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
 
 }
 

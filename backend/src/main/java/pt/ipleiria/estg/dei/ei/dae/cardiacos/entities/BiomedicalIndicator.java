@@ -7,11 +7,18 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING, length=100)
 @Table(name = "BiomedicalIndicators")
+@NamedQueries({
+        @NamedQuery(
+                name = "FindWithName",
+                query = "SELECT s FROM BiomedicalIndicator s WHERE s.name = :name" // JPQL
+        ),
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class BiomedicalIndicator<T> extends BaseEntity {
 
@@ -114,5 +121,19 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
     public void setPrevious(BiomedicalIndicator<T> previous) {
         this.previous = previous;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BiomedicalIndicator<?> indicator = (BiomedicalIndicator<?>) o;
+        return Objects.equals(name, indicator.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

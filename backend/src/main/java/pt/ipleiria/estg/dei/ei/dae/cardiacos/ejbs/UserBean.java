@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -27,9 +28,9 @@ public class UserBean<E extends User, PK extends String> extends BaseBean<E, Str
     }
 
     public List findWithEmail(String email) {
-        return em.createQuery(
-                        "SELECT c FROM User c WHERE c.email = :custEmail")
-                .setParameter("custEmail", email)
-                .getResultList();
+        Query query = em.createNamedQuery("getWithEmail");
+        query.setParameter("email", email);
+        return query.getResultList();
     }
+
 }

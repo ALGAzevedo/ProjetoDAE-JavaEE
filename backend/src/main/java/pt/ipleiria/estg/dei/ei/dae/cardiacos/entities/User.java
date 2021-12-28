@@ -24,6 +24,12 @@ import java.util.logging.Logger;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(
+                name = "getWithEmail",
+                query = "SELECT s FROM User s WHERE s.email = :email" // JPQL
+        )
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User extends BaseEntity{
 
