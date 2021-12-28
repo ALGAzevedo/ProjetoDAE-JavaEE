@@ -8,11 +8,12 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Stateless
-public class UserBean<E extends User, PK extends String> extends BaseBean<E, String>{
+public class UserBean<E extends User> extends BaseBean<E, String>{
     public UserBean() {
     }
 
@@ -27,9 +28,19 @@ public class UserBean<E extends User, PK extends String> extends BaseBean<E, Str
     }
 
     public List findWithEmail(String email) {
-        return em.createQuery(
-                        "SELECT c FROM User c WHERE c.email = :custEmail")
-                .setParameter("custEmail", email)
-                .getResultList();
+        Query query = em.createNamedQuery("getWithEmail");
+        query.setParameter("email", email);
+        return query.getResultList();
     }
+
+    public User authenticate(final String username, final String password) throws Exception {
+
+        User user = findOrFail(username);
+        System.out.println(user.getPassword());
+        if (user != null && user.getPassword().equals(User.hashPassword(password))) {
+            return user;
+        }
+        throw new Exception("Failed logging in with username '" + username + "':unknown username or wrong password");
+    }
+
 }

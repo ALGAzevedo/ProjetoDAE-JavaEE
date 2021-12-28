@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolationException;
 
 @Stateless
 //public class AdministratorBean extends UserBean<Administrator, String> {
-public  class AdministratorBean extends UserBean<Administrator, String>
+public  class AdministratorBean extends UserBean<Administrator>
 {
 
     public AdministratorBean() {

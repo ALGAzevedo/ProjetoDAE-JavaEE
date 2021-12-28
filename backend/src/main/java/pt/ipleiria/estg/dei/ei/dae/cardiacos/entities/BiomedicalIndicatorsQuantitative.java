@@ -25,13 +25,13 @@ public class BiomedicalIndicatorsQuantitative extends BiomedicalIndicator<Double
     }
 
     public BiomedicalIndicatorsQuantitative(String name, Double min, Double max) {
-        super(name);
+        super(name,"QUANTITATIVE");
         this.min = min;
         this.max = max;
     }
 
     public BiomedicalIndicatorsQuantitative(String name, String unity, Double min, Double max) {
-        super(name, unity);
+        super(name, unity, "QUANTITATIVE");
         this.min = min;
         this.max = max;
     }

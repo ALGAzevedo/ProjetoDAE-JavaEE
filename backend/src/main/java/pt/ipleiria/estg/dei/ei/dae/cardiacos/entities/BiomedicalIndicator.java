@@ -3,14 +3,26 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING, length=100)
 @Table(name = "BiomedicalIndicators")
+@NamedQueries({
+        @NamedQuery(
+                name = "FindWithName",
+                query = "SELECT s FROM BiomedicalIndicator s WHERE UPPER(s.name) = UPPER(:name)" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllBiomedicalIndicators",
+                query = "SELECT s FROM BiomedicalIndicator s ORDER BY s.id desc" // JPQL
+        ),
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class BiomedicalIndicator<T> extends BaseEntity {
 
@@ -26,13 +38,15 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     @OneToMany(mappedBy = "indicator", cascade = CascadeType.PERSIST)
     private List<PatientBiomedicalIndicator<T>> values;
 
+    @NotNull
+    private String indicatorType;
 
     //TODO REGISTO HISTORICO
-    private Date deletedAt;
-    private Date updatedAt;
+    private LocalDate deletedAt;
+    private LocalDate updatedAt;
 
-    @OneToOne
-    private BiomedicalIndicator<T> anterior;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private BiomedicalIndicator<T> previous;
 
 
 
@@ -40,16 +54,30 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         this.values = new LinkedList<>();
     }
 
-    public BiomedicalIndicator(String name) {
+    public BiomedicalIndicator(String name, String indicatorType) {
         this();
         this.name = name;
-
+        this.indicatorType = indicatorType;
     }
 
-    public BiomedicalIndicator(String name, String unity) {
+
+    public BiomedicalIndicator(String name, String unity, String indicatorType) {
         this();
         this.name = name;
         this.unity = unity;
+        this.indicatorType = indicatorType;
+    }
+
+    public void setValues(List<PatientBiomedicalIndicator<T>> values) {
+        this.values = values;
+    }
+
+    public String getIndicatorType() {
+        return indicatorType;
+    }
+
+    public void setIndicatorType(String indicatorType) {
+        this.indicatorType = indicatorType;
     }
 
     public String getName() {
@@ -90,5 +118,41 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         }
     }
 
+    public LocalDate getDeletedAt() {
+        return deletedAt;
+    }
 
+    public void setDeletedAt(LocalDate deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public BiomedicalIndicator<T> getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(BiomedicalIndicator<T> previous) {
+        this.previous = previous;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BiomedicalIndicator<?> indicator = (BiomedicalIndicator<?>) o;
+        return Objects.equals(name, indicator.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }
