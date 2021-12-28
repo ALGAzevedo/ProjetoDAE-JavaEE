@@ -18,7 +18,7 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 
 @Stateless
-public class PatientBean extends UserBean<Patient, String > {
+public class PatientBean extends UserBean<Patient> {
     @EJB
     private BiomedicalIndicatorsQualitativeBean qualitativeBean;
     @EJB

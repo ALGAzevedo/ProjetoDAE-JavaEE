@@ -17,8 +17,9 @@ public class BiomedicalIndicatorsQuantitativeBean extends BaseBean<BiomedicalInd
 
     @Override
     public void preCreate(BiomedicalIndicatorsQuantitative entity) throws MyEntityExistsException {
-        //we need to make sure name is unique, we only can reuse name if new entity is an update from an older version
+        entity.setIndicatorType("QUANTITATIVE");
 
+        //we need to make sure name is unique, we only can reuse name if new entity is an update from an older version
         //id so we need to check name are not changing
         List<BiomedicalIndicator> previousIndicators = indicatorBean.FindWithName(entity.getName());
 

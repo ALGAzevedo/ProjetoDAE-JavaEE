@@ -160,7 +160,7 @@ public class User extends BaseEntity{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = hashPassword(password);
     }
 
     public MaritalStatus getMaritalStatus() {

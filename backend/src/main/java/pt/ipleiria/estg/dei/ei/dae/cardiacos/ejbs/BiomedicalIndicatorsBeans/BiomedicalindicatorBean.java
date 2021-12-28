@@ -13,7 +13,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
+import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
     private BiomedicalIndicatorsQuantitativeBean quantitativeBean;
 
 
+    /*
     public LinkedList<BiomedicalIndicatorGeneralResponseDTO> getAll() {
         List<BiomedicalIndicatorsQualitative> qualitative = qualitativeBean.all();
         List<BiomedicalIndicatorsQuantitative> quantitative = quantitativeBean.all();
@@ -46,7 +49,9 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
 
     }
 
-    public BiomedicalIndicatorGeneralResponseDTO changeTypeOfIndicator(Long id, BIomedicalIdicatorUpdateDTO dto) throws MyIllegalArgumentException, MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException {
+     */
+
+    public BiomedicalIndicator changeTypeOfIndicator(Long id, BIomedicalIdicatorUpdateDTO dto) throws MyIllegalArgumentException, MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException {
         //verify of its really the same old/new
         if(dto.getId() != id) {
             throw new MyIllegalArgumentException("Id's doesn't match");
@@ -57,17 +62,19 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         ModelMapper mapper = new ModelMapper();
         BiomedicalIndicator indicator = findOrFail(dto.getId());
 
-        //get type
-        Query query = em.createNativeQuery("SELECT dtype FROM biomedicalindicators WHERE ID =  ?");
-        query.setParameter(1, indicator.getId());
+        //is it soft deleted already?
+        if(indicator.getDeletedAt() != null) {
+            throw new EntityNotFoundException("Entity doens't exist");
+        }
 
-        String type = query.getResultList().get(0).toString();
+        //get type
+        String type = indicator.getIndicatorType();
 
 
         BiomedicalIndicator newIndicator;
         //new type == qualitative? old type is really quantitative?
         if(dto.getNewType().equalsIgnoreCase("QUALITATIVE") &&
-                type.equalsIgnoreCase("BiomedicalIndicatorsQuantitative")) {
+                type.equalsIgnoreCase("QUANTITATIVE")) {
 
             BiomedicalIndicatorsQualitative temp = new BiomedicalIndicatorsQualitative(dto.getName(), dto.getPossibleValues());
             temp.setPrevious(indicator);
@@ -75,7 +82,7 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         }
         //new type == quantitative? old type == quantitative?
         else if(dto.getNewType().equalsIgnoreCase("QUANTITATIVE") &&
-                type.equalsIgnoreCase("BiomedicalIndicatorsQualitative")) {
+                type.equalsIgnoreCase("QUALITATIVE")) {
 
             BiomedicalIndicatorsQuantitative quant = new BiomedicalIndicatorsQuantitative(dto.getName(),
                     dto.getUnity(), dto.getMin(), dto.getMax());
@@ -89,7 +96,7 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         indicator.setDeletedAt(LocalDate.now());
         update(indicator);
 
-        return mapper.map(newIndicator, BiomedicalIndicatorGeneralResponseDTO.class);
+        return newIndicator;
 
     }
 

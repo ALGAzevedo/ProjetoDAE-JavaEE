@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Stateless
-public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional, String> {
+public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional> {
     public HealthcareProfissionalBean() {
 
     }

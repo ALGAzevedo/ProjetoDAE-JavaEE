@@ -16,7 +16,11 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(
                 name = "FindWithName",
-                query = "SELECT s FROM BiomedicalIndicator s WHERE s.name = :name" // JPQL
+                query = "SELECT s FROM BiomedicalIndicator s WHERE UPPER(s.name) = UPPER(:name)" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllBiomedicalIndicators",
+                query = "SELECT s FROM BiomedicalIndicator s ORDER BY s.id desc" // JPQL
         ),
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -34,6 +38,8 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     @OneToMany(mappedBy = "indicator", cascade = CascadeType.PERSIST)
     private List<PatientBiomedicalIndicator<T>> values;
 
+    @NotNull
+    private String indicatorType;
 
     //TODO REGISTO HISTORICO
     private LocalDate deletedAt;
@@ -48,17 +54,30 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         this.values = new LinkedList<>();
     }
 
-    public BiomedicalIndicator(String name) {
+    public BiomedicalIndicator(String name, String indicatorType) {
         this();
         this.name = name;
-
+        this.indicatorType = indicatorType;
     }
 
 
-    public BiomedicalIndicator(String name, String unity) {
+    public BiomedicalIndicator(String name, String unity, String indicatorType) {
         this();
         this.name = name;
         this.unity = unity;
+        this.indicatorType = indicatorType;
+    }
+
+    public void setValues(List<PatientBiomedicalIndicator<T>> values) {
+        this.values = values;
+    }
+
+    public String getIndicatorType() {
+        return indicatorType;
+    }
+
+    public void setIndicatorType(String indicatorType) {
+        this.indicatorType = indicatorType;
     }
 
     public String getName() {

@@ -34,6 +34,8 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
             throw new MyEntityExistsException("There is already an entity with existing name");
         }
 
+        entity.setIndicatorType("QUALITATIVE");
+
 
         //Transform all values in set to be in uppercase
         HashSet<String> possibleValuesUpper = new HashSet<>();

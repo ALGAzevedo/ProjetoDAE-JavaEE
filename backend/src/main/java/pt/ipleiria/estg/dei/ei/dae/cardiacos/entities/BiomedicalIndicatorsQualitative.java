@@ -20,7 +20,7 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     }
 
     public BiomedicalIndicatorsQualitative(String name) {
-        super(name);
+        super(name, "QUALITATIVE");
         this.possibleValues = new HashSet<>();
     }
 
@@ -33,7 +33,7 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         this.possibleValues = values;
     }
     public BiomedicalIndicatorsQualitative(String name,HashSet<String> values) {
-        super(name);
+        super(name, "QUALITATIVE");
         this.possibleValues = values;
     }
 
