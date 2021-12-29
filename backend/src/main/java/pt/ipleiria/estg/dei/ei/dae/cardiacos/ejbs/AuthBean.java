@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.User;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -51,6 +52,17 @@ public class AuthBean extends BaseBean<Auth, String> {
             return auth;
         }
         throw new Exception("Failed logging in with username '" + username + "':unknown username or wrong password");
+    }
+
+    public User userMe(String subject) throws MyEntityNotFoundException {
+        //userBean is generic,we cant use it here, thats way we used em
+        User usr = em.find(User.class, subject);
+        if(usr == null) {
+            throw new MyEntityNotFoundException("User not found");
+        }
+        return usr;
+
+
     }
 
 
