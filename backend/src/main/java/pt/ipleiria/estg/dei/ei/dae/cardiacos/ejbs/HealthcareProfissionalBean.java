@@ -4,6 +4,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.User;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
@@ -19,7 +20,7 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional>
     }
 
     @Override
-    public void preCreate(HealthcareProfessional entity) throws MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
+    public void preCreate(HealthcareProfessional entity) throws MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         super.preCreate(entity);
 
         //verify institutional email
