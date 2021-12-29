@@ -2,9 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
 
 import org.modelmapper.ModelMapper;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorQualitativeCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.DTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BaseBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
@@ -66,6 +68,11 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
         var entity = getEntityBean().findOrFail(primaryKey);
 
         mapper.hydrate(entity, dto);
+        if(dto instanceof BiomedicalIndicatorQualitativeCreateDTO && ((BiomedicalIndicatorQualitativeCreateDTO)dto).getPossibleValues().isEmpty()) {
+            System.out.println("aqui");
+            ((BiomedicalIndicatorsQualitative)entity).getPossibleValues().clear();
+        }
+
         getEntityBean().update(entity);
 
         return Response.ok(mapper.serialize(entity, getDtoResponseClass())).build();

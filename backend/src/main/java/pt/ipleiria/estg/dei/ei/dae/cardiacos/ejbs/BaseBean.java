@@ -77,6 +77,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
         try {
             preUpdate(entity);
             em.merge(entity);
+            em.flush();
             postUpdate(entity);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);

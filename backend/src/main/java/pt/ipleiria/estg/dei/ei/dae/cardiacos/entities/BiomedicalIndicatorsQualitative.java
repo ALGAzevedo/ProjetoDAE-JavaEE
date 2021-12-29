@@ -37,12 +37,14 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         this.possibleValues = values;
     }
 
-    public HashSet<String> getPossibleValues() {
-        return new HashSet<>(possibleValues);
+    public Set<String> getPossibleValues() {
+        return this.possibleValues;
     }
 
-    public void setPossibleValues(HashSet<String> possibleValues) {
-        this.possibleValues = possibleValues;
+    public void setPossibleValues(Set<String> possibleValues) {
+        this.possibleValues.clear();
+        this.possibleValues.addAll(possibleValues);
+        //this.possibleValues = possibleValues;
     }
 
     public void addNewValue(String value) {

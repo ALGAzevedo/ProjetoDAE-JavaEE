@@ -54,10 +54,15 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
 
     @Override
     public void preUpdate(BiomedicalIndicatorsQualitative entity) {
-        if (entity.getPossibleValues() == null) {
-            entity.setPossibleValues(null);
+        entity.getPossibleValues().clear();
+
+
+        if (entity.getPossibleValues().isEmpty()) {
+            entity.getPossibleValues().clear();
             return;
         }
+        /*
+
         //Transform all values in set to be in uppercase
         HashSet<String> possibleValuesUpper = new HashSet<>();
         for (String possibleValue : entity.getPossibleValues()) {
@@ -65,6 +70,8 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
             possibleValuesUpper.add(possibleValue.toUpperCase());
         }
         entity.setPossibleValues(possibleValuesUpper);
+        *
+         */
     }
 
 
