@@ -45,7 +45,7 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
         //Transform all values in set to be in uppercase
         HashSet<String> possibleValuesUpper = new HashSet<>();
         for (String possibleValue : entity.getPossibleValues()) {
-            //Transfor value in upperCase
+            //Transform value in upperCase
             possibleValuesUpper.add(possibleValue.toUpperCase());
         }
 

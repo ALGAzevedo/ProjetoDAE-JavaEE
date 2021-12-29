@@ -24,7 +24,16 @@ public class PatientBean extends UserBean<Patient> {
     @EJB
     private BiomedicalIndicatorsQuantitativeBean quantitativeBean;
 
+    @EJB
+    private AuthBean authBean;
+
     public PatientBean() {
+
+    }
+    @Override
+    public void postCreate(Patient patient) {
+
+        //authBean.generateToken();
 
     }
 

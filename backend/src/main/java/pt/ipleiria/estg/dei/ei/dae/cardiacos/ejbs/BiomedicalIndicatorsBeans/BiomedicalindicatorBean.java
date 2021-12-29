@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BaseBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 
@@ -106,9 +107,14 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         var entity = findOrFail(primaryKey);
         preDestroy(entity);
         //if biomedicalIndicator has values associated to him we just soft delete it
-        if(entity.getValues() == null || entity.getValues().isEmpty()) {
+        if(entity.getPatientIndicatorValues().isEmpty()) {
             em.remove(entity);
         }else {
+            System.out.println("values");
+            LinkedList<PatientBiomedicalIndicator<?>> patInds = entity.getPatientIndicatorValues();
+            for (PatientBiomedicalIndicator<?> patInd : patInds) {
+                System.out.println("val->" + patInd.getValue());
+            }
             entity.setDeletedAt(LocalDate.now());
             update(entity);
         }

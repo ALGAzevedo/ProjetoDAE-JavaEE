@@ -5,9 +5,11 @@ import com.nimbusds.jwt.JWTParser;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.Jwt.Jwt;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AuthDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AuthBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.JwtBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.User;
 
 import javax.ejb.EJB;
@@ -25,20 +27,20 @@ public class LoginService {
     @EJB
     JwtBean jwtBean;
     @EJB
-    UserBean<User> userBean;
+    AuthBean authBean;
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
     public Response authenticateUser(AuthDTO authDTO) {
         try {
-            User user = userBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
-            if (user != null) {
-                if (user.getUsername() != null) {
-                    log.info("Generating JWT for user " + user.getUsername());
+            Auth auth = authBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
+            if (auth != null) {
+                if (auth.getUsername() != null) {
+                    log.info("Generating JWT for user " + auth.getUsername());
                 }
-                String token = jwtBean.createJwt(user.getUsername(), new
-                        String[]{user.getClass().getSimpleName()});
+                String token = jwtBean.createJwt(auth.getUsername(), new
+                        String[]{auth.getClass().getSimpleName()});
                 return Response.ok(new Jwt(token)).build();
             }
         } catch (Exception e) {

@@ -4,7 +4,6 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +39,7 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     private String unity;
 
     @OneToMany(mappedBy = "indicator", cascade = CascadeType.PERSIST)
-    private List<PatientBiomedicalIndicator<T>> values;
+    private List<PatientBiomedicalIndicator<T>> patientIndicatorValues;
 
     @NotNull
     private String indicatorType;
@@ -55,13 +54,14 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
 
     public BiomedicalIndicator() {
-        this.values = new LinkedList<>();
+        this.patientIndicatorValues = new LinkedList<>();
     }
 
     public BiomedicalIndicator(String name, String indicatorType) {
         this();
         this.name = name;
         this.indicatorType = indicatorType;
+        this.patientIndicatorValues = new LinkedList<>();
     }
 
 
@@ -70,10 +70,11 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         this.name = name;
         this.unity = unity;
         this.indicatorType = indicatorType;
+        this.patientIndicatorValues = new LinkedList<>();
     }
 
-    public void setValues(List<PatientBiomedicalIndicator<T>> values) {
-        this.values = values;
+    public void setPatientIndicatorValues(List<PatientBiomedicalIndicator<T>> values) {
+        this.patientIndicatorValues = values;
     }
 
     public String getIndicatorType() {
@@ -100,12 +101,12 @@ public class BiomedicalIndicator<T> extends BaseEntity {
         this.unity = unity;
     }
 
-    public LinkedList<PatientBiomedicalIndicator<T>> getValues() {
-        return new LinkedList<>(values);
+    public LinkedList<PatientBiomedicalIndicator<T>> getPatientIndicatorValues() {
+        return new LinkedList<>(patientIndicatorValues);
     }
 
     public void setValues(LinkedList<PatientBiomedicalIndicator<T>> values) {
-        this.values = values;
+        this.patientIndicatorValues = values;
     }
 
     public Long getId() {
@@ -118,7 +119,7 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
     public void add(PatientBiomedicalIndicator<T> measure) {
         if(measure != null) {
-            values.add(measure);
+            patientIndicatorValues.add(measure);
         }
     }
 
