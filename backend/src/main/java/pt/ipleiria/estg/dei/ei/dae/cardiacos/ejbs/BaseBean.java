@@ -88,7 +88,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
     public void preDestroy(E entity) {}
     public void postDestroy(E entity) {}
 
-    public void destroy(PK primaryKey) throws MyEntityNotFoundException {
+    public void destroy(PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
         var entity = findOrFail(primaryKey);
         preDestroy(entity);
         em.remove(entity);

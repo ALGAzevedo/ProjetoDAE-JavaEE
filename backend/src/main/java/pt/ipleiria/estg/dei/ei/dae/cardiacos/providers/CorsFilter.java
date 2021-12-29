@@ -11,6 +11,11 @@ public class CorsFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext
             responseContext) throws IOException {
+
+
+        if (requestContext.getMethod().equals("OPTIONS"))
+            responseContext.setStatus(200);
+
         // Allows this server to be called by any other server.
         // For development, it can be set to ‘*’.
         // In a production environment, it’s a security risk.
@@ -30,8 +35,6 @@ public class CorsFilter implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD");
         responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-        if (requestContext.getMethod().equals("OPTIONS"))
-            responseContext.setStatus(200);
 
     }
 }

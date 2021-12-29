@@ -73,7 +73,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @DELETE
     @Path("{pk}")
-    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException {
+    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
         getEntityBean().destroy(primaryKey);
         return Response.noContent().build();
     }
