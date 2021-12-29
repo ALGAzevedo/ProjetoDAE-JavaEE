@@ -20,13 +20,17 @@ public class PRCBean extends BaseBean<PRC, Integer> {
     }
 
     @Override
-    public void postCreate(PRC entity) throws MyEntityNotFoundException, MyConstraintViolationException { //TODO: TO VERIFY
+    public void preCreate(PRC entity) throws MyEntityNotFoundException {
         Patient patient = patientBean.findOrFail(entity.getPatient().getUsername());
-        if (patient == null){
-            throw new MyEntityNotFoundException("Patient was not found.");
-        }
-        patient.addPrc(entity);
-        patientBean.update(patient);
+        entity.setPatient(patient);
+        //patientBean.update(patient);
+
+    }
+
+    @Override
+    public void postCreate(PRC entity) throws MyEntityNotFoundException, MyConstraintViolationException { //TODO: TO VERIFY
+        entity.getPatient().addPrc(entity);
+//        patientBean.update(patient);
     }
 
 }

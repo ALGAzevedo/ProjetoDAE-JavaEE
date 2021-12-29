@@ -54,7 +54,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
         return em.createNamedQuery("getAll" + entityClass.getSimpleName() + "s", entityClass).getResultList();
     }
 
-    public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException {
+    public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException {
 
     }
     public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException {
