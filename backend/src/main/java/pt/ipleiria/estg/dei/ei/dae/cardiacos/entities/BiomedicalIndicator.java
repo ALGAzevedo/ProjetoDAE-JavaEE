@@ -19,6 +19,10 @@ import java.util.Objects;
                 query = "SELECT s FROM BiomedicalIndicator s WHERE UPPER(s.name) = UPPER(:name)" // JPQL
         ),
         @NamedQuery(
+                name = "FindWithNameWithoutTrashed",
+                query = "SELECT s FROM BiomedicalIndicator s WHERE UPPER(s.name) = UPPER(:name) AND s.deletedAt IS NULL" // JPQL
+        ),
+        @NamedQuery(
                 name = "getAllBiomedicalIndicators",
                 query = "SELECT s FROM BiomedicalIndicator s ORDER BY s.id desc" // JPQL
         ),
@@ -145,11 +149,13 @@ public class BiomedicalIndicator<T> extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BiomedicalIndicator<?> indicator = (BiomedicalIndicator<?>) o;
-        return Objects.equals(name, indicator.name);
+        if (o != null && o.getClass() == getClass()) {
+            return this.name.equalsIgnoreCase(((BiomedicalIndicator<?>) o).name);
+        }
+        return false;
     }
+
+
 
     @Override
     public int hashCode() {

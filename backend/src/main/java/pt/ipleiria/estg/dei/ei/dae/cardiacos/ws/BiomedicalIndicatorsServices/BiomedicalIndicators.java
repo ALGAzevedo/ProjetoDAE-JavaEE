@@ -43,6 +43,17 @@ public class BiomedicalIndicators {
 
     }
 
+    @DELETE
+    @Path("/{id}")
+    public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException {
+
+        biomedicalindicatorBean.destroy(id);
+        return Response.noContent().build();
+
+    }
+
+
+
     private BiomedicalIndicatorGeneralResponseDTO toDTO(BiomedicalIndicator ind) {
         return mapper.map(ind, BiomedicalIndicatorGeneralResponseDTO.class);
     }
@@ -50,6 +61,8 @@ public class BiomedicalIndicators {
     private List<BiomedicalIndicatorGeneralResponseDTO> toDTOs(List<BiomedicalIndicator> inds) {
         return inds.stream().map(this::toDTO).collect(Collectors.toList());
     }
+
+
 
 
 
