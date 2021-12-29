@@ -72,6 +72,9 @@ public class User extends BaseEntity{
     private Date lastLogin;
     private Date isDeleted;
 
+    //TODO RETIRAR PASSWORD DA ENTIDADE USER E DTOS
+
+
     //CONSTRUCTORS
     public User() {
     }
@@ -88,7 +91,7 @@ public class User extends BaseEntity{
         this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.password = hashPassword(password);
+        this.password = password;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
@@ -160,7 +163,7 @@ public class User extends BaseEntity{
     }
 
     public void setPassword(String password) {
-        this.password = hashPassword(password);
+        this.password = password;
     }
 
     public MaritalStatus getMaritalStatus() {
@@ -227,22 +230,5 @@ public class User extends BaseEntity{
         this.isDeleted = isDeleted;
     }
 
-
-    //PASSWORD HASH
-
-    public static String hashPassword(String password) {
-        char[] encoded = null;
-        try {
-            ByteBuffer passwdBuffer =
-                    Charset.defaultCharset().encode(CharBuffer.wrap(password));
-            byte[] passwdBytes = passwdBuffer.array();
-            MessageDigest mdEnc = MessageDigest.getInstance("SHA-256");
-            mdEnc.update(passwdBytes, 0, password.toCharArray().length);
-            encoded = new BigInteger(1, mdEnc.digest()).toString(16).toCharArray();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new String(encoded);
-    }
 
 }

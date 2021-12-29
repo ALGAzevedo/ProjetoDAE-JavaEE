@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashSet;
 
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
@@ -22,6 +23,11 @@ public class BiomedicalIndicatorsQualitativeService extends BaseService<Biomedic
         BiomedicalIndicatorQualitativeCreateDTO, BiomedicalIndicatorQualitativeResponseDTO> {
     @EJB
     BiomedicalIndicatorsQualitativeBean biomedicalIndicatorsQualitativeBean;
+
+    @Override
+    protected void preUpdate(BiomedicalIndicatorsQualitative entity) {
+        entity.setPossibleValues(new HashSet<>());
+    }
 
     @Override
     protected BiomedicalIndicatorsQualitativeBean getEntityBean() {

@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashSet;
 
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
@@ -62,16 +63,18 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
         return Response.ok(mapper.serialize(entity, getDtoResponseClass())).build();
     }
 
+    protected void preUpdate(E entity) {
+
+    }
+
     @PUT
     @Path("{pk}")
     public Response update(@PathParam("pk") PK primaryKey, D dto) throws MyEntityNotFoundException, MyConstraintViolationException {
         var entity = getEntityBean().findOrFail(primaryKey);
 
+        preUpdate(entity);
+
         mapper.hydrate(entity, dto);
-        if(dto instanceof BiomedicalIndicatorQualitativeCreateDTO && ((BiomedicalIndicatorQualitativeCreateDTO)dto).getPossibleValues().isEmpty()) {
-            System.out.println("aqui");
-            ((BiomedicalIndicatorsQualitative)entity).getPossibleValues().clear();
-        }
 
         getEntityBean().update(entity);
 
