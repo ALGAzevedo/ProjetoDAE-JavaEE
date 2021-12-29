@@ -3,10 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
 import javax.annotation.PostConstruct;
@@ -54,14 +51,14 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
         return em.createNamedQuery("getAll" + entityClass.getSimpleName() + "s", entityClass).getResultList();
     }
 
-    public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException {
+    public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
 
     }
     public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException {
 
     }
 
-    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException {
+    public E create(E entity) throws MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         preCreate(entity);
         try {
             em.persist(entity);

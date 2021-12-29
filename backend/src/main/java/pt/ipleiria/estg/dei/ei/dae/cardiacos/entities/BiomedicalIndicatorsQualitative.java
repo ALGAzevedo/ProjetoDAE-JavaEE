@@ -12,7 +12,7 @@ import java.util.*;
 })
 public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>{
     @CollectionTable(name="QualitativePossibleValues")
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection
     private Set<String> possibleValues;
 
     public BiomedicalIndicatorsQualitative()  {
@@ -54,7 +54,6 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         this.possibleValues.remove(value);
     }
 
-    //TODO: ESTES METODOS DEVEM ESTAR AQUI OU NO BEAN?
     public boolean containsValue(String value) {
         return possibleValues.contains(value.toUpperCase());
     }
@@ -62,4 +61,6 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     public boolean isValid(String value) {
         return containsValue(value);
     }
+
+
 }

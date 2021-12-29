@@ -28,29 +28,6 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
     private BiomedicalIndicatorsQuantitativeBean quantitativeBean;
 
 
-    /*
-    public LinkedList<BiomedicalIndicatorGeneralResponseDTO> getAll() {
-        List<BiomedicalIndicatorsQualitative> qualitative = qualitativeBean.all();
-        List<BiomedicalIndicatorsQuantitative> quantitative = quantitativeBean.all();
-
-        LinkedList<BiomedicalIndicatorGeneralResponseDTO> listToReturn = new LinkedList<>();
-
-        for (BiomedicalIndicatorsQuantitative indicator : quantitative) {
-            listToReturn.add(new BiomedicalIndicatorGeneralResponseDTO(indicator.getId(), indicator.getName(), indicator.getUnity(), indicator.getMin(),
-                    indicator.getMax(), null, "QUANTITATIVE"));
-
-        }
-        for (BiomedicalIndicatorsQualitative indicator : qualitative) {
-            listToReturn.add(new BiomedicalIndicatorGeneralResponseDTO(indicator.getId(), indicator.getName(), indicator.getUnity(), Double.NaN,
-                    Double.NaN, indicator.getPossibleValues(), "QUALITATIVE"));
-
-        }
-        return listToReturn;
-
-    }
-
-     */
-
     public BiomedicalIndicator changeTypeOfIndicator(Long id, BIomedicalIdicatorUpdateDTO dto) throws MyIllegalArgumentException, MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException {
         //verify of its really the same old/new
         if(dto.getId() != id) {
@@ -66,6 +43,12 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         if(indicator.getDeletedAt() != null) {
             throw new EntityNotFoundException("Entity doens't exist");
         }
+
+        if(!dto.getName().equalsIgnoreCase(indicator.getName())) {
+            throw new MyIllegalArgumentException("Unable to change name of indicator");
+        }
+
+
 
         //get type
         String type = indicator.getIndicatorType();
@@ -101,10 +84,25 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
     }
 
     public List FindWithName(String name) {
+
         Query query = em.createNamedQuery("FindWithName");
         query.setParameter("name", name);
+
         return query.getResultList();
+
     }
+
+    public List FindWithNameWithoutTrashed(String name) {
+
+        Query query = em.createNamedQuery("FindWithNameWithoutTrashed");
+        query.setParameter("name", name);
+
+        return query.getResultList();
+
+    }
+
+
+
 
 }
 
