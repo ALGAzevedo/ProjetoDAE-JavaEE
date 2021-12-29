@@ -22,29 +22,47 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
     public BiomedicalIndicatorsQualitativeBean() {
     }
 
+
     @Override
     public void preCreate(BiomedicalIndicatorsQualitative entity) throws MyEntityExistsException, MyUniqueConstraintViolationException {
-        //we need to make sure name is unique, we only can reuse name if new entity is an update from an older version
+        //2 CASES WHEN WE CREATE
+        //1-create create
+        //2-We are creating new Indicator because its a new version, its an update from quantitative to qualitative
+        //We need to preserve history, so we cant just overwrite old indicator
 
-        //id so we need to check name are not changing
-        List<BiomedicalIndicator> previousIndicators = indicatorBean.FindWithName(entity.getName());
+        //if its create?
+        if(entity.getPrevious() == null) {
+            //there is already an indicator with this name?
+            List<BiomedicalIndicator> indicatorsWithSameName = indicatorBean.FindWithNameWithoutTrashed(entity.getName());
+            if(!indicatorsWithSameName.isEmpty()) {
+                throw new MyEntityExistsException("There is already an entity with existing name");
+            }
 
-        if(!previousIndicators.isEmpty() && (entity.getPrevious() != previousIndicators.get(0))) {
-            //it means that we are trying to assign existing name to a not related new entity
-            throw new MyEntityExistsException("There is already an entity with existing name");
         }
 
         entity.setIndicatorType("QUALITATIVE");
 
-
         //Transform all values in set to be in uppercase
+        HashSet<String> possibleValuesUpper = new HashSet<>();
+        for (String possibleValue : entity.getPossibleValues()) {
+            //Transform value in upperCase
+            possibleValuesUpper.add(possibleValue.toUpperCase());
+        }
+
+        entity.setPossibleValues(possibleValuesUpper);
+    }
+
+    @Override
+    public void preUpdate(BiomedicalIndicatorsQualitative entity) {
+
+
         HashSet<String> possibleValuesUpper = new HashSet<>();
         for (String possibleValue : entity.getPossibleValues()) {
             //Transfor value in upperCase
             possibleValuesUpper.add(possibleValue.toUpperCase());
         }
-
         entity.setPossibleValues(possibleValuesUpper);
+
     }
 
 

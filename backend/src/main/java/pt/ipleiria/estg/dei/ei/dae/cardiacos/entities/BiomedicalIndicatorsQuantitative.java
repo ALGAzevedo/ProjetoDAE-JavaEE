@@ -55,4 +55,5 @@ public class BiomedicalIndicatorsQuantitative extends BiomedicalIndicator<Double
         return value >= min && value <= max;
     }
 
+
 }

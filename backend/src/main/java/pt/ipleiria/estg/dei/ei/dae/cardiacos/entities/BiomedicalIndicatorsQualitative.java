@@ -12,7 +12,7 @@ import java.util.*;
 })
 public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>{
     @CollectionTable(name="QualitativePossibleValues")
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection
     private Set<String> possibleValues;
 
     public BiomedicalIndicatorsQualitative()  {
@@ -25,11 +25,11 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     }
 
     public BiomedicalIndicatorsQualitative(String name, String unity) {
-        super(name, unity);
+        super(name, unity, "QUALITATIVE");
         this.possibleValues = new HashSet<>();;
     }
     public BiomedicalIndicatorsQualitative(String name, String unity, HashSet<String> values) {
-        super(name, unity);
+        super(name, unity, "QUALITATIVE");
         this.possibleValues = values;
     }
     public BiomedicalIndicatorsQualitative(String name,HashSet<String> values) {
@@ -37,12 +37,14 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         this.possibleValues = values;
     }
 
-    public HashSet<String> getPossibleValues() {
-        return new HashSet<>(possibleValues);
+    public Set<String> getPossibleValues() {
+        return this.possibleValues;
     }
 
-    public void setPossibleValues(HashSet<String> possibleValues) {
-        this.possibleValues = possibleValues;
+    public void setPossibleValues(Set<String> possibleValues) {
+        this.possibleValues.clear();
+        this.possibleValues.addAll(possibleValues);
+        //this.possibleValues = possibleValues;
     }
 
     public void addNewValue(String value) {
@@ -54,7 +56,6 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
         this.possibleValues.remove(value);
     }
 
-    //TODO: ESTES METODOS DEVEM ESTAR AQUI OU NO BEAN?
     public boolean containsValue(String value) {
         return possibleValues.contains(value.toUpperCase());
     }
@@ -62,4 +63,6 @@ public class BiomedicalIndicatorsQualitative extends BiomedicalIndicator<String>
     public boolean isValid(String value) {
         return containsValue(value);
     }
+
+
 }

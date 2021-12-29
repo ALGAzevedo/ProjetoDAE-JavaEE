@@ -69,7 +69,7 @@ public class PRC extends BaseEntity implements Serializable {
         this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
-    public PRC(String name, String description, LocalDate startDate, LocalDate endDate, Patient patient) { //TODO: O PATIENT É ASSOCIADO SE SE PASSAR SÓ O USERNAME ?
+    public PRC(String name, String description, LocalDate startDate, LocalDate endDate, Patient patient) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;

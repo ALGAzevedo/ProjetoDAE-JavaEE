@@ -2,13 +2,12 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
 
 import org.modelmapper.ModelMapper;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorQualitativeCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.DTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BaseBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.TypeResolver;
 
@@ -17,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashSet;
 
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
@@ -49,7 +49,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @POST
     @Path("/")
-    public Response create(D dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException {
+    public Response create(D dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
         var entity = mapper.load(dto, getEntityBean().getEntityClass());
         getEntityBean().create(entity);
 
@@ -63,12 +63,19 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
         return Response.ok(mapper.serialize(entity, getDtoResponseClass())).build();
     }
 
+    protected void preUpdate(E entity) {
+
+    }
+
     @PUT
     @Path("{pk}")
     public Response update(@PathParam("pk") PK primaryKey, D dto) throws MyEntityNotFoundException, MyConstraintViolationException {
         var entity = getEntityBean().findOrFail(primaryKey);
 
+        preUpdate(entity);
+
         mapper.hydrate(entity, dto);
+
         getEntityBean().update(entity);
 
         return Response.ok(mapper.serialize(entity, getDtoResponseClass())).build();
@@ -76,7 +83,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @DELETE
     @Path("{pk}")
-    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException {
+    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
         getEntityBean().destroy(primaryKey);
         return Response.noContent().build();
     }

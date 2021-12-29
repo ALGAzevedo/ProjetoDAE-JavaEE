@@ -31,7 +31,7 @@ public class HealthcareProfessional extends User{
     @NotNull
     private String institutionalPhone;
 
-    @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH) //TODO: DETACH TO NOT REMOVE TREATMENTS
+    @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH)
     private List<TreatmentType> treatmentTypeList;
 
     public HealthcareProfessional() {

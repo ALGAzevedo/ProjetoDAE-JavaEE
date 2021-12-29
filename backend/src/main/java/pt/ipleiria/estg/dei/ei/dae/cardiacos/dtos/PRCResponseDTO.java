@@ -12,6 +12,9 @@ public class PRCResponseDTO implements DTO{
 
     @Getter
     @Setter
+    private Integer code;
+    @Getter
+    @Setter
     private String name;
     @Getter
     @Setter
@@ -33,7 +36,8 @@ public class PRCResponseDTO implements DTO{
 //        this.treatmentTypeList = new LinkedList<TreatmentTypeDTO>();
     }
 
-    public PRCResponseDTO(String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername) {
+    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername) {
+        this.code = code;
         this.name = name;
         this.description = description;
         this.startDate = startDate.toString();
@@ -42,7 +46,8 @@ public class PRCResponseDTO implements DTO{
 //        this.treatmentTypeList = new LinkedList<TreatmentTypeDTO>();
     }
 
-    public PRCResponseDTO(String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername, List<TreatmentType> treatmentTypeList) {
+    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername, List<TreatmentType> treatmentTypeList) {
+        this.code = code;
         this.name = name;
         this.description = description;
         this.startDate = startDate.toString();
