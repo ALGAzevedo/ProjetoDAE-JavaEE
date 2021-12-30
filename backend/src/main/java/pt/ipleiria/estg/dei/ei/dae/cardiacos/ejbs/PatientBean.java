@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.Biom
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
@@ -16,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Stateless
 public class PatientBean extends UserBean<Patient> {
@@ -54,7 +56,7 @@ public class PatientBean extends UserBean<Patient> {
             dto.setDate(LocalDate.now());
 
         try {
-            patient.addQuantitativeBiomedicalIndicator(quant, dto.getValue(), dto.getDate());
+            patient.addQuantitativeBiomedicalIndicator(quant, dto.getValue(), dto.getDate(), dto.getDescription());
             update(patient);
         } catch (ConstraintViolationException ex) {
             throw new MyConstraintViolationException(ex);
@@ -79,12 +81,22 @@ public class PatientBean extends UserBean<Patient> {
             dto.setDate(LocalDate.now());
 
         try {
-            patient.addQualitativeBiomedicalIndicator(qual, dto.getValue(), dto.getDate());
+            patient.addQualitativeBiomedicalIndicator(qual, dto.getValue(), dto.getDate(), dto.getDescription());
             update(patient);
         } catch (ConstraintViolationException ex) {
             throw new MyConstraintViolationException(ex);
         }
 
+    }
+
+    //BIOMEDICAL REGISTERS
+    public List<PatientBiomedicalIndicator> getPatientRegisters(String username) throws MyEntityNotFoundException {
+        findOrFail(username);
+
+        List<PatientBiomedicalIndicator> list = em.createNamedQuery("getBiomedicalRegisters").setParameter("user", username).getResultList();
+
+
+        return list;
     }
 
 

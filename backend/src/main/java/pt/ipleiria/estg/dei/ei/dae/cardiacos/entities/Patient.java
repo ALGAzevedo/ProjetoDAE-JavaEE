@@ -15,6 +15,10 @@ import java.util.*;
         @NamedQuery(
                 name = "getAllPatients",
                 query = "SELECT s FROM Patient s ORDER BY s.name" // JPQL
+        ),
+        @NamedQuery(
+                name = "getBiomedicalRegisters",
+                query = "SELECT s.biomedicalRegisters FROM Patient s WHERE s.username = :user" // JPQL
         )
 })
 public class Patient extends User{
@@ -44,6 +48,7 @@ public class Patient extends User{
                        List<PRC> prcList) {
                 super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = prcList;
+                this.biomedicalRegisters = new LinkedList<>();
         }
 
         public List<PRC> getPrcList() {
@@ -60,15 +65,15 @@ public class Patient extends User{
                 }
         }
 
-        public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date) {
-                biomedicalRegisters.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator));
+        public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date, String description) {
+                biomedicalRegisters.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator, description));
 
 
         }
 
-        public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date) {
+        public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date, String description) {
 
-                biomedicalRegisters.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator));
+                biomedicalRegisters.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator, description));
 
         }
 }

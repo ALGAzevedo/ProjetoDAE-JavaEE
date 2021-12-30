@@ -6,14 +6,24 @@ public class QualitativeBiomedicalIndicatorMeasureDTO implements DTO {
     private Long id;
     private String value;
     private LocalDate date;
+    private String description;
 
-    public QualitativeBiomedicalIndicatorMeasureDTO(Long id, String value, LocalDate date) {
+    public QualitativeBiomedicalIndicatorMeasureDTO(Long id, String value, LocalDate date, String description) {
         this.id = id;
         this.value = value;
         this.date = date;
+        this.description = description;
     }
 
     public QualitativeBiomedicalIndicatorMeasureDTO() {
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Long getId() {
