@@ -4,6 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DietCreateDTO extends TreatmentTypeCreateDTO {
@@ -11,8 +12,8 @@ public class DietCreateDTO extends TreatmentTypeCreateDTO {
     public DietCreateDTO() {
     }
 
-    public DietCreateDTO(String name, String description, Date startDate, Date endDate,
-                         HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public DietCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate,
+                         HealthcareProfessional HealthcareProfessional, PRC prc) {
+        super(name, description, startDate, endDate, HealthcareProfessional, prc);
     }
 }

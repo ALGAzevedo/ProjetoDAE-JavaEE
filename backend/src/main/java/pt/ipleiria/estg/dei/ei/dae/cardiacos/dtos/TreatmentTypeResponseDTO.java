@@ -5,6 +5,7 @@ import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TreatmentTypeResponseDTO implements DTO{
@@ -17,26 +18,26 @@ public class TreatmentTypeResponseDTO implements DTO{
     private String description;
     @Getter
     @Setter
-    private Date startDate;
+    private String startDate;
     @Getter
     @Setter
-    private Date endDate;
+    private String endDate;
     @Getter
     @Setter
-    private HealthcareProfessional healthCareProfessional;
+    private HealthcareProfessionalResponseDTO healthcareProfessional;
     @Getter
     @Setter
-    private PRC prc;
+    private PRCResponseDTO prc;
 
     public TreatmentTypeResponseDTO() {
     }
 
-    public TreatmentTypeResponseDTO(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentTypeResponseDTO(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessionalResponseDTO healthcareProfessional, PRCResponseDTO prc) {
         this.name = name;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.healthCareProfessional = healthCareProfessional;
+        this.startDate = startDate.toString();
+        this.endDate = endDate.toString();
+        this.healthcareProfessional = healthcareProfessional;
         this.prc = prc;
     }
 }

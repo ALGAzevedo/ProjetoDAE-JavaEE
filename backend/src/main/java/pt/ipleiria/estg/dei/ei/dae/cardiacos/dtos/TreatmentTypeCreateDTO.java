@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TreatmentTypeCreateDTO implements DTO{
@@ -23,10 +24,10 @@ public class TreatmentTypeCreateDTO implements DTO{
     private String description;
     @Getter
     @Setter
-    private Date startDate;
+    private LocalDate startDate;
     @Getter
     @Setter
-    private Date endDate;
+    private LocalDate endDate;
     @Getter
     @Setter
     private HealthcareProfessional healthCareProfessional;
@@ -37,7 +38,7 @@ public class TreatmentTypeCreateDTO implements DTO{
     public TreatmentTypeCreateDTO() {
     }
 
-    public TreatmentTypeCreateDTO(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentTypeCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
