@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -23,7 +24,7 @@ public class Exercise extends TreatmentType {
     public Exercise() {
     }
 
-    public Exercise(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public Exercise(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
         super(name, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

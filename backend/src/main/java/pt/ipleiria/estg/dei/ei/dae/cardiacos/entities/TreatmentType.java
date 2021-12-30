@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -41,12 +42,12 @@ public class TreatmentType extends BaseEntity{
     @NotNull
     @Getter
     @Setter
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull
     @Getter
     @Setter
-    private Date endDate;
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name = "PROFESSIONAL_TREATMENT")
@@ -65,7 +66,7 @@ public class TreatmentType extends BaseEntity{
     public TreatmentType() {
     }
 
-    public TreatmentType(String name, String description, Date startDate, Date endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentType(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
