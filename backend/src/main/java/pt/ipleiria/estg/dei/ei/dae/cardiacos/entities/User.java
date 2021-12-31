@@ -43,10 +43,11 @@ public class User extends BaseEntity{
     @NotNull
     private String email;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
-
+    @Enumerated(EnumType.STRING)
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
@@ -55,7 +56,7 @@ public class User extends BaseEntity{
 
     @NotNull
     private String password;
-
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
     private String address;
     private String city;

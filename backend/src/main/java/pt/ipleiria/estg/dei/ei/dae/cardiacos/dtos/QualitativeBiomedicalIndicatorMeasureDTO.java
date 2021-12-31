@@ -1,14 +1,15 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class QualitativeBiomedicalIndicatorMeasureDTO implements DTO {
     private Long id;
     private String value;
-    private LocalDate date;
+    private LocalDateTime date;
     private String description;
 
-    public QualitativeBiomedicalIndicatorMeasureDTO(Long id, String value, LocalDate date, String description) {
+    public QualitativeBiomedicalIndicatorMeasureDTO(Long id, String value, LocalDateTime date, String description) {
         this.id = id;
         this.value = value;
         this.date = date;
@@ -42,11 +43,11 @@ public class QualitativeBiomedicalIndicatorMeasureDTO implements DTO {
         this.value = value;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

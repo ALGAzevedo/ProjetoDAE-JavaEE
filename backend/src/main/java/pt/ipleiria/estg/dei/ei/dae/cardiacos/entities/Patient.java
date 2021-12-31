@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -65,15 +66,22 @@ public class Patient extends User{
                 }
         }
 
-        public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDate date, String description) {
+        public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDateTime date, String description) {
                 biomedicalRegisters.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator, description));
 
 
         }
 
-        public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDate date, String description) {
+        public void addQualitativeBiomedicalIndicator(BiomedicalIndicatorsQualitative indicator, String value, LocalDateTime date, String description) {
 
                 biomedicalRegisters.add(new PatientBiomedicalIndicator<String>(value, date, this, indicator, description));
+
+        }
+
+        public void removeBiomedicalIndicator(PatientBiomedicalIndicator indicator) {
+                //returns always false !!! getID always returns null
+                System.out.println(this.biomedicalRegisters.contains(indicator));
+                this.biomedicalRegisters.remove(indicator);
 
         }
 }

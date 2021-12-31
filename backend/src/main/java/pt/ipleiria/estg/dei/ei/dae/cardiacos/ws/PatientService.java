@@ -1,6 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
-import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorMeasureResponsePatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
@@ -44,7 +43,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     @POST
     @Path("{username}/biomedicalRegisters/quantitative")
     public Response PostQuantitativeMeasure(@PathParam("username") String username, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
-
+        System.out.println(dto.getDate());
         patientBean.addQuantitativeBiomedicalIndicator(username, dto);
         return Response.ok(dto).build();
 
@@ -52,7 +51,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("{username}/biomedicalRegisters")
-    public Response getBiomedicalRegister(@PathParam("username") String username ) throws MyEntityNotFoundException {
+    public Response getBiomedicalRegisters(@PathParam("username") String username ) throws MyEntityNotFoundException {
         List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username);
 
 
@@ -63,15 +62,43 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     }
 
+    @GET
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response getBiomedicalRegister(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException {
+
+        return Response.ok(toDTO(patientBean.getPatientRegister(username, id))).build();
+
+
+    }
+
+    @DELETE
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response PostQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
+
+        patientBean.removePatientRegisters(username, id);
+        return Response.noContent().build();
+
+    }
+    @PUT
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response PutQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
+
+        return Response.ok(toDTO(patientBean.editPatientRegisters(username, id))).build();
+
+    }
+
 
     private BiomedicalIndicatorMeasureResponsePatientDTO toDTO(PatientBiomedicalIndicator p) {
-        return new BiomedicalIndicatorMeasureResponsePatientDTO(p.getId(), p.getDate(), p.getValue(), p.getIndicator().getName(), p.getDescription());
+        if(p == null)
+            return null;
+
+        return new BiomedicalIndicatorMeasureResponsePatientDTO(p.getId(), p.getDate(),
+                p.getValue(), p.getIndicator().getName(), p.getDescription(), p.getIndicator().getIndicatorType(), p.getIndicator().getId());
     }
 
     private List<BiomedicalIndicatorMeasureResponsePatientDTO> toDTOs(List<PatientBiomedicalIndicator> l) {
         return l.stream().map(this::toDTO).collect(Collectors.toList());
     }
-
 
 
 
