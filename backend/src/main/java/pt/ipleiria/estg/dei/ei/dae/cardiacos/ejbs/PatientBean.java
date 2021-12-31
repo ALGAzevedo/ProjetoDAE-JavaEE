@@ -131,14 +131,27 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
-
-    public PatientBiomedicalIndicator editPatientRegisters(String username, Long id) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public PatientBiomedicalIndicator<Long> editPatientRegistersQuantitative(String username, Long id, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException {
         findOrFail(username);
 
         PatientBiomedicalIndicator ind = patientBiomedicalIndicatorBean.findOrFail(id);
-
+        ind.setDate(dto.getDate());
+        System.out.println(dto.getValue());
+        ind.setDescription(dto.getDescription());
+        ind.setValue(dto.getValue());
         return patientBiomedicalIndicatorBean.update(ind);
 
 
+    }
+
+    public PatientBiomedicalIndicator<String> editPatientRegistersQuanlitative(String username, Long id, QualitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException {
+        findOrFail(username);
+
+        PatientBiomedicalIndicator ind = patientBiomedicalIndicatorBean.findOrFail(id);
+        ind.setDate(dto.getDate());
+        System.out.println(dto.getValue());
+        ind.setDescription(dto.getDescription());
+        ind.setValue(dto.getValue());
+        return patientBiomedicalIndicatorBean.update(ind);
     }
 }
