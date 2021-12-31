@@ -13,8 +13,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolat
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +52,9 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("{username}/biomedicalRegisters")
-    public Response getBiomedicalRegisters(@PathParam("username") String username ) throws MyEntityNotFoundException {
-        List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username);
+    public Response getBiomedicalRegisters(@PathParam("username") String username, @Context UriInfo ui ) throws MyEntityNotFoundException {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username, queryParams);
 
         List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
         while (list.remove(null));
@@ -64,12 +65,16 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("/biomedicalRegisters")
-    public Response GetAllBiomedicalRegisters() {
-        List<PatientBiomedicalIndicator> pi = patientBean.getAllPatientRegisters();
+    public Response GetAllBiomedicalRegisters(@Context UriInfo ui) {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+
+        List<PatientBiomedicalIndicator> pi = patientBean.filterListIndicators(queryParams);
+
 
         List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
         while (list.remove(null));
         return Response.ok(list).build();
+
 
 
     }

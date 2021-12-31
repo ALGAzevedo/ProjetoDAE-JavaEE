@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ValidationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QualitativeBiomedicalIndicatorMeasureDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QuantitativeBiomedicalIndicatorMeasureDTO;
@@ -13,12 +14,15 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentExcepti
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.MultivaluedMap;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -97,7 +101,7 @@ public class PatientBean extends UserBean<Patient> {
     public void removePatientRegisters(String username, long measureId) throws MyEntityNotFoundException, MyConstraintViolationException {
         Patient patient = findOrFail(username);
 
-        List<PatientBiomedicalIndicator> register = getPatientRegisters(username);
+        List<PatientBiomedicalIndicator> register = em.createNamedQuery("getBiomedicalRegisters").setParameter("user", username).getResultList();
         PatientBiomedicalIndicator indicator = register.stream().filter(a -> a.getId() == measureId).collect(Collectors.toList()).get(0);
         if(indicator == null) {
             return;
@@ -113,12 +117,12 @@ public class PatientBean extends UserBean<Patient> {
 
 
     //BIOMEDICAL REGISTERS
-    public List<PatientBiomedicalIndicator> getPatientRegisters(String username) throws MyEntityNotFoundException {
+    public List<PatientBiomedicalIndicator> getPatientRegisters(String username, MultivaluedMap<String, String> queryParams) throws MyEntityNotFoundException {
         findOrFail(username);
 
-        List<PatientBiomedicalIndicator> list = em.createNamedQuery("getBiomedicalRegisters").setParameter("user", username).getResultList();
+        queryParams.add("username", username);
 
-        return list == null ? new LinkedList<PatientBiomedicalIndicator>() : list;
+        return filterListIndicators(queryParams);
     }
 
     public PatientBiomedicalIndicator getPatientRegister(String username, Long id) throws MyEntityNotFoundException {
@@ -180,4 +184,69 @@ public class PatientBean extends UserBean<Patient> {
     private boolean isQuantitativeInRange(Double val, BiomedicalIndicatorsQuantitative ind) {
         return ind.isValid(val);
     }
+
+
+
+    public List<PatientBiomedicalIndicator> filterListIndicators(MultivaluedMap<String, String> queryParams) {
+        Map<String, Object> paramaterMap = new HashMap<String, Object>();
+        StringBuilder queryBuilder = new StringBuilder();
+        List<String> whereCause = new ArrayList<String>();
+        queryBuilder.append("SELECT s FROM PatientBiomedicalIndicator s INNER JOIN s.patient p INNER JOIN s.indicator i");
+
+        if(queryParams.containsKey("patient")) {
+            whereCause.add("UPPER(p.username) LIKE  UPPER(:username)");
+            paramaterMap.put("username", "%"+queryParams.get("patient").get(0)+"%");
+        }
+
+        if(queryParams.containsKey("indicator")) {
+            whereCause.add("UPPER(i.name) LIKE  UPPER(:indicator)");
+            paramaterMap.put("indicator", "%"+queryParams.get("indicator").get(0)+"%");
+        }
+        if(queryParams.containsKey("type")) {
+            whereCause.add("UPPER(i.indicatorType) LIKE  UPPER(:indicatorType)");
+            paramaterMap.put("indicatorType", "%"+queryParams.get("type").get(0)+"%");
+        }
+
+        if(queryParams.containsKey("startDate")) {
+            whereCause.add("s.date >= :startDate");
+            DateTimeFormatter df = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd[ [HH][:mm][:ss][.SSS]]")
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .toFormatter();
+
+            LocalDateTime dt = LocalDateTime.parse(queryParams.get("startDate").get(0), df);
+            paramaterMap.put("startDate", dt);
+        }
+
+        if(queryParams.containsKey("endDate")) {
+            whereCause.add("s.date <= :endDate");
+            DateTimeFormatter df = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd[ [HH][:mm][:ss][.SSS]]")
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .toFormatter();
+
+            LocalDateTime dt = LocalDateTime.parse(queryParams.get("endDate").get(0), df);
+            paramaterMap.put("endDate", dt);
+        }
+
+        queryBuilder.append(" where " + StringUtils.join(whereCause, " and "));
+
+        Query jpaQuery = em.createQuery(queryBuilder.toString());
+
+
+        for(String key :paramaterMap.keySet()) {
+            jpaQuery.setParameter(key, paramaterMap.get(key));
+        }
+
+        return jpaQuery.getResultList();
+
+
+
+
+    }
+
+
+
 }
