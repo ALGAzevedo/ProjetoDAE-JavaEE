@@ -12,6 +12,9 @@ public class TreatmentTypeResponseDTO implements DTO{
 
     @Getter
     @Setter
+    private Integer code;
+    @Getter
+    @Setter
     private String name;
     @Getter
     @Setter
@@ -32,7 +35,8 @@ public class TreatmentTypeResponseDTO implements DTO{
     public TreatmentTypeResponseDTO() {
     }
 
-    public TreatmentTypeResponseDTO(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessionalResponseDTO healthcareProfessional, PRCResponseDTO prc) {
+    public TreatmentTypeResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessionalResponseDTO healthcareProfessional, PRCResponseDTO prc) {
+        this.code = code;
         this.name = name;
         this.description = description;
         this.startDate = startDate.toString();

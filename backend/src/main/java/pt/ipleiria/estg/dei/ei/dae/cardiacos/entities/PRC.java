@@ -27,7 +27,7 @@ import java.util.List;
 public class PRC extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Integer code;

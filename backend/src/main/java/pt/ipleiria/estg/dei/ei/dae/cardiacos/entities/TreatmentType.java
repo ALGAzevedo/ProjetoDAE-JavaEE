@@ -13,8 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(
-        name = "TREATMENT_TYPES",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
+        name = "TREATMENT_TYPES"
 )
 @NamedQueries({
         @NamedQuery(
@@ -24,7 +23,7 @@ import java.util.Date;
 })
 public class TreatmentType extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Integer code;

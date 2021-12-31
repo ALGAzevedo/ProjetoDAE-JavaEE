@@ -30,20 +30,20 @@ public class TreatmentTypeCreateDTO implements DTO{
     private LocalDate endDate;
     @Getter
     @Setter
-    private HealthcareProfessional healthCareProfessional;
+    private String healthcareProfessionalUsername;
     @Getter
     @Setter
-    private PRC prc;
+    private String prcCode;
 
     public TreatmentTypeCreateDTO() {
     }
 
-    public TreatmentTypeCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentTypeCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.healthCareProfessional = healthCareProfessional;
-        this.prc = prc;
+        this.healthcareProfessionalUsername = healthcareProfessionalUsername;
+        this.prcCode = prcCode;
     }
 }
