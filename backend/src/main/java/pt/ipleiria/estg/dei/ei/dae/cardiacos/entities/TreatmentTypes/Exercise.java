@@ -24,7 +24,7 @@ public class Exercise extends TreatmentType {
     public Exercise() {
     }
 
-    public Exercise(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public Exercise(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, treatmentType, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

@@ -25,7 +25,7 @@ public class Behaviour extends TreatmentType {
     public Behaviour() {
     }
 
-    public Behaviour(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public Behaviour(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, treatmentType, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

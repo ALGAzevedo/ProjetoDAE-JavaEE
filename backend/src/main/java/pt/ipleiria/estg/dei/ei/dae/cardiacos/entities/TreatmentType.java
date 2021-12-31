@@ -33,6 +33,10 @@ public class TreatmentType extends BaseEntity{
     @Setter
     private String name;
 
+    @Getter
+    @Setter
+    private String treatmentType;
+
     @Nullable
     @Getter
     @Setter
@@ -65,8 +69,9 @@ public class TreatmentType extends BaseEntity{
     public TreatmentType() {
     }
 
-    public TreatmentType(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentType(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
         this.name = name;
+        this.treatmentType = treatmentType;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;

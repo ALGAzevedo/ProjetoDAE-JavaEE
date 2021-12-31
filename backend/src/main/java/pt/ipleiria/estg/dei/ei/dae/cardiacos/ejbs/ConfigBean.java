@@ -54,7 +54,7 @@ public class ConfigBean {
                 "956842345", "967561234", "andremedico@mail.com", "926373737");
         healthcareProfissionalBean.create(healthcareProfissional);
 
-        Behaviour behaviour = new Behaviour("Batatas", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
+        Behaviour behaviour = new Behaviour("Batatas", "behaviours", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
         behaviourBean.create(behaviour);
     }
 }

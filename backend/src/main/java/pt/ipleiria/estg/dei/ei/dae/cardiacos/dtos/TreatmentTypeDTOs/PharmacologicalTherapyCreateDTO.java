@@ -12,8 +12,7 @@ public class PharmacologicalTherapyCreateDTO extends TreatmentTypeCreateDTO {
     public PharmacologicalTherapyCreateDTO() {
     }
 
-    public PharmacologicalTherapyCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate,
-                                           String healthcareProfessionalUsername, String prcCode) {
-        super(name, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
+    public PharmacologicalTherapyCreateDTO(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
+        super(name, treatmentType, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
     }
 }

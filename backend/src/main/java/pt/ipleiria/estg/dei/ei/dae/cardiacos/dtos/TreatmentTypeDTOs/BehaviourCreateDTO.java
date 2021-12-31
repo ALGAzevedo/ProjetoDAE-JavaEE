@@ -12,8 +12,7 @@ public class BehaviourCreateDTO extends TreatmentTypeCreateDTO {
     public BehaviourCreateDTO() {
     }
 
-    public BehaviourCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate,
-                              String healthcareProfessionalUsername, String prcCode) {
-        super(name, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
+    public BehaviourCreateDTO(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
+        super(name, treatmentType, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
     }
 }

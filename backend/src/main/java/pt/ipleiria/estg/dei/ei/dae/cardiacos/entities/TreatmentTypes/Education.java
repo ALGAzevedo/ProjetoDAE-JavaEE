@@ -25,7 +25,7 @@ public class Education extends TreatmentType {
 
     }
 
-    public Education(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public Education(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, treatmentType, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

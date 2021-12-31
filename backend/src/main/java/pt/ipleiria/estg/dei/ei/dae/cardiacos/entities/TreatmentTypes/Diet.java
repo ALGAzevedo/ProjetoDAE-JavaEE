@@ -24,7 +24,7 @@ public class Diet extends TreatmentType {
     public Diet() {
     }
 
-    public Diet(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public Diet(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, treatmentType, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

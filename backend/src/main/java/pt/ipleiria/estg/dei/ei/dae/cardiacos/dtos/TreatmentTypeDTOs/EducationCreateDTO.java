@@ -12,8 +12,7 @@ public class EducationCreateDTO extends TreatmentTypeCreateDTO {
     public EducationCreateDTO() {
     }
 
-    public EducationCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate,
-                              String healthcareProfessionalUsername, String prcCode) {
-        super(name, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
+    public EducationCreateDTO(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
+        super(name, treatmentType, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
     }
 }
