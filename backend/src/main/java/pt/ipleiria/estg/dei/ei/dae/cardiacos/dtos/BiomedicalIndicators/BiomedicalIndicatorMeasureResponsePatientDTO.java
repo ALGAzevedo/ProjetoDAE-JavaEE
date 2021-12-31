@@ -14,11 +14,14 @@ public class BiomedicalIndicatorMeasureResponsePatientDTO<T> implements DTO {
     private String description;
     private String indicatorType;
     private Long indicatorId;
+    private String patient;
+    private String patientName;
     public BiomedicalIndicatorMeasureResponsePatientDTO() {
     }
 
     public BiomedicalIndicatorMeasureResponsePatientDTO(Long id, LocalDateTime date, T value,
-                                                        String indicator, String description, String indicatorType, Long indID) {
+                                                        String indicator, String description, String indicatorType,
+                                                        Long indID, String patient, String patientName) {
         this.id = id;
         this.date = date.toString();
         this.value = value;
@@ -26,6 +29,24 @@ public class BiomedicalIndicatorMeasureResponsePatientDTO<T> implements DTO {
         this.description = description;
         this.indicatorType = indicatorType;
         this.indicatorId = indID;
+        this.patient = patient;
+        this.patientName = patientName;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
     }
 
     public Long getIndicatorId() {

@@ -55,11 +55,22 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     public Response getBiomedicalRegisters(@PathParam("username") String username ) throws MyEntityNotFoundException {
         List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username);
 
-
-
-        //return Response.ok(pi.get(0).getDate()).build();
-        return Response.ok(toDTOs(pi)).build();
+        List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
+        while (list.remove(null));
+        return Response.ok(list).build();
         
+
+    }
+
+    @GET
+    @Path("/biomedicalRegisters")
+    public Response GetAllBiomedicalRegisters() {
+        List<PatientBiomedicalIndicator> pi = patientBean.getAllPatientRegisters();
+
+        List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
+        while (list.remove(null));
+        return Response.ok(list).build();
+
 
     }
 
@@ -98,11 +109,12 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
 
     private BiomedicalIndicatorMeasureResponsePatientDTO toDTO(PatientBiomedicalIndicator p) {
-        if(p == null)
+        //TODO random nulls are in database
+        if(p == null || p.getValue() == null)
             return null;
 
         return new BiomedicalIndicatorMeasureResponsePatientDTO(p.getId(), p.getDate(),
-                p.getValue(), p.getIndicator().getName(), p.getDescription(), p.getIndicator().getIndicatorType(), p.getIndicator().getId());
+                p.getValue(), p.getIndicator().getName(), p.getDescription(), p.getIndicator().getIndicatorType(), p.getIndicator().getId(), p.getPatient().getUsername(), p.getPatient().getName());
     }
 
     private List<BiomedicalIndicatorMeasureResponsePatientDTO> toDTOs(List<PatientBiomedicalIndicator> l) {

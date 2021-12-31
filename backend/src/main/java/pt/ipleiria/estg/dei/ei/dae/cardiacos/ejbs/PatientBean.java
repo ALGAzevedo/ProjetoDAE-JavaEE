@@ -6,10 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QuantitativeBiomedicalIndicato
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQuantitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.PatientBiomedicalIndicatorBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
@@ -80,8 +77,8 @@ public class PatientBean extends UserBean<Patient> {
         BiomedicalIndicatorsQualitative qual = qualitativeBean.findOrFail(dto.getId());
 
         //Values is valid?
-        if(!qual.isValid(dto.getValue())) {
-            throw  new MyIllegalArgumentException("value: is invalid");
+        if(!(isQualitativeInRange(dto.getValue(), qual))) {
+            throw new MyIllegalArgumentException("value: invalid");
         }
 
         //Dto contains date?
@@ -131,12 +128,20 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
-    public PatientBiomedicalIndicator<Long> editPatientRegistersQuantitative(String username, Long id, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public PatientBiomedicalIndicator<Long> editPatientRegistersQuantitative(String username, Long id, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         findOrFail(username);
 
         PatientBiomedicalIndicator ind = patientBiomedicalIndicatorBean.findOrFail(id);
+
+        if(!(ind.getIndicator() instanceof BiomedicalIndicatorsQuantitative) )
+            throw new MyEntityNotFoundException("");
+
+        if(!(isQuantitativeInRange(dto.getValue(), (BiomedicalIndicatorsQuantitative) ind.getIndicator()))) {
+            throw new MyIllegalArgumentException("value: invalid");
+        }
+
+
         ind.setDate(dto.getDate());
-        System.out.println(dto.getValue());
         ind.setDescription(dto.getDescription());
         ind.setValue(dto.getValue());
         return patientBiomedicalIndicatorBean.update(ind);
@@ -144,14 +149,35 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
-    public PatientBiomedicalIndicator<String> editPatientRegistersQuanlitative(String username, Long id, QualitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public PatientBiomedicalIndicator<String> editPatientRegistersQuanlitative(String username, Long id, QualitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         findOrFail(username);
 
         PatientBiomedicalIndicator ind = patientBiomedicalIndicatorBean.findOrFail(id);
+        if(!(ind.getIndicator() instanceof BiomedicalIndicatorsQualitative) )
+            throw new MyEntityNotFoundException("");
+
+        if(!(isQualitativeInRange(dto.getValue(), (BiomedicalIndicatorsQualitative) ind.getIndicator()))) {
+            throw new MyIllegalArgumentException("value: invalid");
+        }
+
         ind.setDate(dto.getDate());
-        System.out.println(dto.getValue());
         ind.setDescription(dto.getDescription());
         ind.setValue(dto.getValue());
         return patientBiomedicalIndicatorBean.update(ind);
+    }
+
+    public List<PatientBiomedicalIndicator> getAllPatientRegisters() {
+        return em.createNamedQuery("getAllPatientBiomedicalIndicators").getResultList();
+
+    }
+
+
+    private boolean isQualitativeInRange(String val, BiomedicalIndicatorsQualitative ind) {
+        return ind.isValid(val);
+
+    }
+
+    private boolean isQuantitativeInRange(Double val, BiomedicalIndicatorsQuantitative ind) {
+        return ind.isValid(val);
     }
 }

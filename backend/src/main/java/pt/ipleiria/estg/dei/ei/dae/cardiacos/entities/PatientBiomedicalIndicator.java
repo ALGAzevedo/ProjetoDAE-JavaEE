@@ -13,6 +13,12 @@ import java.util.Objects;
 
 @Table(name = "PatientsBiomedicalIndicators")
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllPatientBiomedicalIndicators",
+                query = "SELECT s FROM PatientBiomedicalIndicator s ORDER BY s.date desc" // JPQL
+        ),
+})
 public class PatientBiomedicalIndicator<T> extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
