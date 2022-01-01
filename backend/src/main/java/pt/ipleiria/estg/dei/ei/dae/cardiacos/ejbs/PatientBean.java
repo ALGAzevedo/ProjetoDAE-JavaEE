@@ -38,8 +38,8 @@ public class PatientBean extends UserBean<Patient> {
     @Override
     public void postCreate(Patient patient) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
 
-        String token = UUID.randomUUID().toString();
-        authBean.create(new Auth(patient.getUsername(),token));
+        //String token = UUID.randomUUID().toString();
+        authBean.create(new Auth(patient.getUsername(),authBean.generateToken()));
 
         //TODO Send email
         //String confirmationLink = "http://localhost:8081/confirm?token=" + token;

@@ -32,10 +32,10 @@ public class ConfirmService {
     private AuthBean authBean;
 
     @POST
-    @Path("/confirm/{token}")
-    public Response updateUserPassword(@PathParam("token") String token, PasswordCreateDTO passDTO) throws Exception {
+    @Path("/confirm")
+    public Response updateUserPassword(PasswordCreateDTO passDTO) throws Exception {
 
-        authBean.confirmToken(token, passDTO);
+        authBean.confirmToken(passDTO);
 
         return Response.status(Response.Status.OK).entity("Patient password updated!").build();
 

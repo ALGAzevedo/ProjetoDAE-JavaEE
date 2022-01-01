@@ -1,16 +1,12 @@
-package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
+package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.AuthServices;
 
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTParser;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.Jwt.Jwt;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AuthDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AuthBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.JwtBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.UserBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.User;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -20,7 +16,8 @@ import java.text.ParseException;
 import java.util.logging.Logger;
 
 @Path("/auth")
-
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 public class LoginService {
     private static final Logger log =
             Logger.getLogger(LoginService.class.getName());
@@ -30,9 +27,9 @@ public class LoginService {
     AuthBean authBean;
     @POST
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+
     public Response authenticateUser(AuthDTO authDTO) {
+       //FIXME: Retirar o try..catch para ver todas as exceptions ou deixar apenas o UNAUTHORIZED
         try {
             Auth auth = authBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
             if (auth != null) {
@@ -46,7 +43,7 @@ public class LoginService {
         } catch (Exception e) {
             log.info(e.getMessage());
         }
-        return Response.status(Response.Status.UNAUTHORIZED).build();
+        return Response.status(Response.Status.UNAUTHORIZED).entity("Incorrect username and password").build();
     }
 
 
