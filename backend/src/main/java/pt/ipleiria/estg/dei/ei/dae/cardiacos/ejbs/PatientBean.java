@@ -5,17 +5,19 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QualitativeBiomedicalIndicator
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QuantitativeBiomedicalIndicatorMeasureDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQuantitativeBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.Email.EmailBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Stateless
 public class PatientBean extends UserBean<Patient> {
@@ -27,15 +29,23 @@ public class PatientBean extends UserBean<Patient> {
     @EJB
     private AuthBean authBean;
 
+    @EJB
+    private EmailBean emailBean;
+
     public PatientBean() {
 
     }
     @Override
-    public void postCreate(Patient patient) {
+    public void postCreate(Patient patient) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
 
-        //authBean.generateToken();
+        String token = UUID.randomUUID().toString();
+        authBean.create(new Auth(patient.getUsername(),token));
 
-    }
+        //TODO Send email
+        //String confirmationLink = "http://localhost:8081/confirm?token=" + token;
+        //emailBean.send(patient.getEmail(), "Confirm your email",patient.getName(), confirmationLink);
+
+     }
 
     public void addQuantitativeBiomedicalIndicator(String username, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyConstraintViolationException {
         //patient exists?

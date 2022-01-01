@@ -14,7 +14,7 @@ public enum MaritalStatus {
         this.status = status;
     }
 
-    public String getUrl() {
+    public String getStatus() {
         return status;
     }
 }

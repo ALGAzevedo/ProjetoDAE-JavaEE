@@ -43,19 +43,22 @@ public class User extends BaseEntity{
     @NotNull
     private String email;
     @NotNull
+    @Enumerated(EnumType.STRING) // [by Jerry]
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
 
+    @Enumerated(EnumType.STRING) // [by Jerry]
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
-    @NotNull
+    // Changed to null [Jerry]
+    @Nullable
     private String password;
-
+    @Enumerated(EnumType.STRING) // [by Jerry]
     private MaritalStatus maritalStatus;
     private String address;
     private String city;

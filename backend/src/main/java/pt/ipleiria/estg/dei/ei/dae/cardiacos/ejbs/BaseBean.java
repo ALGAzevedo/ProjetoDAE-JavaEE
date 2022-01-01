@@ -54,7 +54,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
     public void preCreate(E entity) throws MyEntityExistsException, MyUniqueConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException, MyConstraintViolationException {
 
     }
-    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
 
     }
 
