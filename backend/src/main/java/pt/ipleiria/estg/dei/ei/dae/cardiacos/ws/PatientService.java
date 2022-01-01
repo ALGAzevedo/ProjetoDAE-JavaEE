@@ -68,7 +68,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     public Response GetAllBiomedicalRegisters(@Context UriInfo ui) {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
 
-        List<PatientBiomedicalIndicator> pi = patientBean.filterListIndicators(queryParams);
+        List<PatientBiomedicalIndicator> pi = patientBean.filterListIndicators(queryParams, "");
 
 
         List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);

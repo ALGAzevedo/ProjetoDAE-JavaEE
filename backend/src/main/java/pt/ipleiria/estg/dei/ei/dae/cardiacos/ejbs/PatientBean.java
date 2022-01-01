@@ -120,9 +120,8 @@ public class PatientBean extends UserBean<Patient> {
     public List<PatientBiomedicalIndicator> getPatientRegisters(String username, MultivaluedMap<String, String> queryParams) throws MyEntityNotFoundException {
         findOrFail(username);
 
-        queryParams.add("username", username);
 
-        return filterListIndicators(queryParams);
+        return filterListIndicators(queryParams, username);
     }
 
     public PatientBiomedicalIndicator getPatientRegister(String username, Long id) throws MyEntityNotFoundException {
@@ -187,15 +186,23 @@ public class PatientBean extends UserBean<Patient> {
 
 
 
-    public List<PatientBiomedicalIndicator> filterListIndicators(MultivaluedMap<String, String> queryParams) {
+    public List<PatientBiomedicalIndicator> filterListIndicators(MultivaluedMap<String, String> queryParams, String username) {
         Map<String, Object> paramaterMap = new HashMap<String, Object>();
         StringBuilder queryBuilder = new StringBuilder();
         List<String> whereCause = new ArrayList<String>();
         queryBuilder.append("SELECT s FROM PatientBiomedicalIndicator s INNER JOIN s.patient p INNER JOIN s.indicator i");
 
-        if(queryParams.containsKey("patient")) {
-            whereCause.add("UPPER(p.username) LIKE  UPPER(:username)");
-            paramaterMap.put("username", "%"+queryParams.get("patient").get(0)+"%");
+        if(!username.isEmpty()) {
+            whereCause.add("UPPER(p.username) =  UPPER(:patientUsername)");
+            paramaterMap.put("patientUsername", username);
+        }
+        else if(queryParams.containsKey("patientUsername")) {
+            whereCause.add("UPPER(p.username) =  UPPER(:patientUsername)");
+            paramaterMap.put("patientUsername", queryParams.get("patientUsername").get(0));
+        }
+        if(queryParams.containsKey("patientName")) {
+            whereCause.add("UPPER(p.name) LIKE  UPPER(:patientName)");
+            paramaterMap.put("patientName", "%"+queryParams.get("patientName").get(0)+"%");
         }
 
         if(queryParams.containsKey("indicator")) {
@@ -222,16 +229,16 @@ public class PatientBean extends UserBean<Patient> {
         if(queryParams.containsKey("endDate")) {
             whereCause.add("s.date <= :endDate");
             DateTimeFormatter df = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd[ [HH][:mm][:ss][.SSS]]")
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 23)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 59)
                     .toFormatter();
 
             LocalDateTime dt = LocalDateTime.parse(queryParams.get("endDate").get(0), df);
             paramaterMap.put("endDate", dt);
         }
-
-        queryBuilder.append(" where " + StringUtils.join(whereCause, " and "));
+        if(!queryParams.isEmpty() || !username.isEmpty())
+            queryBuilder.append(" where " + StringUtils.join(whereCause, " and "));
 
         Query jpaQuery = em.createQuery(queryBuilder.toString());
 
