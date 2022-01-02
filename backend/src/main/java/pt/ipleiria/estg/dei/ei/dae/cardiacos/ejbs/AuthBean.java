@@ -100,9 +100,22 @@ public class AuthBean extends BaseBean<Auth, String> {
         throw new Exception("Failed logging in with username '" + username + "':unknown username or wrong password");
     }
 
+
     public String generateToken(){
         return UUID.randomUUID().toString();
     }
+
+    public User userMe(String subject) throws MyEntityNotFoundException {
+        //userBean is generic,we cant use it here, thats way we used em
+        User usr = em.find(User.class, subject);
+        if(usr == null) {
+            throw new MyEntityNotFoundException("User not found");
+        }
+        return usr;
+
+
+    }
+
 
     public Auth findByToken(String token) {
         try {

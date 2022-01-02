@@ -34,7 +34,7 @@ public class UserBean<E extends User> extends BaseBean<E, String>{
             throw new MyEntityExistsException("User with username: " + entity.getUsername() + " already exists");
         }
         if (!findWithEmail(entity.getEmail()).isEmpty()) {
-            throw new MyUniqueConstraintViolationException("Email: " + entity.getEmail() + " already registred");
+            throw new MyUniqueConstraintViolationException("email: " + entity.getEmail() + " already registred");
         }
 
     }

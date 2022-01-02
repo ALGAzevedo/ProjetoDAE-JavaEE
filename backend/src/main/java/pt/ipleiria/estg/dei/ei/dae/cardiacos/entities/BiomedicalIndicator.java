@@ -2,12 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
+import javax.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING, length=100)

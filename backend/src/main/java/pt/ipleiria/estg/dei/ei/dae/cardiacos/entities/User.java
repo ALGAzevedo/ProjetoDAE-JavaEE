@@ -47,15 +47,14 @@ public class User extends BaseEntity{
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
-
-    @Enumerated(EnumType.STRING) // [by Jerry]
+    @Enumerated(EnumType.STRING)
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
-    @Enumerated(EnumType.STRING) // [by Jerry]
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
@@ -72,7 +71,6 @@ public class User extends BaseEntity{
     private Date lastLogin;
     private Date isDeleted;
 
-    //TODO RETIRAR PASSWORD DA ENTIDADE USER E DTOS
 
 
     //CONSTRUCTORS

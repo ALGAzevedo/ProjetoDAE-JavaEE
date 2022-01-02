@@ -1,9 +1,11 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws;
 
+import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.*;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorMeasureResponsePatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
@@ -11,8 +13,10 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolat
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
@@ -40,11 +44,89 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     @POST
     @Path("{username}/biomedicalRegisters/quantitative")
     public Response PostQuantitativeMeasure(@PathParam("username") String username, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
-
+        System.out.println(dto.getDate());
         patientBean.addQuantitativeBiomedicalIndicator(username, dto);
         return Response.ok(dto).build();
 
     }
+
+    @GET
+    @Path("{username}/biomedicalRegisters")
+    public Response getBiomedicalRegisters(@PathParam("username") String username, @Context UriInfo ui ) throws MyEntityNotFoundException {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username, queryParams);
+
+        List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
+        while (list.remove(null));
+        return Response.ok(list).build();
+        
+
+    }
+
+    @GET
+    @Path("/biomedicalRegisters")
+    public Response GetAllBiomedicalRegisters(@Context UriInfo ui) {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+
+        List<PatientBiomedicalIndicator> pi = patientBean.filterListIndicators(queryParams, "");
+
+
+        List<BiomedicalIndicatorMeasureResponsePatientDTO> list = toDTOs(pi);
+        while (list.remove(null));
+        return Response.ok(list).build();
+
+
+
+    }
+
+    @GET
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response getBiomedicalRegister(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException {
+
+        return Response.ok(toDTO(patientBean.getPatientRegister(username, id))).build();
+
+
+    }
+
+    @DELETE
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response PostQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
+
+        patientBean.removePatientRegisters(username, id);
+        return Response.noContent().build();
+
+    }
+    @PUT
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response PutQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id, QuantitativeBiomedicalIndicatorMeasureDTO dto  ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
+
+        PatientBiomedicalIndicator ind = patientBean.editPatientRegistersQuantitative(username, id, dto);
+        return Response.ok(toDTO(ind)).build();
+
+    }
+    @PUT
+    @Path("{username}/biomedicalRegisters/{id}")
+    public Response PutQualitativeMeasureQuantitative(@PathParam("username") String username, @PathParam("id") Long id, QualitativeBiomedicalIndicatorMeasureDTO dto  ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
+
+        PatientBiomedicalIndicator ind = patientBean.editPatientRegistersQuanlitative(username, id, dto);
+        return Response.ok(toDTO(ind)).build();
+    }
+
+
+    private BiomedicalIndicatorMeasureResponsePatientDTO toDTO(PatientBiomedicalIndicator p) {
+        //TODO random nulls are in database
+        if(p == null || p.getValue() == null)
+            return null;
+
+        return new BiomedicalIndicatorMeasureResponsePatientDTO(p.getId(), p.getDate(),
+                p.getValue(), p.getIndicator().getName(), p.getDescription(), p.getIndicator().getIndicatorType(), p.getIndicator().getId(), p.getPatient().getUsername(), p.getPatient().getName());
+    }
+
+    private List<BiomedicalIndicatorMeasureResponsePatientDTO> toDTOs(List<PatientBiomedicalIndicator> l) {
+        return l.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+
 
 
 
