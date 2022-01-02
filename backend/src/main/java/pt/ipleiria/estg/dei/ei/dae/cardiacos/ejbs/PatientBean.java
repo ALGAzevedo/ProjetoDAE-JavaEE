@@ -103,7 +103,7 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
-    public void removePatientRegisters(String username, long measureId) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public void removePatientRegisters(String username, long measureId) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         Patient patient = findOrFail(username);
 
         List<PatientBiomedicalIndicator> register = em.createNamedQuery("getBiomedicalRegisters").setParameter("user", username).getResultList();

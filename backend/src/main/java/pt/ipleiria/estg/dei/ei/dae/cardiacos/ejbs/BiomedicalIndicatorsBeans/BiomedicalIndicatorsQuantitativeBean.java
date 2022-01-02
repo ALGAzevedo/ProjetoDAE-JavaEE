@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQualitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 import javax.ejb.EJB;
@@ -35,6 +36,17 @@ public class BiomedicalIndicatorsQuantitativeBean extends BaseBean<BiomedicalInd
         }
 
         entity.setIndicatorType("QUANTITATIVE");
+
+
+    }
+
+    @Override
+    public void preUpdate(BiomedicalIndicatorsQuantitative entity) throws MyEntityNotFoundException, MyIllegalArgumentException {
+        //name cant be update, its like a key for this indicator
+        BiomedicalIndicatorsQuantitative ind = findOrFail(entity.getId());
+        if(!ind.getName().equals(entity.getName())) {
+            throw new MyIllegalArgumentException("Name can´t change");
+        }
 
 
     }

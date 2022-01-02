@@ -45,7 +45,7 @@ public class BiomedicalIndicators {
 
     @DELETE
     @Path("/{id}")
-    public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
 
         biomedicalindicatorBean.destroy(id);
         return Response.noContent().build();

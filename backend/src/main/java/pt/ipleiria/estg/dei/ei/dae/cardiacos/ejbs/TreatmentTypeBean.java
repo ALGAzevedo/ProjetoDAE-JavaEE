@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -23,7 +24,7 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
     }
 
     @Override
-    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException { //TODO: TO VERIFY WITH TEACHER
+    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException { //TODO: TO VERIFY WITH TEACHER
 
         PRC prc = prcBean.findOrFail(entity.getPrc().getCode());
         HealthcareProfessional healthcareProfissional = healthcareProfissionalBean.findOrFail(entity.getHealthCareProfessional().getUsername());

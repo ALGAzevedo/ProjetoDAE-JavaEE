@@ -69,10 +69,10 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
         return entity;
     }
 
-    public void preUpdate(E entity) {}
+    public void preUpdate(E entity) throws MyEntityNotFoundException, MyIllegalArgumentException {}
     public void postUpdate(E entity) {}
 
-    public E update(E entity) throws MyConstraintViolationException {
+    public E update(E entity) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
 
         try {
             preUpdate(entity);
@@ -89,7 +89,7 @@ public abstract class BaseBean<E extends BaseEntity, PK> {
     public void preDestroy(E entity) {}
     public void postDestroy(E entity) {}
 
-    public void destroy(PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public void destroy(PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         var entity = findOrFail(primaryKey);
         preDestroy(entity);
         em.remove(entity);

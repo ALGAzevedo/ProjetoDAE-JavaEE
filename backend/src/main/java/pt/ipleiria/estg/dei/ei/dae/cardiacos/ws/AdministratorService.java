@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -27,7 +28,7 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
 
     @PATCH
     @Path("{username}/super")
-    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         Administrator admin =  administratorBean.patchIsSuper(username, isAdmin);
         return Response.ok(admin).build();
 

@@ -103,7 +103,7 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
     }
 
     @Override
-    public void destroy(Long primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public void destroy(Long primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         var entity = findOrFail(primaryKey);
         preDestroy(entity);
         //if biomedicalIndicator has values associated to him we just soft delete it
