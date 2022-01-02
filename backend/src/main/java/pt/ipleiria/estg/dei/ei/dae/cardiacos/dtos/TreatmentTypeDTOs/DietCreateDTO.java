@@ -12,8 +12,7 @@ public class DietCreateDTO extends TreatmentTypeCreateDTO {
     public DietCreateDTO() {
     }
 
-    public DietCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate,
-                         HealthcareProfessional HealthcareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, HealthcareProfessional, prc);
+    public DietCreateDTO(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
+        super(name, treatmentType, description, startDate, endDate, healthcareProfessionalUsername, prcCode);
     }
 }

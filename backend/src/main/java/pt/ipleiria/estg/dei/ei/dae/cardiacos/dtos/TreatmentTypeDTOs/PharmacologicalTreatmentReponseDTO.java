@@ -14,8 +14,8 @@ public class PharmacologicalTreatmentReponseDTO extends TreatmentTypeResponseDTO
     public PharmacologicalTreatmentReponseDTO() {
     }
 
-    public PharmacologicalTreatmentReponseDTO(String name, String description, LocalDate startDate, LocalDate endDate,
+    public PharmacologicalTreatmentReponseDTO(Integer code, String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate,
                                               HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc) {
-        super(name, description, startDate, endDate, HealthcareProfessional, prc);
+        super(code, name, treatmentType, description, startDate, endDate, HealthcareProfessional, prc);
     }
 }

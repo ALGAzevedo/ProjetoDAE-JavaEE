@@ -1,24 +1,18 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
-import io.smallrye.common.constraint.NotNull;
-import io.smallrye.common.constraint.Nullable;
 import lombok.Getter;
 import lombok.Setter;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class TreatmentTypeCreateDTO implements DTO{
 
     @Getter
     @Setter
     private String name;
+    @Getter
+    @Setter
+    private String treatmentType;
     @Getter
     @Setter
     private String description;
@@ -30,20 +24,21 @@ public class TreatmentTypeCreateDTO implements DTO{
     private LocalDate endDate;
     @Getter
     @Setter
-    private HealthcareProfessional healthCareProfessional;
+    private String healthcareProfessionalUsername;
     @Getter
     @Setter
-    private PRC prc;
+    private String prcCode;
 
     public TreatmentTypeCreateDTO() {
     }
 
-    public TreatmentTypeCreateDTO(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+    public TreatmentTypeCreateDTO(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, String healthcareProfessionalUsername, String prcCode) {
         this.name = name;
+        this.treatmentType = treatmentType;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.healthCareProfessional = healthCareProfessional;
-        this.prc = prc;
+        this.healthcareProfessionalUsername = healthcareProfessionalUsername;
+        this.prcCode = prcCode;
     }
 }

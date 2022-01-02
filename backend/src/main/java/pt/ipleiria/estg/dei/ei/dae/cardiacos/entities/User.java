@@ -43,19 +43,18 @@ public class User extends BaseEntity{
     @NotNull
     private String email;
     @NotNull
+    @Enumerated(EnumType.STRING) // [by Jerry]
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
-
+    @Enumerated(EnumType.STRING)
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
-    @NotNull
-    private String password;
-
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
@@ -72,13 +71,14 @@ public class User extends BaseEntity{
     private Date lastLogin;
     private Date isDeleted;
 
+
+
     //CONSTRUCTORS
     public User() {
     }
 
     public User(String name, String username, String email,
-                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,
-                String password, MaritalStatus maritalStatus, String address, String city,
+                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,MaritalStatus maritalStatus, String address, String city,
                 String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
         this.name = name;
@@ -88,7 +88,6 @@ public class User extends BaseEntity{
         this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.password = hashPassword(password);
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
@@ -155,14 +154,6 @@ public class User extends BaseEntity{
         this.socialSecurityNumber = socialSecurityNumber;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = hashPassword(password);
-    }
-
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
@@ -227,22 +218,5 @@ public class User extends BaseEntity{
         this.isDeleted = isDeleted;
     }
 
-
-    //PASSWORD HASH
-
-    public static String hashPassword(String password) {
-        char[] encoded = null;
-        try {
-            ByteBuffer passwdBuffer =
-                    Charset.defaultCharset().encode(CharBuffer.wrap(password));
-            byte[] passwdBytes = passwdBuffer.array();
-            MessageDigest mdEnc = MessageDigest.getInstance("SHA-256");
-            mdEnc.update(passwdBytes, 0, password.toCharArray().length);
-            encoded = new BigInteger(1, mdEnc.digest()).toString(16).toCharArray();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new String(encoded);
-    }
 
 }

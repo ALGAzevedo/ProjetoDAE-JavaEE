@@ -1,7 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.TreatmentTypesServices;
 
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeDTOs.EducationCreateDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeDTOs.EducationResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeDTOs.PharmacologicalTherapyCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeDTOs.PharmacologicalTreatmentReponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.TreatmentBeans.EducationBean;
@@ -16,7 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("pharmacologicaltherapys") // relative url web path for this service
+@Path("pharmacologicalTherapys") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 public class PharmacologicalTherapyService extends BaseService<PharmacologicalTherapy, Integer, PharmacologicalTherapyBean, PharmacologicalTherapyCreateDTO, PharmacologicalTreatmentReponseDTO> {

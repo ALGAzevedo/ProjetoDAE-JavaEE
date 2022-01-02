@@ -24,7 +24,7 @@ public class SmokingCessation extends TreatmentType {
     public SmokingCessation() {
     }
 
-    public SmokingCessation(String name, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
-        super(name, description, startDate, endDate, healthCareProfessional, prc);
+    public SmokingCessation(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
+        super(name, treatmentType, description, startDate, endDate, healthCareProfessional, prc);
     }
 }

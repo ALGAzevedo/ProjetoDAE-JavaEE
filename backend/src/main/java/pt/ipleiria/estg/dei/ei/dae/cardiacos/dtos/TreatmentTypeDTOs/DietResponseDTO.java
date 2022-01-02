@@ -15,9 +15,9 @@ public class DietResponseDTO extends TreatmentTypeResponseDTO {
     public DietResponseDTO() {
     }
 
-    public DietResponseDTO(String name, String description, LocalDate startDate, LocalDate endDate,
+    public DietResponseDTO(Integer code, String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate,
                            HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc) {
-        super(name, description, startDate, endDate, HealthcareProfessional, prc);
+        super(code, name, treatmentType, description, startDate, endDate, HealthcareProfessional, prc);
     }
 
 }

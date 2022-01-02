@@ -34,14 +34,13 @@ public class ConfigBean {
     @PostConstruct
     public void PopulateDB() throws MyConstraintViolationException, MyEntityExistsException, MyEntityNotFoundException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
         Administrator admin = new Administrator("Joao Ferreira", "JF_admin", "JF@mail.pt", Gender.MALE,
-                LocalDate.of(1989, 5, 9), Country.PORTUGAL, "12345678912", "12345678",
+                LocalDate.of(1989, 5, 9), Country.PORTUGAL, "12345678912",
                 MaritalStatus.SINGLE, "Rua centra", "Leiria", "2420-208", "963768088",
                 "963768088");
         Administrator createdAdmin = administratorBean.create(admin);
 
         var patient1 = new Patient("Jorge Miguel", "jorge123", "jorge@mail.com",
-                Gender.MALE, LocalDate.of(1988, 5, 3), Country.PORTUGAL, "22016759458",
-                "password", MaritalStatus.SINGLE, "Rua do fim à vista", "Alcoba", "2444-244",
+                Gender.MALE, LocalDate.of(1988,5,3), Country.PORTUGAL, "22016759458", MaritalStatus.SINGLE, "Rua do fim à vista", "Alcoba", "2444-244",
                 "956842345", "967561234");
         patientBean.create(patient1);
 
@@ -54,7 +53,7 @@ public class ConfigBean {
                 "956842345", "967561234", "andremedico@mail.com", "926373737");
         healthcareProfissionalBean.create(healthcareProfissional);
 
-        Behaviour behaviour = new Behaviour("Batatas", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
+        Behaviour behaviour = new Behaviour("Batatas", "behaviours", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
         behaviourBean.create(behaviour);
     }
 }

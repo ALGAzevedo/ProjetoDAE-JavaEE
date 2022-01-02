@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("smokingcessations") // relative url web path for this service
+@Path("smokingCessations") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 public class SmokingCessationService extends BaseService<SmokingCessation, Integer, SmokingCessationBean, SmokingCessationCreateDTO, SmokingCessationResponseDTO> {
