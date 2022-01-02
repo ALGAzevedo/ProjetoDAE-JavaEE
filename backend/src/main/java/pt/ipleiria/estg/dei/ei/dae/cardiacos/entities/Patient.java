@@ -31,6 +31,9 @@ public class Patient extends User{
         @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
         private List<PatientBiomedicalIndicator<?>> biomedicalRegisters;
 
+        @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
+        private List<Document> documents;
+
 
         public Patient() {
                 this.prcList = new LinkedList<PRC>();
@@ -50,6 +53,13 @@ public class Patient extends User{
                 super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = prcList;
                 this.biomedicalRegisters = new LinkedList<>();
+        }
+        public List<Document> getDocuments() {
+                return documents;
+        }
+
+        public void setDocuments(List<Document> documents) {
+                this.documents = documents;
         }
 
         public List<PRC> getPrcList() {
@@ -83,5 +93,15 @@ public class Patient extends User{
                 System.out.println(this.biomedicalRegisters.contains(indicator));
                 this.biomedicalRegisters.remove(indicator);
 
+        }
+
+        public void addDocument(Document doc) {
+                if(!documents.contains(doc)) {
+                        documents.add(doc);
+                }
+        }
+
+        public void removeDocument(Document doc) {
+                documents.remove(doc);
         }
 }
