@@ -35,17 +35,6 @@ public class PatientBean extends UserBean<Patient> {
     public PatientBean() {
 
     }
-//    @Override
-//    public void postCreate(Patient patient) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
-//
-//       // String token = authBean.generateToken();
-//        //authBean.create(new Auth(patient.getUsername(),token));
-//
-//        //TODO Send email
-//        //String confirmationLink = "http://localhost:8081/confirm?token=" + token;
-//        //emailBean.send(patient.getEmail(), "Confirm your email",patient.getName(), confirmationLink);
-//
-//     }
 
     public void addQuantitativeBiomedicalIndicator(String username, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyConstraintViolationException {
         //patient exists?

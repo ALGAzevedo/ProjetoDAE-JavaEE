@@ -39,11 +39,10 @@ public class HealthcareProfessional extends User{
     }
 
     public HealthcareProfessional(String name, String username, String email,
-                                  Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
-                                  String password, MaritalStatus maritalStatus, String address, String city,
+                                  Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,MaritalStatus maritalStatus, String address, String city,
                                   String postalCode, String phoneNumber, String emergencyPhoneNumberumber,
                                   String institutionalEmail, String institutionalPhone) {
-        super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumberumber);
+        super(name, username, email, gender, birthDate, country, socialSecurityNumber,maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumberumber);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
     }

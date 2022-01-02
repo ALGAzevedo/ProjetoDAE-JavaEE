@@ -55,9 +55,6 @@ public class User extends BaseEntity{
             message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
-    // Changed to null [Jerry]
-    @Nullable
-    private String password;
     @Enumerated(EnumType.STRING) // [by Jerry]
     private MaritalStatus maritalStatus;
     private String address;
@@ -83,8 +80,7 @@ public class User extends BaseEntity{
     }
 
     public User(String name, String username, String email,
-                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,
-                String password, MaritalStatus maritalStatus, String address, String city,
+                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,MaritalStatus maritalStatus, String address, String city,
                 String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
         this.name = name;
@@ -94,7 +90,6 @@ public class User extends BaseEntity{
         this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.password = password;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
@@ -159,14 +154,6 @@ public class User extends BaseEntity{
 
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public MaritalStatus getMaritalStatus() {

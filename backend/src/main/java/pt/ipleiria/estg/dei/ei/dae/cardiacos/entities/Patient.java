@@ -32,17 +32,17 @@ public class Patient extends User{
         }
 
         public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
-                       Country country, String socialSecurityNumber, String password, MaritalStatus maritalStatus,
+                       Country country, String socialSecurityNumber, MaritalStatus maritalStatus,
                        String address, String city, String postalCode, String phoneNumber, String emergencyPhoneNumber) {
-                super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+                super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = new LinkedList<PRC>();
                 this.biomedicalRegisters = new LinkedList<>();
         }
         public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
-                       Country country, String socialSecurityNumber, String password, MaritalStatus maritalStatus,
+                       Country country, String socialSecurityNumber, MaritalStatus maritalStatus,
                        String address, String city, String postalCode, String phoneNumber, String emergencyPhoneNumber,
                        List<PRC> prcList) {
-                super(name, username, email, gender, birthDate, country, socialSecurityNumber, password, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+                super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = prcList;
         }
 
