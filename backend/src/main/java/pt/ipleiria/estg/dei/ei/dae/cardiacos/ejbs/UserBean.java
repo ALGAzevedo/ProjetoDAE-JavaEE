@@ -41,7 +41,7 @@ public class UserBean<E extends User> extends BaseBean<E, String>{
     @Override
     public void postCreate(User entity) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
         String token = authBean.generateToken();
-        authBean.create(new Auth(entity.getUsername(),token));
+        authBean.addUser(new Auth(entity.getUsername(),token), entity);
         String confirmationLink = "http://localhost:8081/confirm?token=" + token;
         emailBean.send(entity.getEmail(), "Confirm your email",entity.getName(), confirmationLink);
     }

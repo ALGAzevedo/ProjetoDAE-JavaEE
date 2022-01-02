@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PasswordCreateDTO;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 
 import javax.ejb.EJB;
@@ -23,6 +23,22 @@ public class AuthBean extends BaseBean<Auth, String> {
             throw new MyEntityExistsException("Username already registred");
         }
     }
+
+    public Auth addUser(Auth auth, User user) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
+        Auth authToReturn = auth;
+
+        if(user instanceof Administrator)
+            authToReturn = create(new AuthAdministrator(auth.getUsername(), auth.getToken()));
+        if(user instanceof Patient)
+            authToReturn = create(new AuthPatient(auth.getUsername(), auth.getToken()));
+        if(user instanceof HealthcareProfessional)
+            authToReturn = create(new AuthHealthcareProfessional(auth.getUsername(), auth.getToken()));
+
+        return authToReturn;
+    }
+
+
+
 
     @Override
     public void destroy(String username) throws MyEntityNotFoundException {

@@ -20,6 +20,7 @@ import java.util.logging.Logger;
                 query = "SELECT s FROM Auth s WHERE s.token = :token" // JPQL
         )
 })
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Auth extends BaseEntity{
     @Id
     private String username;
