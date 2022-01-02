@@ -43,7 +43,6 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     @NotNull
     private String indicatorType;
 
-    //TODO REGISTO HISTORICO
     private LocalDate deletedAt;
     private LocalDate updatedAt;
 

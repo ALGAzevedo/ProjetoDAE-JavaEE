@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BIomedicalIdicatorUpdateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorGeneralResponseDTO;
@@ -16,10 +17,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.*;
 
 @Stateless
 public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long> {
@@ -129,6 +134,40 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
 
         postDestroy(entity);
     }
+
+
+    public List<BiomedicalIndicator> filterListIndicators(MultivaluedMap<String, String> queryParams) {
+        System.out.println("aqui");
+        Map<String, Object> paramaterMap = new HashMap<String, Object>();
+        StringBuilder queryBuilder = new StringBuilder();
+        List<String> whereCause = new ArrayList<String>();
+        queryBuilder.append("SELECT s FROM BiomedicalIndicator s");
+
+        whereCause.add("s.deletedAt IS NULL");
+
+        if(queryParams.containsKey("indicator")) {
+            whereCause.add("UPPER(s.name) LIKE  UPPER(:indicator)");
+            paramaterMap.put("indicator", "%"+queryParams.get("indicator").get(0)+"%");
+        }
+        if(queryParams.containsKey("type")) {
+            whereCause.add("UPPER(s.indicatorType) LIKE  UPPER(:type)");
+            paramaterMap.put("type", "%"+queryParams.get("type").get(0)+"%");
+        }
+
+
+        queryBuilder.append(" where " + StringUtils.join(whereCause, " and "));
+
+        Query jpaQuery = em.createQuery(queryBuilder.toString());
+
+
+        for(String key :paramaterMap.keySet()) {
+            jpaQuery.setParameter(key, paramaterMap.get(key));
+        }
+
+        return jpaQuery.getResultList();
+
+    }
+
 
 
 
