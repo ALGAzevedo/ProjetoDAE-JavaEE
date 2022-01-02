@@ -37,6 +37,14 @@ public class BiomedicalindicatorBean extends BaseBean<BiomedicalIndicator, Long>
         if(dto.getIndicatorType().equals(dto.getNewType())) {
             throw new MyIllegalArgumentException("Old and new indicators type are equal, no change needed");
         }
+
+        //name cant be update, its like a key for this indicator
+        BiomedicalIndicator ind = findOrFail(id);
+        if(!ind.getName().equals(dto.getName())) {
+            throw new MyIllegalArgumentException("Name can´t change");
+        }
+
+
         ModelMapper mapper = new ModelMapper();
         BiomedicalIndicator indicator = findOrFail(dto.getId());
 

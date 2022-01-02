@@ -27,7 +27,7 @@ public class BiomedicalIndicators {
 
     @GET
     @Path("/")
-    public Response PostQualitativeValue(){
+    public Response GetBiomedicalIndicators(){
         var listind = biomedicalindicatorBean.all();
         return Response.ok(toDTOs(listind)).build();
     }
