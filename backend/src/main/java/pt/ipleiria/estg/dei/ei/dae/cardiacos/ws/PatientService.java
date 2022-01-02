@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorMeasureResponsePatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
@@ -56,6 +57,16 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
         var patientPrcsList = patient.getPrcList();
 
         return Response.ok(prcsToDTOs(patientPrcsList)).build();
+    }
+
+    private List<PRCResponseDTO> prcsToDTOs(List<PRC> prcsList) {
+        return prcsList.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private PRCResponseDTO toDTO(PRC prc) {
+        ModelMapper mapper = new ModelMapper();
+
+        return mapper.map(prc, PRCResponseDTO.class);
     }
 
     @GET

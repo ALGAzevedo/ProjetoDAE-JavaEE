@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.Behaviour;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.TreatmentTypesService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -16,14 +17,14 @@ import javax.ws.rs.core.Response;
 @Path("behaviours") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourBean, BehaviourCreateDTO, BehaviourResponseDTO> {
-    @EJB
-    private BehaviourBean behaviourBean;
-    
-    @Override
-    protected BehaviourBean getEntityBean() {
-        return behaviourBean;
-    }
+public class BehaviourService extends TreatmentTypesService {
+//    @EJB
+//    private BehaviourBean behaviourBean;
+//
+//    @Override
+//    protected BehaviourBean getEntityBean() {
+//        return behaviourBean;
+//    }
 
     @GET
     @Path("treatmentTypeValues")

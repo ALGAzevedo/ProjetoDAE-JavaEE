@@ -49,7 +49,7 @@ public class ConfigBean {
         prcBean.create(prc);
         HealthcareProfessional healthcareProfissional = new HealthcareProfessional("Andre", "andre123", "andre@mail.com",
                 Gender.MALE, LocalDate.of(1988, 5, 3), Country.PORTUGAL, "22016751358",
-                "password", MaritalStatus.SINGLE, "Rua do fim à vista", "Alcoba", "2444-244",
+                 MaritalStatus.SINGLE, "Rua do fim à vista", "Alcoba", "2444-244",
                 "956842345", "967561234", "andremedico@mail.com", "926373737");
         healthcareProfissionalBean.create(healthcareProfissional);
 
