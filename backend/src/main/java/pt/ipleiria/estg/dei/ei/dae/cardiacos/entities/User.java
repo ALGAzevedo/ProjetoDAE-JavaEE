@@ -43,19 +43,18 @@ public class User extends BaseEntity{
     @NotNull
     private String email;
     @NotNull
+    @Enumerated(EnumType.STRING) // [by Jerry]
     private Gender gender;
     @NotNull
     private LocalDate birthdate;
-
+    @Enumerated(EnumType.STRING)
     private Country country;
     @NotNull
     @Pattern(regexp="^[0-9]{11}$",
             message="Invalid Social Security Number")
     private String socialSecurityNumber;
 
-    @NotNull
-    private String password;
-
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
     private String address;
     private String city;
@@ -72,7 +71,6 @@ public class User extends BaseEntity{
     private Date lastLogin;
     private Date isDeleted;
 
-    //TODO RETIRAR PASSWORD DA ENTIDADE USER E DTOS
 
 
     //CONSTRUCTORS
@@ -80,8 +78,7 @@ public class User extends BaseEntity{
     }
 
     public User(String name, String username, String email,
-                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,
-                String password, MaritalStatus maritalStatus, String address, String city,
+                Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber,MaritalStatus maritalStatus, String address, String city,
                 String postalCode, String phoneNumber, String emergencyPhoneNumber) {
 
         this.name = name;
@@ -91,7 +88,6 @@ public class User extends BaseEntity{
         this.birthdate = birthdate;
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.password = password;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.city = city;
@@ -156,14 +152,6 @@ public class User extends BaseEntity{
 
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public MaritalStatus getMaritalStatus() {
