@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PasswordCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -12,6 +13,9 @@ import java.util.UUID;
 
 @Stateless
 public class AuthBean extends BaseBean<Auth, String> {
+
+    @EJB
+    private UserBean userBean;
 
     @Override
     public void preCreate(Auth auth) throws MyEntityExistsException {

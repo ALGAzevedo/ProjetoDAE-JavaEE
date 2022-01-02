@@ -33,6 +33,7 @@ public class LoginService {
         try {
             Auth auth = authBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
             if (auth != null) {
+
                 if (auth.getUsername() != null) {
                     log.info("Generating JWT for user " + auth.getUsername());
                 }
