@@ -5,13 +5,12 @@
          version="4.0">
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Students List</web-resource-name>
-            <url-pattern>/cardiacos/api/auth/user</url-pattern>
+            <web-resource-name>User info</web-resource-name>
+            <url-pattern>/api/auth/user</url-pattern>
             <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>Administrator</role-name>
-            <role-name>Patient</role-name>
         </auth-constraint>
     </security-constraint>
 

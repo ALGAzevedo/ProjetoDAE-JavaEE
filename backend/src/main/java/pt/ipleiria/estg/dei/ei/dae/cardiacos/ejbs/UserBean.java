@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.Email.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Auth;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
@@ -21,6 +22,9 @@ public class UserBean<E extends User> extends BaseBean<E, String>{
     @EJB
     AuthBean authBean;
 
+    @EJB
+    private EmailBean emailBean;
+
     public UserBean() {
     }
 
@@ -33,17 +37,13 @@ public class UserBean<E extends User> extends BaseBean<E, String>{
             throw new MyUniqueConstraintViolationException("Email: " + entity.getEmail() + " already registred");
         }
 
-
-        //REGISTER USER IN authTable
-        //TODO! ALTERAR NO FUTURO, PASS N É INICIADA, APENAS TOKEN
-        //[by Jerry] - Cada bean disso e deveria estar no post
-       // authBean.create(new Auth(entity.getUsername()));
-
     }
     @Override
     public void postCreate(User entity) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
-        // [by Jerry] - Não pode ficar aqui porque apenas os pacientes é que têm o token para definir password.
-        //authBean.create(new Auth(entity.getUsername()));
+        String token = authBean.generateToken();
+        authBean.create(new Auth(entity.getUsername(),token));
+        String confirmationLink = "http://localhost:8081/confirm?token=" + token;
+        emailBean.send(entity.getEmail(), "Confirm your email",entity.getName(), confirmationLink);
     }
 
     public List findWithEmail(String email) {
