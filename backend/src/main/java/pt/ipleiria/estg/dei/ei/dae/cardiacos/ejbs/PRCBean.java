@@ -75,10 +75,10 @@ public class PRCBean extends BaseBean<PRC, Integer> {
             paramaterMap.put("prcName", "%"+queryParams.get("prcName").get(0)+"%");
         }
         //TODO: NOT WORKING
-//        if(queryParams.containsKey("patientUsername")) {
-//            whereCause.add("p.patient_prc = :patient");
-//            paramaterMap.put("patient", patientBean.findOrFail(queryParams.get("patientUsername").get(0)));
-//        }
+        if(queryParams.containsKey("patientUsername")) {
+            whereCause.add("p.patient = :patient");
+            paramaterMap.put("patient", patientBean.findOrFail(queryParams.get("patientUsername").get(0)));
+        }
 
         if(queryParams.containsKey("startDate")) {
             whereCause.add("p.startDate >= :startDate");
