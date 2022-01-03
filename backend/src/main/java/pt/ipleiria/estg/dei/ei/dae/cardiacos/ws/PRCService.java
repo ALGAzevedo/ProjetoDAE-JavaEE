@@ -12,8 +12,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentExcepti
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +27,15 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
     @Override
     protected PRCBean getEntityBean() {
         return prcBean;
+    }
+
+    @GET
+    @Path("")
+    public Response all(@Context UriInfo ui ) throws MyEntityNotFoundException {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<PRC> prcs = prcBean.getPrcs(queryParams);
+        var dtos = mapper.serialize(prcs, getDtoResponseClass());
+        return Response.ok(dtos).build();
     }
 
     @GET
