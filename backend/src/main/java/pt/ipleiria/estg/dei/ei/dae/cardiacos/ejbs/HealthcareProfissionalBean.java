@@ -52,7 +52,6 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional>
 
     public List<HealthcareProfessional> getHealthcareProfessionals(MultivaluedMap<String, String> queryParams) {
         return getUsers(queryParams);
-
     }
 
     public HealthcareProfessional addPatient(String username, String patientUsername) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {

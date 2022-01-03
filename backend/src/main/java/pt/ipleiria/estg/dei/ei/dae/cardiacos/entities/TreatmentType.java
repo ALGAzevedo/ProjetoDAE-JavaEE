@@ -66,7 +66,19 @@ public class TreatmentType extends BaseEntity{
     @Setter
     private PRC prc;
 
+    @NotNull
+    @Getter
+    @Setter
+    private Boolean isActive;
+
+    @NotNull
+    @Getter
+    @Setter
+    private Boolean isDeleted;
+
     public TreatmentType() {
+        this.isActive = true;
+        this.isDeleted = false;
     }
 
     public TreatmentType(String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate, HealthcareProfessional healthCareProfessional, PRC prc) {
@@ -77,6 +89,8 @@ public class TreatmentType extends BaseEntity{
         this.endDate = endDate;
         this.healthCareProfessional = healthCareProfessional;
         this.prc = prc;
+        this.isActive = true;
+        this.isDeleted = false;
     }
 
 }

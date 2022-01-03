@@ -64,7 +64,6 @@ public class PRC extends BaseEntity implements Serializable {
     @Setter
     private Patient patient;
 
-
     @NotNull
     @Getter
     @Setter

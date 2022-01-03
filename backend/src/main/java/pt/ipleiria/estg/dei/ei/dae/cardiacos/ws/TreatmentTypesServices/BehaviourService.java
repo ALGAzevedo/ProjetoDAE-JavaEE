@@ -10,8 +10,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.util.List;
 
 @Path("behaviours") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
@@ -32,5 +32,14 @@ public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourB
         String possibleValues[] = {"behaviours", "diets", "educations", "exercises", "pharmacologicalTherapys", "smokingCessation" };
 
         return Response.ok(possibleValues).build();
+    }
+
+    @GET
+    @Path("")
+    public Response all(@Context UriInfo ui ) throws MyEntityNotFoundException {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<Behaviour> behaviours = behaviourBean.getBehaviours(queryParams);
+        var dtos = mapper.serialize(behaviours, getDtoResponseClass());
+        return Response.ok(dtos).build();
     }
 }
