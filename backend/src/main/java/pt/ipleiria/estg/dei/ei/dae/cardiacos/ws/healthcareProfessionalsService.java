@@ -4,11 +4,13 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.HealthcareProfessionalCreateDT
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.HealthcareProfessionalResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.HealthcareProfissionalBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
+import java.util.List;
 
 
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
@@ -24,4 +26,16 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
         return healthcareProfissionalBean;
     }
 
+
+    @GET
+    @Path("")
+    public Response all(@Context UriInfo ui ) {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<HealthcareProfessional> pi = healthcareProfissionalBean.getHealthcareProfessionals(queryParams);
+        var dtos = mapper.serialize(pi, getDtoResponseClass());
+        return Response.ok(dtos).build();
+    }
+
 }
+
+

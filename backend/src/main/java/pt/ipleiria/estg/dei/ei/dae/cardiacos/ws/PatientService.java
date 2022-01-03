@@ -30,7 +30,14 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
         return patientBean;
     }
 
-
+    @GET
+    @Path("")
+    public Response all(@Context UriInfo ui ) {
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<Patient> pi = patientBean.getPatients(queryParams);
+        var dtos = mapper.serialize(pi, getDtoResponseClass());
+        return Response.ok(dtos).build();
+    }
 
     //add indicators to its register
     @POST
@@ -125,9 +132,5 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     private List<BiomedicalIndicatorMeasureResponsePatientDTO> toDTOs(List<PatientBiomedicalIndicator> l) {
         return l.stream().map(this::toDTO).collect(Collectors.toList());
     }
-
-
-
-
 
 }

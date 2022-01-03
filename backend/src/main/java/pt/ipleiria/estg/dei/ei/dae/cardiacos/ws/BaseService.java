@@ -34,7 +34,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
     }
 
     @Inject
-    private EntityMapper mapper;
+    protected EntityMapper mapper;
 
     protected abstract B getEntityBean();
 

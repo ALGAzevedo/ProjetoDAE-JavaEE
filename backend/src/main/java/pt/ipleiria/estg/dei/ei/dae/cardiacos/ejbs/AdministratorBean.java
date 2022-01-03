@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -8,6 +9,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentExcepti
 
 import javax.ejb.Stateless;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.MultivaluedMap;
+import java.util.List;
 
 @Stateless
 //public class AdministratorBean extends UserBean<Administrator, String> {
@@ -29,4 +32,11 @@ public  class AdministratorBean extends UserBean<Administrator>
             throw new MyConstraintViolationException(e);
         }
     }
+
+    public List<Administrator> getAdministrators(MultivaluedMap<String, String> queryParams) {
+        return getUsers(queryParams);
+
+    }
+
+
 }

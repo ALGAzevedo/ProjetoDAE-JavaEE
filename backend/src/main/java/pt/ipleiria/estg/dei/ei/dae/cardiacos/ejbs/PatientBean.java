@@ -256,4 +256,11 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
+
+
+    public List<Patient> getPatients(MultivaluedMap<String, String> queryParams) {
+        return getUsers(queryParams);
+
+    }
+
 }
