@@ -5,10 +5,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PRCCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PRCResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PRCBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BaseEntity;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
@@ -49,5 +47,13 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
         ModelMapper mapper = new ModelMapper();
 
         return mapper.map(treatmentType, TreatmentTypeResponseDTO.class);
+    }
+
+    @PATCH
+    @Path("{code}/inactive")
+    public Response PatchPrcInactivate(@PathParam("code") Integer code) throws MyConstraintViolationException, MyEntityNotFoundException {
+        PRC prc =  prcBean.patchInactivatePrc(code);
+        return Response.ok(prc).build();
+
     }
 }

@@ -37,6 +37,11 @@ public class PRC extends BaseEntity implements Serializable {
     @Setter
     private String name;
 
+    @NotNull
+    @Getter
+    @Setter
+    private Boolean isActive;
+
     @Nullable
     @Getter
     @Setter
@@ -66,11 +71,13 @@ public class PRC extends BaseEntity implements Serializable {
 
 
     public PRC() {
+        this.isActive = true;
         this.treatmentTypeList = new LinkedList<TreatmentType>();
     }
 
     public PRC(String name, String description, LocalDate startDate, LocalDate endDate, Patient patient) {
         this.name = name;
+        this.isActive = true;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -82,5 +89,9 @@ public class PRC extends BaseEntity implements Serializable {
         if(!this.treatmentTypeList.contains(treatmentType)) {
             this.treatmentTypeList.add(treatmentType);
         }
+    }
+
+    public void inactivatePrc(){
+        this.isActive = !this.isActive;
     }
 }

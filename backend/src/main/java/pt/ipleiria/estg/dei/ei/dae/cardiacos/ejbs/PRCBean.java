@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
@@ -9,6 +10,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.ConstraintViolationException;
 
 @Stateless
 public class PRCBean extends BaseBean<PRC, Integer> {
@@ -31,6 +33,19 @@ public class PRCBean extends BaseBean<PRC, Integer> {
     public void postCreate(PRC entity) throws MyEntityNotFoundException, MyConstraintViolationException { //TODO: TO VERIFY
         entity.getPatient().addPrc(entity);
 //        patientBean.update(patient);
+    }
+
+    //PATCHES
+    public PRC patchInactivatePrc(Integer code) throws MyConstraintViolationException, MyEntityNotFoundException {
+        PRC prc  = findOrFail(code);
+
+        try {
+            prc.inactivatePrc();
+            super.update(prc);
+            return findOrFail(prc.getCode());
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
+        }
     }
 
 }
