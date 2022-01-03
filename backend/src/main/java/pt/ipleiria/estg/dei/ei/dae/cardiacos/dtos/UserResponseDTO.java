@@ -5,14 +5,13 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class UserResponseDTO implements DTO{
     private String name;
     private String username;
     private String email;
     private Gender gender;
-    private String birthDate;
+    private String birthdate;
     private Country country;
     private String socialSecurityNumber;
     private MaritalStatus maritalStatus;
@@ -33,7 +32,7 @@ public class UserResponseDTO implements DTO{
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.birthDate = birthDate.toString();
+        this.birthdate = birthDate.toString();
         this.country = country;
         this.socialSecurityNumber = socialSecurityNumber;
         this.maritalStatus = maritalStatus;
@@ -44,8 +43,8 @@ public class UserResponseDTO implements DTO{
         this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getName() {
@@ -80,12 +79,12 @@ public class UserResponseDTO implements DTO{
         this.gender = gender;
     }
 
-    public String getBirthDate() {
-        return birthDate.toString();
+    public String getBirthdate() {
+        return birthdate.toString();
     }
 
     public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate.toString();
+        this.birthdate = birthDate.toString();
     }
 
     public Country getCountry() {

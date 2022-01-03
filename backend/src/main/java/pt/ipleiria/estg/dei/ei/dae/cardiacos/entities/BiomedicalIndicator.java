@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
         ),
         @NamedQuery(
                 name = "getAllBiomedicalIndicators",
-                query = "SELECT s FROM BiomedicalIndicator s ORDER BY s.id desc" // JPQL
+                query = "SELECT s FROM BiomedicalIndicator s WHERE s.deletedAt IS NULL ORDER BY s.id desc" // JPQL
         ),
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -43,7 +43,6 @@ public class BiomedicalIndicator<T> extends BaseEntity {
     @NotNull
     private String indicatorType;
 
-    //TODO REGISTO HISTORICO
     private LocalDate deletedAt;
     private LocalDate updatedAt;
 

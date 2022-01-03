@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class DocumentsService {
                 }
                 String filepath = customDir.getCanonicalPath() + File.separator + filename;
                 writeFile(bytes, filepath);
-                documentBean.create(new Document(filename,path, patient));
+                documentBean.create(new Document(filename,path, patient, LocalDate.now()));
                 return Response.status(200).entity("Uploaded file name : " +
                         filename).build();
             } catch (Exception e) {
@@ -86,7 +87,7 @@ public class DocumentsService {
         if(patient == null) {
             throw new MyEntityNotFoundException("Student with username " + username + " not found.");
         }
-        return documentsToDTOs(documentBean.getPatientsDocuments(username));
+        return documentsToDTOs(documentBean.getAllPatientDocuments(username));
     }
     @GET
     @Path("{username}/exists")
@@ -101,8 +102,9 @@ public class DocumentsService {
     DocumentDTO toDTO(Document document) {
         return new DocumentDTO(
                 document.getId(),
+                document.getFilename(),
                 document.getFilepath(),
-                document.getFilename());
+                document.getDate());
     }
     List<DocumentDTO> documentsToDTOs(List<Document> documents) {
         return documents.stream().map(this::toDTO).collect(Collectors.toList());

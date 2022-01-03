@@ -34,7 +34,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
     }
 
     @Inject
-    private EntityMapper mapper;
+    protected EntityMapper mapper;
 
     protected abstract B getEntityBean();
 
@@ -69,7 +69,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @PUT
     @Path("{pk}")
-    public Response update(@PathParam("pk") PK primaryKey, D dto) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response update(@PathParam("pk") PK primaryKey, D dto) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         var entity = getEntityBean().findOrFail(primaryKey);
 
         preUpdate(entity);
@@ -83,7 +83,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
     @DELETE
     @Path("{pk}")
-    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response delete(@PathParam("pk") PK primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         getEntityBean().destroy(primaryKey);
         return Response.noContent().build();
     }

@@ -53,8 +53,12 @@ public class BiomedicalIndicatorsQualitativeBean extends BaseBean<BiomedicalIndi
     }
 
     @Override
-    public void preUpdate(BiomedicalIndicatorsQualitative entity) {
-
+    public void preUpdate(BiomedicalIndicatorsQualitative entity) throws MyEntityNotFoundException, MyIllegalArgumentException {
+        //name cant be update, its like a key for this indicator
+        BiomedicalIndicatorsQualitative ind = findOrFail(entity.getId());
+        if(!ind.getName().equals(entity.getName())) {
+            throw new MyIllegalArgumentException("Name can´t change");
+        }
 
         HashSet<String> possibleValuesUpper = new HashSet<>();
         for (String possibleValue : entity.getPossibleValues()) {

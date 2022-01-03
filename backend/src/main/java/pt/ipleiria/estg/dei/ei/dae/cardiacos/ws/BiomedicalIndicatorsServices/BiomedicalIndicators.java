@@ -5,14 +5,14 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BIomedica
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorGeneralResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalindicatorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicator;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +27,10 @@ public class BiomedicalIndicators {
 
     @GET
     @Path("/")
-    public Response PostQualitativeValue(){
-        var listind = biomedicalindicatorBean.all();
-        return Response.ok(toDTOs(listind)).build();
+    public Response GetBiomedicalIndicators(@Context UriInfo ui){
+        MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+        List<BiomedicalIndicator> list = biomedicalindicatorBean.filterListIndicators(queryParams);
+        return Response.ok(toDTOs(list)).build();
     }
 
 
@@ -45,7 +46,7 @@ public class BiomedicalIndicators {
 
     @DELETE
     @Path("/{id}")
-    public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
 
         biomedicalindicatorBean.destroy(id);
         return Response.noContent().build();

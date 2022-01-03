@@ -1,17 +1,29 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators;
 
+import java.time.LocalDate;
+
 public class DocumentDTO {
     private Long id;
     private String filename;
     private String filepath;
+    private LocalDate date;
 
     public DocumentDTO() {
     }
 
-    public DocumentDTO(Long id, String filename, String filepath) {
+    public DocumentDTO(Long id, String filename, String filepath, LocalDate date) {
         this.id = id;
         this.filename = filename;
         this.filepath = filepath;
+        this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Long getId() {
