@@ -1,11 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
 import io.smallrye.common.constraint.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -34,9 +37,19 @@ public class Patient extends User{
         @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
         private List<Document> documents;
 
+        @Getter
+        @Setter
+        @ManyToMany
+        @JoinTable(name = "PATIENTS_PROFESSIONALS",
+                joinColumns = @JoinColumn(name = "PATIENT_USERNAME", referencedColumnName = "USERNAME"),
+                inverseJoinColumns = @JoinColumn(name = "PROFESSIONAL_USERNAME", referencedColumnName =
+                        "USERNAME"))
+        private List<HealthcareProfessional> healthcareProfessionalList;
 
         public Patient() {
                 this.prcList = new LinkedList<PRC>();
+                this.biomedicalRegisters = new LinkedList<>();
+                this.healthcareProfessionalList = new LinkedList<HealthcareProfessional>();
         }
 
         public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
@@ -45,6 +58,7 @@ public class Patient extends User{
                 super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = new LinkedList<PRC>();
                 this.biomedicalRegisters = new LinkedList<>();
+                this.healthcareProfessionalList = new LinkedList<HealthcareProfessional>();
         }
         public Patient(String name, String username, String email, Gender gender, LocalDate birthDate,
                        Country country, String socialSecurityNumber, MaritalStatus maritalStatus,
@@ -53,6 +67,7 @@ public class Patient extends User{
                 super(name, username, email, gender, birthDate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
                 this.prcList = prcList;
                 this.biomedicalRegisters = new LinkedList<>();
+                this.healthcareProfessionalList = new LinkedList<HealthcareProfessional>();
         }
         public List<Document> getDocuments() {
                 return documents;
@@ -103,5 +118,15 @@ public class Patient extends User{
 
         public void removeDocument(Document doc) {
                 documents.remove(doc);
+        }
+
+        public void addHealthcareProfessional(HealthcareProfessional healthcareProfessional) {
+                if(!this.healthcareProfessionalList.contains(healthcareProfessional)) {
+                        this.healthcareProfessionalList.add(healthcareProfessional);
+                }
+        }
+
+        public void removeHealthcareProfessional(HealthcareProfessional healthcareProfessional){
+                this.healthcareProfessionalList.remove(healthcareProfessional);
         }
 }

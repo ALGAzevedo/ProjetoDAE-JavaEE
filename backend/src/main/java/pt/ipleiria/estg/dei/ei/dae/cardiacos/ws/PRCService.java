@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PRCBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -51,9 +52,8 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @PATCH
     @Path("{code}/inactive")
-    public Response PatchPrcInactivate(@PathParam("code") Integer code) throws MyConstraintViolationException, MyEntityNotFoundException {
+    public Response PatchPrcInactivate(@PathParam("code") Integer code) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         PRC prc =  prcBean.patchInactivatePrc(code);
         return Response.ok(prc).build();
-
     }
 }

@@ -1,5 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.entities;
 
+import io.smallrye.common.constraint.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
@@ -31,11 +34,21 @@ public class HealthcareProfessional extends User{
     @NotNull
     private String institutionalPhone;
 
+    @Nullable
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "healthCareProfessional", cascade = CascadeType.DETACH)
     private List<TreatmentType> treatmentTypeList;
 
+    @Nullable
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "healthcareProfessionalList")
+    private List<Patient> patientList;
+
     public HealthcareProfessional() {
         this.treatmentTypeList = new LinkedList<TreatmentType>();
+        this.patientList = new LinkedList<Patient>();
     }
 
     public HealthcareProfessional(String name, String username, String email,
@@ -45,6 +58,8 @@ public class HealthcareProfessional extends User{
         super(name, username, email, gender, birthDate, country, socialSecurityNumber,maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumberumber);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
+        this.treatmentTypeList = new LinkedList<TreatmentType>();
+        this.patientList = new LinkedList<Patient>();
     }
 
     public String getInstitutionalEmail() {
@@ -63,17 +78,19 @@ public class HealthcareProfessional extends User{
         this.institutionalPhone = institutionalPhone;
     }
 
-    public List<TreatmentType> getTreatmentTypeList() {
-        return treatmentTypeList;
-    }
-
-    public void setTreatmentTypeList(List<TreatmentType> treatmentTypeList) {
-        this.treatmentTypeList = treatmentTypeList;
-    }
-
     public void addTreatment(TreatmentType treatmentType) {
         if(!this.treatmentTypeList.contains(treatmentType)) {
             this.treatmentTypeList.add(treatmentType);
         }
+    }
+
+    public void addPatient(Patient patient) {
+        if(!this.patientList.contains(patient)) {
+            this.patientList.add(patient);
+        }
+    }
+
+    public void removePatient(Patient patient){
+        this.patientList.remove(patient);
     }
 }

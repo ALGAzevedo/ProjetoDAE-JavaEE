@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -36,7 +37,7 @@ public class PRCBean extends BaseBean<PRC, Integer> {
     }
 
     //PATCHES
-    public PRC patchInactivatePrc(Integer code) throws MyConstraintViolationException, MyEntityNotFoundException {
+    public PRC patchInactivatePrc(Integer code) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         PRC prc  = findOrFail(code);
 
         try {
@@ -45,6 +46,10 @@ public class PRCBean extends BaseBean<PRC, Integer> {
             return findOrFail(prc.getCode());
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
+        } catch (MyEntityNotFoundException e) {
+            throw new MyEntityNotFoundException(e.getMessage());
+        } catch (MyIllegalArgumentException e) {
+            throw new MyIllegalArgumentException(e.getMessage());
         }
     }
 

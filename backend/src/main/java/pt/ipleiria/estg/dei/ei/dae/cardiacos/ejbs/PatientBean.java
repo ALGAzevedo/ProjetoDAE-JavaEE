@@ -1,9 +1,12 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.modelmapper.ValidationException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PatientResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QualitativeBiomedicalIndicatorMeasureDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.QuantitativeBiomedicalIndicatorMeasureDTO;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQualitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.BiomedicalIndicatorsQuantitativeBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.Email.EmailBean;
@@ -256,11 +259,20 @@ public class PatientBean extends UserBean<Patient> {
 
     }
 
-
-
     public List<Patient> getPatients(MultivaluedMap<String, String> queryParams) {
         return getUsers(queryParams);
 
+    }
+
+
+    public List<PatientResponseDTO> patientsToDTOs(List<Patient> patients) {
+        return patients.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private PatientResponseDTO toDTO(Patient patient) {
+        ModelMapper mapper = new ModelMapper();
+
+        return mapper.map(patient, PatientResponseDTO.class);
     }
 
 }

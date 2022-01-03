@@ -9,7 +9,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationExc
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -43,8 +45,7 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
     }
 
     @Override
-    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException { //TODO: TO VERIFY WITH TEACHER
-
+    public void postCreate(E entity) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException { //TODO: TO VERIFY WITH TEACHER
         PRC prc = prcBean.findOrFail(entity.getPrc().getCode());
         HealthcareProfessional healthcareProfissional = healthcareProfissionalBean.findOrFail(entity.getHealthCareProfessional().getUsername());
 
@@ -52,13 +53,21 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
         prcBean.update(prc);
 
         healthcareProfissional.addTreatment(entity);
+        healthcareProfissional.addPatient(entity.getPrc().getPatient());
         healthcareProfissionalBean.update(healthcareProfissional);
 
-        System.out.println(entity.getPrc());
-        System.out.println(entity.getHealthCareProfessional());
+        entity.getPrc().getPatient().addHealthcareProfessional(healthcareProfissional);
+        //TODO: ESTÁ CERTO ?
 
-//        entity.setHealthCareProfessional(healthcareProfissional);
-//        entity.setPrc(prc);
+        this.myAwesomeMethod();
+    }
 
+    //TODO: TESTE PARA CURRENT USER
+    @Resource
+    private SessionContext context;
+
+    public void myAwesomeMethod() {
+        String currentUser = context.getCallerPrincipal().getName();
+        System.out.println(currentUser);
     }
 }
