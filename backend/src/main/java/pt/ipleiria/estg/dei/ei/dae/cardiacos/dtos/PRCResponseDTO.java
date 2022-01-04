@@ -31,12 +31,15 @@ public class PRCResponseDTO implements DTO{
     @Getter
     @Setter
     private String isActive;
+    @Getter
+    @Setter
+    private String isDeleted;
 
 
     public PRCResponseDTO() {
     }
 
-    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername, Boolean isActive) {
+    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername, Boolean isActive, Boolean isDeleted) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -44,6 +47,7 @@ public class PRCResponseDTO implements DTO{
         this.endDate = endDate.toString();
         this.patientUsername = patientUsername;
         this.isActive = isActive.toString();
+        this.isDeleted = isDeleted.toString();
     }
 
 

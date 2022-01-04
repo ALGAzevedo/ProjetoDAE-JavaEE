@@ -37,13 +37,16 @@ public class TreatmentTypeResponseDTO implements DTO{
     @Getter
     @Setter
     private String isActive;
+    @Getter
+    @Setter
+    private String isDeleted;
 
 
     public TreatmentTypeResponseDTO() {
     }
 
     public TreatmentTypeResponseDTO(Integer code, String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate,
-                                    HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc, Boolean isActive) {
+                                    HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc, Boolean isActive, Boolean isDeleted) {
         this.code = code;
         this.treatmentType = treatmentType;
         this.name = name;
@@ -53,5 +56,6 @@ public class TreatmentTypeResponseDTO implements DTO{
         this.healthcareProfessional = healthcareProfessional;
         this.prc = prc;
         this.isActive = isActive.toString();
+        this.isDeleted = isDeleted.toString();
     }
 }
