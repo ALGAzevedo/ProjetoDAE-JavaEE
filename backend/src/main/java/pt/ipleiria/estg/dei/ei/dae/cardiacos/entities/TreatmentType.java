@@ -13,7 +13,8 @@ import java.util.Date;
 
 @Entity
 @Table(
-        name = "TREATMENT_TYPES"
+        name = "TREATMENT_TYPES",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
 )
 @NamedQueries({
         @NamedQuery(
@@ -91,6 +92,10 @@ public class TreatmentType extends BaseEntity{
         this.prc = prc;
         this.isActive = true;
         this.isDeleted = false;
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
     }
 
 }

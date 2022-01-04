@@ -15,7 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(
-        name = "PRCS"
+        name = "PRCS",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
 )
 @NamedQueries({
         @NamedQuery(
@@ -51,7 +52,7 @@ public class PRC extends BaseEntity implements Serializable {
     @Setter
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "prc", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "prc", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @Getter
     @Setter
     private List<TreatmentType> treatmentTypeList;
