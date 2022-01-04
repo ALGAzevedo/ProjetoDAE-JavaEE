@@ -20,7 +20,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllHealthcareProfessionals",
-                query = "SELECT s FROM HealthcareProfessional s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM HealthcareProfessional s WHERE s.isDeleted IS NULL ORDER BY s.name" // JPQL
         )
 })
 public class HealthcareProfessional extends User{

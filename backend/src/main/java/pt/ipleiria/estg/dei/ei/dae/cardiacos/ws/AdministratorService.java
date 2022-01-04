@@ -50,6 +50,8 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
 
     }
 
+
+
     @GET
     @Path("")
     @RolesAllowed({"AuthAdministrator"})
