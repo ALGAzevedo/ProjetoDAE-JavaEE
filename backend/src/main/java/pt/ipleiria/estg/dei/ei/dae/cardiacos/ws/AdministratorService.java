@@ -21,6 +21,7 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("administrators") // relative url web path for this service
+@RolesAllowed({"AuthAdministrator"})
 public class AdministratorService extends BaseService<Administrator, String, AdministratorBean, AdministratorCreateDTO, AdministratorResponseDTO> {
     @EJB
     private AdministratorBean administratorBean;
@@ -68,6 +69,7 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
     @Override
     @DELETE
     @Path("{pk}")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         Administrator administrator = administratorBean.findOrFail(primaryKey);
         administratorBean.softDelete(administrator);

@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class UserMeDTO extends HealthcareProfessionalResponseDTO{
     private String userType;
+    private boolean isSuperAdmin;
 
     public UserMeDTO() {
     }
@@ -16,10 +17,11 @@ public class UserMeDTO extends HealthcareProfessionalResponseDTO{
     public UserMeDTO(String name, String username, String email, Gender gender, LocalDate birthdate, Country country,
                      String socialSecurityNumber, MaritalStatus maritalStatus, String address, String city,
                      String postalCode, String phoneNumber, String emergencyPhoneNumber, String institutionalEmail,
-                     String institutionalPhone, String userType, Date isDeleted) {
+                     String institutionalPhone, String userType, Date isDeleted, boolean isSuperAdmin) {
         super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city,
                 postalCode, phoneNumber, emergencyPhoneNumber, institutionalEmail, institutionalPhone, isDeleted);
         this.userType = userType;
+        this.isSuperAdmin = isSuperAdmin;
 
     }
 
@@ -29,5 +31,13 @@ public class UserMeDTO extends HealthcareProfessionalResponseDTO{
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public Boolean getSuperAdmin() {
+        return isSuperAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        isSuperAdmin = superAdmin;
     }
 }

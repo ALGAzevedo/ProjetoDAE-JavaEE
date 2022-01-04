@@ -10,6 +10,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Path("behaviours") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+@RolesAllowed({"AuthAdministrator", "AuthHealthcareProfessional", "AuthPatient"})
 public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourBean, BehaviourCreateDTO, BehaviourResponseDTO> {
     @EJB
     private BehaviourBean behaviourBean;
@@ -29,6 +31,7 @@ public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourB
 
     @GET
     @Path("treatmentTypeValues")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response GetAllTreatmentTypeValues() throws MyEntityNotFoundException {
 
         String possibleValues[] = {"behaviours", "diets", "educations", "exercises", "pharmacologicalTherapys", "smokingCessation" };
@@ -38,6 +41,7 @@ public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourB
 
     @GET
     @Path("")
+    @RolesAllowed({"AuthHealthcareProfessional", "AuthPatient"})
     public Response all(@Context UriInfo ui ) throws MyEntityNotFoundException {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<Behaviour> behaviours = behaviourBean.getBehaviours(queryParams);
@@ -48,6 +52,7 @@ public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourB
     @Override
     @DELETE
     @Path("{pk}")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         Behaviour behaviour = behaviourBean.findOrFail(primaryKey);
         behaviourBean.softDelete(behaviour);
