@@ -63,18 +63,7 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
         healthcareProfessionalBean.update(healthcareProfessional);
 
         entity.getPrc().getPatient().addHealthcareProfessional(healthcareProfessional);
-        //TODO: ESTÁ CERTO ?
 
-        this.myAwesomeMethod();
-    }
-
-    //TODO: TESTE PARA CURRENT USER
-    @Resource
-    private SessionContext context;
-
-    public void myAwesomeMethod() {
-        String currentUser = context.getCallerPrincipal().getName();
-        System.out.println(currentUser);
     }
 
     protected List<E> getTreatments(MultivaluedMap<String, String> queryParams) throws MyEntityNotFoundException {
@@ -115,6 +104,10 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
         }
 
         return jpaQuery.getResultList();
+    }
 
+    public TreatmentType softDelete(TreatmentType treatmentType){
+        treatmentType.softDelete();
+        return treatmentType;
     }
 }

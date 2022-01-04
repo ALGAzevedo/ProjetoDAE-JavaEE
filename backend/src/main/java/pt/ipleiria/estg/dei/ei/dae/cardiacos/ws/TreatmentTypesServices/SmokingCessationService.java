@@ -8,13 +8,15 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.TreatmentBeans.EducationBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.TreatmentBeans.SmokingCessationBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.Education;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.SmokingCessation;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("smokingCessations") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
@@ -27,5 +29,16 @@ public class SmokingCessationService extends BaseService<SmokingCessation, Integ
     @Override
     protected SmokingCessationBean getEntityBean() {
         return smokingCessationBean;
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        SmokingCessation smokingCessation = smokingCessationBean.findOrFail(primaryKey);
+        smokingCessationBean.softDelete(smokingCessation);
+        smokingCessationBean.update(smokingCessation);
+
+        return Response.noContent().build();
     }
 }

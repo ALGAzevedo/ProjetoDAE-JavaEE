@@ -5,7 +5,9 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeDTOs.BehaviourRes
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.TreatmentBeans.BehaviourBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentTypes.Behaviour;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
 import javax.ejb.EJB;
@@ -41,5 +43,16 @@ public class BehaviourService extends BaseService<Behaviour, Integer, BehaviourB
         List<Behaviour> behaviours = behaviourBean.getBehaviours(queryParams);
         var dtos = mapper.serialize(behaviours, getDtoResponseClass());
         return Response.ok(dtos).build();
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        Behaviour behaviour = behaviourBean.findOrFail(primaryKey);
+        behaviourBean.softDelete(behaviour);
+        behaviourBean.update(behaviour);
+
+        return Response.noContent().build();
     }
 }
