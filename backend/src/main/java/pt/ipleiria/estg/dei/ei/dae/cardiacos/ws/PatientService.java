@@ -65,6 +65,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("{username}/prcs")
+    @RolesAllowed({"AuthHealthcareProfessional", "AuthPatient"})
     public Response GetAllPatientPrcs(@PathParam("username") String username) throws MyEntityNotFoundException {
         Patient patient = patientBean.findOrFail(username);
 
@@ -115,6 +116,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("{username}/biomedicalRegisters/{id}")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response getBiomedicalRegister(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException {
 
         return Response.ok(toDTO(patientBean.getPatientRegister(username, id))).build();
@@ -124,6 +126,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @DELETE
     @Path("{username}/biomedicalRegisters/{id}")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response PostQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
 
         patientBean.removePatientRegisters(username, id);
@@ -132,6 +135,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     }
     @PUT
     @Path("{username}/biomedicalRegisters/{id}")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response PutQuantitativeMeasure(@PathParam("username") String username, @PathParam("id") Long id, QuantitativeBiomedicalIndicatorMeasureDTO dto  ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
 
         PatientBiomedicalIndicator ind = patientBean.editPatientRegistersQuantitative(username, id, dto);
@@ -140,10 +144,23 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     }
     @PUT
     @Path("{username}/biomedicalRegisters/{id}")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response PutQualitativeMeasureQuantitative(@PathParam("username") String username, @PathParam("id") Long id, QualitativeBiomedicalIndicatorMeasureDTO dto  ) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
 
         PatientBiomedicalIndicator ind = patientBean.editPatientRegistersQuanlitative(username, id, dto);
         return Response.ok(toDTO(ind)).build();
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    @RolesAllowed({"AuthAdministrator", "AuthHealthcareProfessional"})
+    public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        Patient patient = patientBean.findOrFail(primaryKey);
+        patientBean.softDelete(patient);
+        patientBean.update(patient);
+
+        return Response.noContent().build();
     }
 
 
@@ -160,15 +177,6 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
         return l.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    @Override
-    @DELETE
-    @Path("{pk}")
-    public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
-        Patient patient = patientBean.findOrFail(primaryKey);
-        patientBean.softDelete(patient);
-        patientBean.update(patient);
 
-        return Response.noContent().build();
-    }
 
 }

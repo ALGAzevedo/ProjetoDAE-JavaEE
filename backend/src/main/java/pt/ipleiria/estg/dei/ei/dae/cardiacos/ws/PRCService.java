@@ -11,6 +11,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationExc
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Path("prcs") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+@RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
 public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO, PRCResponseDTO> {
 
     @EJB
@@ -34,6 +36,7 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @GET
     @Path("")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response all(@Context UriInfo ui ) throws MyEntityNotFoundException {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<PRC> prcs = prcBean.getPrcs(queryParams);
@@ -43,6 +46,7 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @GET
     @Path("{code}/treatmentTypes")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response GetAllTreatmentTypes(@PathParam("code") Integer code) throws MyEntityNotFoundException {
         PRC prc = prcBean.findOrFail(code);
 
@@ -63,6 +67,7 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @PATCH
     @Path("{code}/inactive")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response PatchPrcInactivate(@PathParam("code") Integer code) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         PRC prc =  prcBean.patchInactivatePrc(code);
         return Response.ok(prc).build();
@@ -71,6 +76,7 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
     @Override
     @DELETE
     @Path("{pk}")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         PRC prc = prcBean.findOrFail(primaryKey);
         prcBean.softDelete(prc);

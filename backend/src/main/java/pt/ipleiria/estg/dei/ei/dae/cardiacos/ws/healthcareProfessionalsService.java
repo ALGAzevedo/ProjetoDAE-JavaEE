@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("healthcareprofissionals") // relative url web path for this service
+@RolesAllowed({"AuthHealthcareProfessional","AuthAdministrator"})
 public class healthcareProfessionalsService extends BaseService<HealthcareProfessional, String,
         HealthcareProfissionalBean, HealthcareProfessionalCreateDTO, HealthcareProfessionalResponseDTO> {
     @EJB
@@ -47,6 +48,7 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
     }
     @PATCH
     @Path("{username}/patients/{patientusername}")
+    @RolesAllowed({"AuthHealthcareProfessional","AuthAdministrator"})
     public Response PatchAddPatient(@PathParam("username") String username, @PathParam("patientusername") String patientUsername) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.addPatient(username, patientUsername);
         return Response.ok(healthcareProfessional).build();
@@ -54,6 +56,7 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
 
     @PATCH
     @Path("{username}/patients/{patientusername}")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response PatchRemovePatient(@PathParam("username") String username, @PathParam("patientusername") String patientUsername) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.removePatient(username, patientUsername);
         return Response.ok(healthcareProfessional).build();
@@ -61,6 +64,7 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
 
     @GET
     @Path("{username}/patients")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response GetPatients(@PathParam("username") String username) throws MyEntityNotFoundException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.findOrFail(username);
 
@@ -72,6 +76,7 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
     @Override
     @DELETE
     @Path("{pk}")
+    @RolesAllowed({"AuthAdministrator"})
     public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.findOrFail(primaryKey);
         healthcareProfissionalBean.softDelete(healthcareProfessional);

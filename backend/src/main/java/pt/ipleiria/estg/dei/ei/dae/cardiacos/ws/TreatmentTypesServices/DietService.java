@@ -12,6 +12,8 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationExc
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
+
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -32,6 +34,7 @@ public class DietService extends BaseService<Diet, Integer, DietBean, DietCreate
     @Override
     @DELETE
     @Path("{pk}")
+    @RolesAllowed({"AuthHealthcareProfessional"})
     public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         Diet diet = dietBean.findOrFail(primaryKey);
         dietBean.softDelete(diet);

@@ -12,11 +12,11 @@ public class AdministratorResponseDTO extends UserResponseDTO {
     public AdministratorResponseDTO(String name, String username, String email, Gender gender,
                                     LocalDate birthdate, Country country, String socialSecurityNumber,
                                     MaritalStatus maritalStatus, String address, String city, String postalCode,
-                                    String phoneNumber, String emergencyPhoneNumber, boolean isSuper, Date isDeleted) {
+                                    String phoneNumber, String emergencyPhoneNumber, boolean isSuperAdmin, Date isDeleted) {
 
         super(name, username, email, gender, birthdate, country, socialSecurityNumber,
                 maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber, isDeleted);
-        this.isSuperAdmin= isSuper;
+        this.isSuperAdmin= isSuperAdmin;
     }
 
     public AdministratorResponseDTO() {
