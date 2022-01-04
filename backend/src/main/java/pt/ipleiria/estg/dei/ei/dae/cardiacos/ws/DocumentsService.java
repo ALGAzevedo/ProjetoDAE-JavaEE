@@ -10,6 +10,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,6 +34,7 @@ public class DocumentsService {
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @RolesAllowed({"AuthHealthcareProfessional","AuthPatient"})
     public Response upload(MultipartFormDataInput input) throws MyEntityNotFoundException,
             IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
@@ -69,6 +71,7 @@ public class DocumentsService {
     @GET
     @Path("download/{id}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @RolesAllowed({"AuthHealthcareProfessional","AuthPatient"})
     public Response download(@PathParam("id") Long id) throws MyEntityNotFoundException {
         Document document = documentBean.findDocument(id);
         File fileDownload = new File(document.getFilepath() + File.separator +
@@ -81,6 +84,7 @@ public class DocumentsService {
     @GET
     @Path("{username}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"AuthHealthcareProfessional","AuthPatient"})
     public List<DocumentDTO> getDocuments(@PathParam("username") String username) throws
             MyEntityNotFoundException {
         Patient patient = patientBean.find(username);
@@ -91,6 +95,7 @@ public class DocumentsService {
     }
     @GET
     @Path("{username}/exists")
+    @RolesAllowed({"AuthHealthcareProfessional","AuthPatient"})
     public Response hasDocuments(@PathParam("username") String username) throws
             MyEntityNotFoundException {
         Patient patient = patientBean.find(username);

@@ -10,9 +10,11 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationExc
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -23,6 +25,9 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
     @EJB
     private AdministratorBean administratorBean;
 
+    @Context
+    private SecurityContext securityContext;
+
     @Override
     protected AdministratorBean getEntityBean() {
         return administratorBean;
@@ -30,15 +35,28 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
 
     @PATCH
     @Path("{username}/super")
-    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
-        Administrator admin =  administratorBean.patchIsSuper(username, isAdmin);
+    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        //ONLY SUPERADMIN CAN MAKE ANOTHER SUPER
+        Principal principal = securityContext.getUserPrincipal();
+        if(!securityContext.isUserInRole("AuthAdministrator")) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        if(!administratorBean.findOrFail(principal.getName()).isSuperAdmin()) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        Administrator admin =  administratorBean.patchIsSuper(username);
         return Response.ok(admin).build();
 
     }
 
     @GET
     @Path("")
-    public Response all(@Context UriInfo ui ) {
+    @RolesAllowed({"AuthAdministrator"})
+    public Response getAll(@Context UriInfo ui ) {
+
+
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<Administrator> pi = administratorBean.getAdministrators(queryParams);
         var dtos = mapper.serialize(pi, getDtoResponseClass());

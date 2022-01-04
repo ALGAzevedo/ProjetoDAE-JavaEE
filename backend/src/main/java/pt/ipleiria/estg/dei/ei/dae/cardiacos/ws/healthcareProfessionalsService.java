@@ -12,6 +12,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -37,6 +38,7 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
 
     @GET
     @Path("")
+    @RolesAllowed({"AuthHealthcareProfessional","AuthAdministrator"})
     public Response all(@Context UriInfo ui ) {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<HealthcareProfessional> pi = healthcareProfissionalBean.getHealthcareProfessionals(queryParams);

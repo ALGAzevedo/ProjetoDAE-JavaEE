@@ -10,6 +10,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentExcepti
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,6 +20,7 @@ import java.util.HashSet;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("biomedicalindicators/qualitative") // relative url web path for this service
+@RolesAllowed({"AuthAdministrator", "AuthHealthcareProfessional"})
 public class BiomedicalIndicatorsQualitativeService extends BaseService<BiomedicalIndicatorsQualitative, Long, BiomedicalIndicatorsQualitativeBean,
         BiomedicalIndicatorQualitativeCreateDTO, BiomedicalIndicatorQualitativeResponseDTO> {
     @EJB
@@ -36,6 +38,7 @@ public class BiomedicalIndicatorsQualitativeService extends BaseService<Biomedic
 
     @POST
     @Path("{id}/values")
+    @RolesAllowed({"AuthAdministrator"})
     public Response PostQualitativeValue(@PathParam("id") Long id,
                                                       BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException {
 
@@ -45,6 +48,7 @@ public class BiomedicalIndicatorsQualitativeService extends BaseService<Biomedic
     }
     @DELETE
     @Path("{id}/values")
+    @RolesAllowed({"AuthAdministrator"})
     public Response DeleteQualitativeValue(@PathParam("id") Long id,
                                          BiomedicalIcicatorQualitativeAddRemovePossibleValueDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException {
 

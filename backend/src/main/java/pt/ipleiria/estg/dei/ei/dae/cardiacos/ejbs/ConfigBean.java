@@ -37,6 +37,7 @@ public class ConfigBean {
                 LocalDate.of(1989, 5, 9), Country.PORTUGAL, "12345678912",
                 MaritalStatus.SINGLE, "Rua centra", "Leiria", "2420-208", "963768088",
                 "963768088");
+        admin.setSuperAdmin(true);
         Administrator createdAdmin = administratorBean.create(admin);
 
         var patient1 = new Patient("Jorge Miguel", "jorge123", "jorge@mail.com",

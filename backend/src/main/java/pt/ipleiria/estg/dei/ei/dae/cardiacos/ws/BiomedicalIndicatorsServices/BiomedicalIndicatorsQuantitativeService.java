@@ -6,6 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.BiomedicalIndicatorsBeans.Biom
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.BiomedicalIndicatorsQuantitative;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ws.BaseService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("biomedicalindicators/quantitative") // relative url web path for this service
+@RolesAllowed({"AuthAdministrator", "AuthHealthcareProfessional"})
 public class BiomedicalIndicatorsQuantitativeService extends BaseService<BiomedicalIndicatorsQuantitative, Long,
         BiomedicalIndicatorsQuantitativeBean, BiomedicalIndicatorQuantitativeCreateDTO, BiomedicalIndicatorQuantitativeResponseDTO> {
 

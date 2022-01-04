@@ -9,6 +9,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.utils.EntityMapper;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("biomedicalindicators") // relative url web path for this service
+@RolesAllowed({"AuthAdministrator", "AuthPatient", "AuthHealthcareProfessional"})
 public class BiomedicalIndicators {
     @EJB
     BiomedicalindicatorBean biomedicalindicatorBean;
@@ -37,6 +39,7 @@ public class BiomedicalIndicators {
     //In this case it is a change from qualitative to quantitative or vice versa
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"AuthAdministrator"})
     public Response PutBiomedicalIndicator(@PathParam("id") Long id, BIomedicalIdicatorUpdateDTO dto) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MyUniqueConstraintViolationException, MyIllegalArgumentException {
         var indicator = biomedicalindicatorBean.changeTypeOfIndicator(id, dto);
 
@@ -46,6 +49,7 @@ public class BiomedicalIndicators {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"AuthAdministrator"})
     public Response DeleteBiomedicalIndicator(@PathParam("id") Long id) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
 
         biomedicalindicatorBean.destroy(id);
