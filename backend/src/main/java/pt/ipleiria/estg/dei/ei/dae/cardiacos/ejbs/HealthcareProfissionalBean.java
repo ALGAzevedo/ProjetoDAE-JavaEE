@@ -62,7 +62,7 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional>
         healthcareProfessional.addPatient(patient);
         patient.addHealthcareProfessional(healthcareProfessional);
         //TODO: ESTá CORRETO ?
-        this.update(healthcareProfessional);
+        super.update(healthcareProfessional);
         patientBean.update(patient);
 
         return healthcareProfessional;
@@ -75,7 +75,7 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional>
         healthcareProfessional.removePatient(patient);
         patient.removeHealthcareProfessional(healthcareProfessional);
         //TODO: ESTá CORRETO ?
-        this.update(healthcareProfessional);
+        super.update(healthcareProfessional);
         patientBean.update(patient);
 
         return healthcareProfessional;

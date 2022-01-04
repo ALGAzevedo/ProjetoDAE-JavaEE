@@ -46,14 +46,14 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
         return Response.ok(dtos).build();
     }
     @PATCH
-    @Path("{username}/patients/{patientusername}")
+    @Path("{username}/patients/{patientusername}/associate")
     public Response PatchAddPatient(@PathParam("username") String username, @PathParam("patientusername") String patientUsername) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.addPatient(username, patientUsername);
         return Response.ok(healthcareProfessional).build();
     }
 
     @PATCH
-    @Path("{username}/patients/{patientusername}")
+    @Path("{username}/patients/{patientusername}/desassociate")
     public Response PatchRemovePatient(@PathParam("username") String username, @PathParam("patientusername") String patientUsername) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.removePatient(username, patientUsername);
         return Response.ok(healthcareProfessional).build();
