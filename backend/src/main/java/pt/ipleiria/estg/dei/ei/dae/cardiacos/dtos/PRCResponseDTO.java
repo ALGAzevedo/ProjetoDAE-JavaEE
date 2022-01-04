@@ -28,18 +28,22 @@ public class PRCResponseDTO implements DTO{
     @Getter
     @Setter
     private String patientUsername;
+    @Getter
+    @Setter
+    private String isActive;
 
 
     public PRCResponseDTO() {
     }
 
-    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername) {
+    public PRCResponseDTO(Integer code, String name, String description, LocalDate startDate, LocalDate endDate, String patientUsername, Boolean isActive) {
         this.code = code;
         this.name = name;
         this.description = description;
         this.startDate = startDate.toString();
         this.endDate = endDate.toString();
         this.patientUsername = patientUsername;
+        this.isActive = isActive.toString();
     }
 
 

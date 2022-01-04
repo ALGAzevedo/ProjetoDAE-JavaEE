@@ -15,7 +15,7 @@ public class ExerciseResponseDTO extends TreatmentTypeResponseDTO {
     }
 
     public ExerciseResponseDTO(Integer code, String name, String treatmentType, String description, LocalDate startDate, LocalDate endDate,
-                               HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc) {
-        super(code, name, treatmentType, description, startDate, endDate, HealthcareProfessional, prc);
+                               HealthcareProfessionalResponseDTO HealthcareProfessional, PRCResponseDTO prc, Boolean isActive) {
+        super(code, name, treatmentType, description, startDate, endDate, HealthcareProfessional, prc, isActive);
     }
 }
