@@ -21,11 +21,11 @@ public  class AdministratorBean extends UserBean<Administrator>
     }
 
     //PATCHES
-    public Administrator patchIsSuper(String username, Boolean isAdmin) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
+    public Administrator patchIsSuper(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         Administrator administrator  = findOrFail(username);
 
         try {
-            administrator.setSuperAdmin(isAdmin);
+            administrator.setSuperAdmin(!administrator.isSuperAdmin());
             super.update(administrator);
             return findOrFail(administrator.getUsername());
         } catch (ConstraintViolationException e) {

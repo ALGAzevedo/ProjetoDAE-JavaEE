@@ -34,17 +34,18 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
 
     @PATCH
     @Path("{username}/super")
-    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username, boolean isAdmin) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+    public Response PatchAdministratorSuperPrivileges(@PathParam("username") String username) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
         //ONLY SUPERADMIN CAN MAKE ANOTHER SUPER
         Principal principal = securityContext.getUserPrincipal();
         if(!securityContext.isUserInRole("AuthAdministrator")) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
+
         if(!administratorBean.findOrFail(principal.getName()).isSuperAdmin()) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
-        Administrator admin =  administratorBean.patchIsSuper(username, isAdmin);
+        Administrator admin =  administratorBean.patchIsSuper(username);
         return Response.ok(admin).build();
 
     }
@@ -52,7 +53,7 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
     @GET
     @Path("")
     @RolesAllowed({"AuthAdministrator"})
-    public Response all(@Context UriInfo ui ) {
+    public Response getAll(@Context UriInfo ui ) {
 
 
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
