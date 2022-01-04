@@ -15,8 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(
-        name = "PRCS",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"})
+        name = "PRCS"
 )
 @NamedQueries({
         @NamedQuery(

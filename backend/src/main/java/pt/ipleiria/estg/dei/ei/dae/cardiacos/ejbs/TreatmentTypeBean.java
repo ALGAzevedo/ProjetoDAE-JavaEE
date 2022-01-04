@@ -91,7 +91,7 @@ public class TreatmentTypeBean<E extends TreatmentType, PK extends Integer> exte
         }
         //TODO: NOT WORKING
         if(queryParams.containsKey("healthcareProfessionalUsername")) {
-            whereCause.add("p.healthcareProfessional = :healthcareProfessional");
+            whereCause.add("p.healthCareProfessional = :healthcareProfessional");
             paramaterMap.put("healthcareProfessional", healthcareProfessionalBean.findOrFail(queryParams.get("healthcareProfessionalUsername").get(0)));
         }
 
