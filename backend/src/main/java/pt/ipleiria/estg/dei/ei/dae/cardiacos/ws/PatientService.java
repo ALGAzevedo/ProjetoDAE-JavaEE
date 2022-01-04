@@ -12,6 +12,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundExceptio
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyUniqueConstraintViolationException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Path("patients") // relative url web path for this service
+@RolesAllowed({"AuthAdministrator","AuthPatient", "AuthHealthcareProfessional"})
 public class PatientService extends BaseService<Patient, String, PatientBean, PatientCreateDTO, PatientResponseDTO> {
     @EJB
     private PatientBean patientBean;
@@ -33,6 +35,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("")
+    @RolesAllowed({"AuthAdministrator", "AuthHealthcareProfessional"})
     public Response all(@Context UriInfo ui ) {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<Patient> pi = patientBean.getPatients(queryParams);
@@ -43,6 +46,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
     //add indicators to its register
     @POST
     @Path("{username}/biomedicalRegisters/qualitative")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response PostQualitativeMeasure(@PathParam("username") String username, QualitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
 
         patientBean.addQualitativeBiomedicalIndicator(username, dto);
@@ -51,6 +55,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @POST
     @Path("{username}/biomedicalRegisters/quantitative")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response PostQuantitativeMeasure(@PathParam("username") String username, QuantitativeBiomedicalIndicatorMeasureDTO dto) throws MyEntityNotFoundException, MyIllegalArgumentException, MyUniqueConstraintViolationException, MyConstraintViolationException {
         System.out.println(dto.getDate());
         patientBean.addQuantitativeBiomedicalIndicator(username, dto);
@@ -78,6 +83,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("{username}/biomedicalRegisters")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response getBiomedicalRegisters(@PathParam("username") String username, @Context UriInfo ui ) throws MyEntityNotFoundException {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
         List<PatientBiomedicalIndicator> pi = patientBean.getPatientRegisters(username, queryParams);
@@ -91,6 +97,7 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     @GET
     @Path("/biomedicalRegisters")
+    @RolesAllowed({"AuthPatient", "AuthHealthcareProfessional"})
     public Response GetAllBiomedicalRegisters(@Context UriInfo ui) {
         MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
 
