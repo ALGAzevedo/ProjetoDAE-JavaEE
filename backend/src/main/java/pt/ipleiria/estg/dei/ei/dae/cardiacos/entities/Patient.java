@@ -18,7 +18,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllPatients",
-                query = "SELECT s FROM Patient s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM Patient s WHERE s.isDeleted IS NULL ORDER BY s.name" // JPQL
         ),
         @NamedQuery(
                 name = "getBiomedicalRegisters",

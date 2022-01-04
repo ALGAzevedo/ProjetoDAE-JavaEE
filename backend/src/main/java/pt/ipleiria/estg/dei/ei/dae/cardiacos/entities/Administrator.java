@@ -16,7 +16,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllAdministrators",
-                query = "SELECT s FROM Administrator s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM Administrator s WHERE s.isDeleted IS NULL ORDER BY s.name" // JPQL
         )
 })
 public class Administrator extends User {
