@@ -36,10 +36,10 @@ public class TreatmentTypeResponseDTO implements DTO{
     private PRCResponseDTO prc;
     @Getter
     @Setter
-    private String isActive;
+    private Boolean isActive;
     @Getter
     @Setter
-    private String isDeleted;
+    private Boolean isDeleted;
 
 
     public TreatmentTypeResponseDTO() {
@@ -55,7 +55,7 @@ public class TreatmentTypeResponseDTO implements DTO{
         this.endDate = endDate.toString();
         this.healthcareProfessional = healthcareProfessional;
         this.prc = prc;
-        this.isActive = isActive.toString();
-        this.isDeleted = isDeleted.toString();
+        this.isActive = isActive;
+        this.isDeleted = isDeleted;
     }
 }

@@ -29,10 +29,10 @@ public class PRCCreateDTO implements DTO{
     private String patientUsername;
     @Getter
     @Setter
-    private List<TreatmentType> treatmentTypeList;
+    private List<TreatmentTypeCreateDTO> treatmentTypeList;
 
     public PRCCreateDTO() {
-//        this.treatmentTypeList = new LinkedList<TreatmentTypeDTO>();
+        this.treatmentTypeList = new LinkedList<TreatmentTypeCreateDTO>();
     }
 
     public PRCCreateDTO(String name, String description, String startDate, String endDate, String patientUsername) {
@@ -41,10 +41,10 @@ public class PRCCreateDTO implements DTO{
         this.startDate = LocalDate.parse(startDate);
         this.endDate = LocalDate.parse(endDate);
         this.patientUsername = patientUsername;
-//        this.treatmentTypeList = new LinkedList<TreatmentTypeDTO>();
+        this.treatmentTypeList = new LinkedList<TreatmentTypeCreateDTO>();
     }
 
-    public PRCCreateDTO(String name, String description, String startDate, String endDate, String patientUsername, List<TreatmentType> treatmentTypeList) {
+    public PRCCreateDTO(String name, String description, String startDate, String endDate, String patientUsername, List<TreatmentTypeCreateDTO> treatmentTypeList) {
         this.name = name;
         this.description = description;
         this.startDate = LocalDate.parse(startDate);

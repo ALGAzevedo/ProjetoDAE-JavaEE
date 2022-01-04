@@ -44,17 +44,18 @@ public class ConfigBean {
                 "956842345", "967561234");
         patientBean.create(patient1);
 
-
-        PRC prc = new PRC("PRC1", "Cardiac Recuperation Process", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), patient1);
-        prcBean.create(prc);
         HealthcareProfessional healthcareProfissional = new HealthcareProfessional("Andre", "andre123", "andre@mail.com",
                 Gender.MALE, LocalDate.of(1988, 5, 3), Country.PORTUGAL, "22016751358",
                 MaritalStatus.SINGLE, "Rua do fim à vista", "Alcoba", "2444-244",
                 "956842345", "967561234", "andremedico@mail.com", "926373737");
         healthcareProfissionalBean.create(healthcareProfissional);
 
-        Behaviour behaviour = new Behaviour("Batatas", "behaviours", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
-        behaviourBean.create(behaviour);
+
+//        PRC prc = new PRC("PRC1", "Cardiac Recuperation Process", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), patient1);
+//        prcBean.create(prc);
+//
+//        Behaviour behaviour = new Behaviour("Batatas", "behaviours", "Regulate your levels of stress", LocalDate.of(2021, 12, 24), LocalDate.of(2022, 4, 22), healthcareProfissional, prc);
+//        behaviourBean.create(behaviour);
     }
 }
 
