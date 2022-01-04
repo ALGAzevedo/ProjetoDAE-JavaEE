@@ -17,6 +17,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
@@ -218,5 +219,10 @@ public class User extends BaseEntity{
         this.isDeleted = isDeleted;
     }
 
+    public void softDelete() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        this.isDeleted = new Date(System.currentTimeMillis());
+
+    }
 
 }

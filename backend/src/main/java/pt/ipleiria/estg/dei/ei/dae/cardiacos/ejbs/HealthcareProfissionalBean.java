@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.User;
@@ -77,6 +78,11 @@ public class HealthcareProfissionalBean extends UserBean<HealthcareProfessional>
         this.update(healthcareProfessional);
         patientBean.update(patient);
 
+        return healthcareProfessional;
+    }
+
+    public HealthcareProfessional softDelete(HealthcareProfessional healthcareProfessional){
+        healthcareProfessional.softDelete();
         return healthcareProfessional;
     }
 

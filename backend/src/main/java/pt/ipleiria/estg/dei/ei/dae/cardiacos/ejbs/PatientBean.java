@@ -275,4 +275,9 @@ public class PatientBean extends UserBean<Patient> {
         return mapper.map(patient, PatientResponseDTO.class);
     }
 
+    public Patient softDelete(Patient patient){
+        patient.softDelete();
+        return patient;
+    }
+
 }

@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -38,5 +39,9 @@ public  class AdministratorBean extends UserBean<Administrator>
 
     }
 
+    public Administrator softDelete(Administrator administrator){
+        administrator.softDelete();
+        return administrator;
+    }
 
 }

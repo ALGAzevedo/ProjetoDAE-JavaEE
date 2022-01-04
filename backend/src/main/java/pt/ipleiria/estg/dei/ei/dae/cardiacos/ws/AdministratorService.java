@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.AdministratorResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
@@ -44,6 +45,15 @@ public class AdministratorService extends BaseService<Administrator, String, Adm
         return Response.ok(dtos).build();
     }
 
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        Administrator administrator = administratorBean.findOrFail(primaryKey);
+        administratorBean.softDelete(administrator);
+        administratorBean.update(administrator);
 
+        return Response.noContent().build();
+    }
 
 }

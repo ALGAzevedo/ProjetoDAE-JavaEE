@@ -14,8 +14,10 @@ public class PatientResponseDTO extends UserResponseDTO{
     public PatientResponseDTO() {
     }
 
-    public PatientResponseDTO(String name, String username, String email, Gender gender, LocalDate birthdate, Country country, String socialSecurityNumber, MaritalStatus maritalStatus, String address, String city, String postalCode, String phoneNumber, String emergencyPhoneNumber, List<Document> documents) {
-        super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+    public PatientResponseDTO(String name, String username, String email, Gender gender, LocalDate birthdate,
+                              Country country, String socialSecurityNumber, MaritalStatus maritalStatus, String address,
+                              String city, String postalCode, String phoneNumber, String emergencyPhoneNumber, List<Document> documents, Date isDeleted) {
+        super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber, isDeleted);
         this.documents = documents;
     }
 

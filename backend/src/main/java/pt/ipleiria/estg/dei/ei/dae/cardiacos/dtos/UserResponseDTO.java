@@ -1,10 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Country;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.Gender;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Enum.MaritalStatus;
 
+import javax.ws.rs.GET;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class UserResponseDTO implements DTO{
     private String name;
@@ -20,6 +24,9 @@ public class UserResponseDTO implements DTO{
     private String postalCode;
     private String phoneNumber;
     private String emergencyPhoneNumber;
+    @Getter
+    @Setter
+    private String isDeleted;
 
     public UserResponseDTO() {
     }
@@ -27,7 +34,7 @@ public class UserResponseDTO implements DTO{
     public UserResponseDTO(String name, String username, String email,
                            Gender gender, LocalDate birthDate, Country country, String socialSecurityNumber,
                            MaritalStatus maritalStatus, String address, String city, String postalCode,
-                           String phoneNumber, String emergencyPhoneNumber) {
+                           String phoneNumber, String emergencyPhoneNumber, Date isDeleted) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -41,6 +48,7 @@ public class UserResponseDTO implements DTO{
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.emergencyPhoneNumber = emergencyPhoneNumber;
+        this.isDeleted = isDeleted.toString();
     }
 
     public void setBirthdate(String birthdate) {

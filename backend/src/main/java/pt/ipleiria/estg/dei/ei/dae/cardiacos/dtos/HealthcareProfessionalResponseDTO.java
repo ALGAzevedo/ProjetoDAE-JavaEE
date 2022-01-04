@@ -19,9 +19,9 @@ public class HealthcareProfessionalResponseDTO extends UserResponseDTO {
                                              MaritalStatus maritalStatus, String address, String city,
                                              String postalCode, String phoneNumber,
                                              String emergencyPhoneNumber, String institutionalEmail,
-                                             String institutionalPhone) {
+                                             String institutionalPhone, Date isDeleted) {
 
-        super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber);
+        super(name, username, email, gender, birthdate, country, socialSecurityNumber, maritalStatus, address, city, postalCode, phoneNumber, emergencyPhoneNumber, isDeleted);
         this.institutionalEmail = institutionalEmail;
         this.institutionalPhone = institutionalPhone;
     }

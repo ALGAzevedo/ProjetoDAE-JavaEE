@@ -6,10 +6,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.HealthcareProfessionalResponse
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.HealthcareProfissionalBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.HealthcareProfessional;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
-import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.TreatmentType;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyIllegalArgumentException;
@@ -68,6 +65,17 @@ public class healthcareProfessionalsService extends BaseService<HealthcareProfes
         var professionalPatientList = healthcareProfessional.getPatientList();
 
         return Response.ok(patientBean.patientsToDTOs(professionalPatientList)).build();
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        HealthcareProfessional healthcareProfessional = healthcareProfissionalBean.findOrFail(primaryKey);
+        healthcareProfissionalBean.softDelete(healthcareProfessional);
+        healthcareProfissionalBean.update(healthcareProfessional);
+
+        return Response.noContent().build();
     }
 
 }

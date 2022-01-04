@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.BiomedicalIndicators.BiomedicalIndicatorMeasureResponsePatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PRC;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.PatientBiomedicalIndicator;
@@ -150,6 +151,17 @@ public class PatientService extends BaseService<Patient, String, PatientBean, Pa
 
     private List<BiomedicalIndicatorMeasureResponsePatientDTO> toDTOs(List<PatientBiomedicalIndicator> l) {
         return l.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") String primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        Patient patient = patientBean.findOrFail(primaryKey);
+        patientBean.softDelete(patient);
+        patientBean.update(patient);
+
+        return Response.noContent().build();
     }
 
 }
