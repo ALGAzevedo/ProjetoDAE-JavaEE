@@ -4,6 +4,7 @@ import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
 import lombok.Getter;
 import lombok.Setter;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -103,6 +104,16 @@ public class PRC extends BaseEntity implements Serializable {
     }
 
     public void softDelete() {
-        this.isDeleted = true;
+        var treatments = this.getTreatmentTypeList();
+        var aux = 0;
+        for ( TreatmentType treatment : treatments) {
+            if (!treatment.getIsDeleted()){
+                aux += 1;
+                break;
+            }
+        }
+        if (aux == 0) {
+            this.isDeleted = true;
+        }
     }
 }
