@@ -98,8 +98,11 @@ public class PRCBean extends BaseBean<PRC, Integer> {
         return jpaQuery.getResultList();
     }
 
-    public PRC softDelete(PRC prc){
-        prc.softDelete();
-        return prc;
+    public PRC softDelete(PRC prc) throws MyIllegalArgumentException {
+        Boolean result = prc.softDelete();
+        if (result == Boolean.TRUE) {
+            return prc;
+        }
+        throw new MyIllegalArgumentException("PRC can not be deleted because it has active treatments.");
     }
 }

@@ -103,7 +103,7 @@ public class PRC extends BaseEntity implements Serializable {
         this.isActive = !this.isActive;
     }
 
-    public void softDelete() {
+    public Boolean softDelete() {
         var treatments = this.getTreatmentTypeList();
         var aux = 0;
         for ( TreatmentType treatment : treatments) {
@@ -114,6 +114,8 @@ public class PRC extends BaseEntity implements Serializable {
         }
         if (aux == 0) {
             this.isDeleted = true;
+            return true;
         }
+        return false;
     }
 }
