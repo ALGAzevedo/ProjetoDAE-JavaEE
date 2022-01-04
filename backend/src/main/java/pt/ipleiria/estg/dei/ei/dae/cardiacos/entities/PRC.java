@@ -21,7 +21,7 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllPRCs",
                 query = "SELECT c FROM PRC c ORDER BY c.code" // JPQL
-        )
+        ),
 })
 public class PRC extends BaseEntity implements Serializable {
 
@@ -92,12 +92,16 @@ public class PRC extends BaseEntity implements Serializable {
     }
 
     public void addTreatmentType(TreatmentType treatmentType) {
-        if(!this.treatmentTypeList.contains(treatmentType)) {
+        if (!this.treatmentTypeList.contains(treatmentType)) {
             this.treatmentTypeList.add(treatmentType);
         }
     }
 
-    public void inactivatePrc(){
+    public void inactivatePrc() {
         this.isActive = !this.isActive;
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
     }
 }

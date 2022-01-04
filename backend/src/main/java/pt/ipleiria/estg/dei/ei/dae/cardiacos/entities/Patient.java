@@ -91,6 +91,10 @@ public class Patient extends User{
                 }
         }
 
+        public void removePrc(PRC prc){
+        this.prcList.remove(prc);
+    }
+
         public void addQuantitativeBiomedicalIndicator(BiomedicalIndicatorsQuantitative indicator, double value, LocalDateTime date, String description) {
                 biomedicalRegisters.add(new PatientBiomedicalIndicator<Double>(value, date, this, indicator, description));
 

@@ -100,6 +100,10 @@ public class PRCBean extends BaseBean<PRC, Integer> {
         }
 
         return jpaQuery.getResultList();
+    }
 
+    public PRC softDelete(PRC prc){
+        prc.softDelete();
+        return prc;
     }
 }

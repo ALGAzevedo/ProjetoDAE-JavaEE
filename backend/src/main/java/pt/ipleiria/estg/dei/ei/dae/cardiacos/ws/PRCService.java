@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PRCCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.PRCResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.dtos.TreatmentTypeResponseDTO;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PRCBean;
+import pt.ipleiria.estg.dei.ei.dae.cardiacos.ejbs.PatientBean;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.cardiacos.exceptions.MyEntityNotFoundException;
@@ -23,6 +24,8 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
 
     @EJB
     protected PRCBean prcBean;
+    @EJB
+    protected PatientBean patientBean;
 
     @Override
     protected PRCBean getEntityBean() {
@@ -63,5 +66,16 @@ public class PRCService extends BaseService<PRC, Integer, PRCBean, PRCCreateDTO,
     public Response PatchPrcInactivate(@PathParam("code") Integer code) throws MyConstraintViolationException, MyEntityNotFoundException, MyIllegalArgumentException {
         PRC prc =  prcBean.patchInactivatePrc(code);
         return Response.ok(prc).build();
+    }
+
+    @Override
+    @DELETE
+    @Path("{pk}")
+    public Response delete(@PathParam("pk") Integer primaryKey) throws MyEntityNotFoundException, MyConstraintViolationException, MyIllegalArgumentException {
+        PRC prc = prcBean.findOrFail(primaryKey);
+        prcBean.softDelete(prc);
+        prcBean.update(prc);
+
+        return Response.noContent().build();
     }
 }
