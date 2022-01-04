@@ -76,7 +76,7 @@ public abstract class BaseService<E extends BaseEntity, PK, B extends BaseBean<E
 
         mapper.hydrate(entity, dto);
 
-        getEntityBean().update(entity);
+        entity = getEntityBean().update(entity);
 
         return Response.ok(mapper.serialize(entity, getDtoResponseClass())).build();
     }
